@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 
 const LoginComponent=()=>{
     return(
-        <div>
-
+        <div>   
+            Hello
         </div>
     )
 }
