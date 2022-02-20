@@ -1,22 +1,30 @@
 import {Link,withRouter} from "react-router-dom";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faArrowRightFromBracket, faBullhorn, faHome, faHospital, faMap, faPlus, faRegistered, faSyringe } from "@fortawesome/free-solid-svg-icons";
 //import { getUser,logout } from "../servies/authorize";
 import './NavbarComponent.css';
 const NavbarComponent=(props)=>{
     return(
         <div>
-            <div class="navbar">
-                <ul className="nav nav-tabs"> 
-                <li className="nav-item pt-3 pb-3">
-                    <Link to="/" className="nav-link">Home</Link>
+            <div className="navbar">
+                <div className="navbar-logo">
+                    <Link to="/" className="navbar-logolink">
+                        <FontAwesomeIcon icon={faMap} className="navbar-icon"/>
+                        <h2 >CoMap</h2>
+                    </Link>
+                </div>
+                <ul> 
+                <li>
+                    <Link to="/" className="navbar-link"><FontAwesomeIcon icon={faHome} className="navbar-icon"/><span>Home</span></Link>
                 </li>
-                <li className="nav-item pt-3 pb-3">
-                    <Link to="/announce" className="nav-link">Announce</Link>
+                <li>
+                    <Link to="/announce" className="navbar-link"><FontAwesomeIcon icon={faBullhorn} className="navbar-icon"/>Announce</Link>
                 </li>
-                <li className="nav-item pt-3 pb-3">
-                    <Link to="/login" className="nav-link">Login</Link>
+                <li>
+                    <Link to="/login" className="navbar-link"><FontAwesomeIcon icon={faArrowRightFromBracket} className="navbar-icon"/>Login</Link>
                 </li>
-                <li className="nav-item pt-3 pb-3">
-                    <Link to="/register" className="nav-link">Register</Link>
+                <li>
+                    <Link to="/register" className="navbar-link"><FontAwesomeIcon icon={faRegistered} className="navbar-icon"/>Register</Link>
                 </li>
                 {/* 
                     <li className="nav-item pt-3 pb-3">
@@ -26,10 +34,9 @@ const NavbarComponent=(props)=>{
                 </ul>
             </div>
     <div class="sidenav">
-        <Link to="#" className="sidenav-link"><i class="fas fa-calendar-alt" ></i><span style="padding-left: 26px;">ข่าวนิสิต</span></Link>
-        <Link to="#" className="sidenav-link"><i class="fas fa-book-reader"></i><span style="padding-left: 26px;">ตารางเรียน/ตารางสอบ</span></Link>
-        <Link to="#" className="sidenav-link"><i class="fas fa-th"></i><span style="padding-left: 26px;">วิชาที่เปิดให้ลงทะเบียน</span></Link>
-        
+        <Link to="#" className="sidenav-link"><FontAwesomeIcon icon={faSyringe} className="sidenav-icon"/>เพิ่มประกาศวัคซีน</Link>
+        <Link to="#" className="sidenav-link"><FontAwesomeIcon icon={faHospital} className="sidenav-icon"/>จัดการโรงพยาบาล</Link>
+        <Link to="#" className="sidenav-link"><FontAwesomeIcon icon={faPlus} className="sidenav-icon"/>เพิ่มโรงพยาบาล</Link>
     </div>
     </div>
         

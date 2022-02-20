@@ -4,7 +4,9 @@ const LoginComponent=()=>{
     return(
         <div>   
             <NavbarComponent/>
-            <h1>Lohin Page</h1>
+            <div className="container"> 
+                <h1>Lohin Page</h1>
+            </div>
         </div>
     )
 }

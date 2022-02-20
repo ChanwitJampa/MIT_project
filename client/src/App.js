@@ -6,9 +6,9 @@ function App() {
   return (
     <div>
       <NavbarComponent/>
-      <div className="container"> 
-          <h1>ยินดีต้อนรับ</h1>
-      </div>
+        <div className="container"> 
+            <h1>ยินดีต้อนรับ</h1>
+        </div>
     </div>
   );
 }
