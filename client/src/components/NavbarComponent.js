@@ -8,7 +8,7 @@ const NavbarComponent=(props)=>{
         <div>
             <div className="navbar">
                 <div className="navbar-logo">
-                    <Link to="/" className="navbar-logolink">
+                    <Link to="/map" className="navbar-logolink">
                         <FontAwesomeIcon icon={faMap} className="navbar-icon"/>
                         <h2 >CoMap</h2>
                     </Link>
