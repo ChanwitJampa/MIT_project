@@ -29,8 +29,8 @@
 }
 
 .container{
-  width: 1000rem;
-  height: 100rem;
+  width: 100rem;
+  height: 50rem;
   background-color: blue;
 }
 
@@ -42,11 +42,8 @@
 
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.rect {
+  width: 400;
+  height: 300;
+  fill: transparent;
 }

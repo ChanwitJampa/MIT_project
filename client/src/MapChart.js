@@ -23,7 +23,7 @@ const MapChart = ({ setTooltipContent }) => {
   return (
     <>
       <ComposableMap data-tip="" projectionConfig={{ scale: 123 }}>
-        <ZoomableGroup>
+        {/* <ZoomableGroup> */}
           <Geographies geography={geoUrl}>
             {({ geographies }) =>
               geographies.map(geo => (
@@ -56,7 +56,7 @@ const MapChart = ({ setTooltipContent }) => {
               ))
             }
           </Geographies>
-        </ZoomableGroup>
+        {/* </ZoomableGroup> */}
       </ComposableMap>
     </>
   );
