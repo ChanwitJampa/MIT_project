@@ -35,11 +35,16 @@
 }
 
 .mapBox{
+  text-align: center;
   background-color: #FFF;
+  /* background-color: rgb(43, 153, 43); */
   padding: 0;
-  margin-left: -15rem;
-  margin-top: -23rem;
-
+  /* margin-left: -15rem;
+  margin-top: -23rem; */
+  /* margin-left: -750rem; */
+  /* margin-right: -700rem; */
+  /* margin-top: -212rem; */
+  /* width: 100%; */
 }
 
 .rect {

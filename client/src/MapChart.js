@@ -3,11 +3,16 @@ import {
   ZoomableGroup,
   ComposableMap,
   Geographies,
-  Geography
+  Geography,
+  Marker
 } from "react-simple-maps";
+// import thMap from './thailand-provinces.json'
+import thMap2 from './thailand-provinces.topojson'
 
-const geoUrl =
-  "https://raw.githubusercontent.com/zcreativelabs/react-simple-maps/master/topojson-maps/world-110m.json";
+// const geoUrl =
+//   "https://raw.githubusercontent.com/zcreativelabs/react-simple-maps/master/topojson-maps/world-110m.json";
+// const geoUrl = thMap ;
+const geoUrl = thMap2 ;
 
 const rounded = num => {
   if (num > 1000000000) {
@@ -22,9 +27,10 @@ const rounded = num => {
 const MapChart = ({ setTooltipContent }) => {
   return (
     <>
-      <ComposableMap data-tip="" projectionConfig={{ scale: 123 }}>
-        {/* <ZoomableGroup> */}
-          <Geographies geography={geoUrl}>
+      {/* <ComposableMap data-tip="" projectionConfig={{ scale: 270}} width={1000} height={690}> */}
+      <ComposableMap data-tip="" projectionConfig={{ scale: 1000}}>
+        <ZoomableGroup center={[100,8]}>
+          <Geographies  geography={geoUrl}>
             {({ geographies }) =>
               geographies.map(geo => (
                 <Geography
@@ -56,7 +62,10 @@ const MapChart = ({ setTooltipContent }) => {
               ))
             }
           </Geographies>
-        {/* </ZoomableGroup> */}
+          <Marker coordinates={[13.7563, 100.5018]}>
+              <circle r={8} fill="#F53" />
+          </Marker>
+        </ZoomableGroup>
       </ComposableMap>
     </>
   );
