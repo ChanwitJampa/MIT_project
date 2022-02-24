@@ -1,0 +1,21 @@
+.text-box{
+    background-color: #BCBEC0;
+    padding: 200px;
+    margin: 150px;
+    border-radius: 20px;
+}
+.button-addnew{
+    padding: 15px 30px 15px 20px;
+    background-color: #2B2118;
+    border-radius: 20px;
+    color: #FFFFFF;
+}
+.button-addnew:hover{
+    background-color: black;
+}
+.name text{
+    font-weight: 100;
+}
+.address{
+    font-weight: 100;
+}
