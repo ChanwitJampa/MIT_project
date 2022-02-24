@@ -2,7 +2,7 @@ import { BrowserRouter,Switch,Route } from "react-router-dom";
 import LoginComponent from "./components/LoginComponent";
 import RegisterComponent from "./components/RegisterComponent";
 import AnnounceComponent from "./components/AnnounceComponent";
-import MapComponent from "./components/MapComponent";
+import AddHospitalComponent from "./components/AddHospitalComponent";
 import App from "./App"
 import HospitalComponent from "./components/HospitalComponent";
 const MyRoute=()=>{
@@ -13,7 +13,7 @@ const MyRoute=()=>{
                 <Route path="/announce" exact component={AnnounceComponent}/>
                 <Route path="/login" exact component={LoginComponent}/>
                 <Route path="/register" exact component={RegisterComponent}/>
-                <Route path="/map" exact component={MapComponent}/>
+                <Route path="/addhospital" exact component={AddHospitalComponent}/>
                 <Route path="/hospital" exact component={HospitalComponent}/>
             </Switch>
         </BrowserRouter>

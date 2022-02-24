@@ -1,12 +1,12 @@
 import NavbarComponent from "./NavbarComponent";
-const MapComponent=()=>{
+const AddHospitalComponent=()=>{
     return(
         <div>
             <NavbarComponent/>
             <div className="container"> 
-                <h1>Map</h1>
+                <h1>Add hospital</h1>
             </div>
         </div>
     )
 }
-export default MapComponent;
+export default AddHospitalComponent;

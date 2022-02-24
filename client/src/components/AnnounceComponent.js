@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import NavbarComponent from "./NavbarComponent";
 import './AnnounceComponent.css';
-import {faMap, faSyringe} from "@fortawesome/free-solid-svg-icons";
+import {faSyringe} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 const AnnounceComponent=()=>{
     const [searchTrips,setSearchTrips]=useState('');
@@ -46,7 +46,6 @@ const AnnounceComponent=()=>{
                         </div>
                 </div>
                 <div className="tap-top-check">
-                
                 <FontAwesomeIcon icon={faSyringe} className="logo-vacc"/>
                 <div class="form-check form-check-inline">
                     <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1"/>
@@ -69,6 +68,64 @@ const AnnounceComponent=()=>{
                     <label class="form-check-label" for="inlineCheckbox5">ซิโนแวก</label>
                     </div>            
                 </div>
+                <div className="text-box">
+                    <div className="text-line">
+                        <div style={{padding:"10px"}}><h3>โรงพยาบาลกำแพงแสน</h3></div>
+                        <p>47 หมู่ 4 ต.กำแพงแสน อ.กำแพงแสน จ.นครปฐม</p>
+                    </div>
+                    <div className="text-line">
+                        <p>สถานที่ฉีดวัคซีน : อาคารคอนเวนชั่น มหาวิทยาลัยเกษตรศาสตร์ วิทยาเขตกำแพงแสน</p>
+                    </div>
+                    <div className="text-line">
+                        <p><span>วันที่ 8 - 12 กุมภาพันธ์ 2565</span>
+                            <span>วันละ 500 คน</span>
+                            <span>รอบเช้าเวลา 8.00-12.00</span>
+                            <span>รอบบ่ายเวลา 13.00-14.00</span>
+                        </p>
+                    </div>
+                    <div className="table-container">
+                        <table className="table">
+                        <thead>
+                            <tr>
+                            <th scope="col">เข็มที่</th>
+                            <th scope="col">ช่วงอายุ</th>
+                            <th scope="col">vaccine</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                            <th scope="row">1</th>
+                            <td>อายุ 18 ปีขึ้นไป</td>
+                            <td>แอสต้าเซเนก้า</td>
+                            </tr>
+                            <tr>
+                            <th scope="row"></th>
+                            <td>เด็กอายุ 12-18 ปี</td>
+                            <td>ไฟเซอร์</td>
+                            </tr>
+                            <tr>
+                            <th scope="row">2</th>
+                            <td></td>
+                            <td>ไฟเซอร์, แอสต้าเซเนก้า</td>
+                            </tr>
+                            <tr>
+                            <th scope="row">3</th>
+                            <td></td>
+                            <td>ไฟเซอร์, แอสต้าเซเนก้า</td>
+                            </tr>
+                        </tbody>
+                        </table>  
+                    </div>
+                    <div className="text-line">
+                        <p><span>เพิ่มเติม</span>
+                            
+                        </p>
+                    </div>   
+                </div>
+                <footer>
+                    <hr className="line"/>
+                    <p>2022 ©ภาควิชาวิศวกรรมคอมพิวเตอร์ Kasetsart University © Version : 1.0</p>
+                </footer>
             </div>
         </div>
     )

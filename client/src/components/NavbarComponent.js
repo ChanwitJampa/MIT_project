@@ -8,7 +8,7 @@ const NavbarComponent=(props)=>{
         <div>
             <div className="navbar">
                 <div className="navbar-logo">
-                    <Link to="/map" className="navbar-logolink">
+                    <Link to="/" className="navbar-logolink">
                         <FontAwesomeIcon icon={faMap} className="navbar-icon"/>
                         <h2 >CoMap</h2>
                     </Link>
@@ -36,7 +36,7 @@ const NavbarComponent=(props)=>{
     <div class="sidenav">
         <Link to="#" className="sidenav-link"><FontAwesomeIcon icon={faSyringe} className="sidenav-icon"/>เพิ่มประกาศวัคซีน</Link>
         <Link to="/hospital" className="sidenav-link"><FontAwesomeIcon icon={faHospital} className="sidenav-icon"/>จัดการโรงพยาบาล</Link>
-        <Link to="#" className="sidenav-link"><FontAwesomeIcon icon={faPlus} className="sidenav-icon"/>เพิ่มโรงพยาบาล</Link>
+        <Link to="/addhospital" className="sidenav-link"><FontAwesomeIcon icon={faPlus} className="sidenav-icon"/>เพิ่มโรงพยาบาล</Link>
     </div>
     </div>
         

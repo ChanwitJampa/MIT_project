@@ -15,7 +15,7 @@
 .tap-top-check{
     display: flex;
     padding: 10px;
-    align-items: centers;
+    align-items: center;
 }
 .search{
     width: 420px;
@@ -41,4 +41,31 @@
     height: 25px;
     padding-right: 20px;
     color: #2B2118;
+}
+.text-box{
+    background-color: aliceblue;
+    padding: 40px;
+    margin: 20px;
+    border-radius: 20px;
+}
+.text-line{
+    display: flex;
+    justify-items: center;
+    text-align: center;
+    
+}
+.text-line p{
+    padding: 10px;
+}
+.text-line p span{
+    padding: 0px 20px 0px 0px;
+}
+.table-container{
+    padding: 10px 40px 10px 40px;
+    margin: 10px;
+}
+.line{
+    width:100% ;
+    text-align: left;
+    margin-left:0;
 }

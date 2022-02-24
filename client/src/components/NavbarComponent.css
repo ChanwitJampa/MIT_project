@@ -12,9 +12,10 @@ body{
     position: fixed;
     z-index: 0;
     left: 0;
+    top: 0px;
     background-color: #2B2118;
     overflow-x: hidden;
-    padding-top: 20px;
+    padding-top: 100px;
     transition: 0.5s;
     display: flexbox;
 }
@@ -60,7 +61,8 @@ body{
     background-color: #B00020;
     width: 100%;
     top: 0;
-    position: sticky;
+    position: fixed;
+    z-index: 1;
     font-size: 16px;
     color: #f1f1f1;
     justify-content: space-between;
