@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import NavbarComponent from "./NavbarComponent";
 import './AnnounceComponent.css';
+import {faMap, faSyringe} from "@fortawesome/free-solid-svg-icons";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 const AnnounceComponent=()=>{
     const [searchTrips,setSearchTrips]=useState('');
     return(
@@ -34,8 +36,6 @@ const AnnounceComponent=()=>{
                         </select> 
                     </div>
                     </div>
-                    
-
                         <div className='search'>
                             <input 
                             type='search'
@@ -46,36 +46,28 @@ const AnnounceComponent=()=>{
                         </div>
                 </div>
                 <div className="tap-top-check">
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" />
-                    <label class="form-check-label" for="flexCheckDefault">
-                        ไฟเซอร์
-                    </label>
+                
+                <FontAwesomeIcon icon={faSyringe} className="logo-vacc"/>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1"/>
+                    <label class="form-check-label" for="inlineCheckbox1">ไฟเซอร์</label>
                     </div>
-                    <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value=""  />
-                    <label class="form-check-label" for="flexCheckChecked">
-                        แอสต้าเซเนก้า
-                    </label>
+                    <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2"/>
+                    <label class="form-check-label" for="inlineCheckbox2">แอสต้าเซเนก้า</label>
                     </div>
-                    <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value=""  />
-                    <label class="form-check-label" for="flexCheckChecked">
-                        โมเดอร์นา
-                    </label>
+                    <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="option3"/>
+                    <label class="form-check-label" for="inlineCheckbox3">โมเดอร์นา</label>
                     </div>
-                    <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value=""  />
-                    <label class="form-check-label" for="flexCheckChecked">
-                        ซิโนฟาร์ม
-                    </label>
+                    <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox4" value="option4"/>
+                    <label class="form-check-label" for="inlineCheckbox4">ซิโนฟาร์ม</label>
                     </div>
-                    <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value=""  />
-                    <label class="form-check-label" for="flexCheckChecked">
-                        ซิโนแวก
-                    </label>
-                    </div>        
+                    <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox5" value="option5"/>
+                    <label class="form-check-label" for="inlineCheckbox5">ซิโนแวก</label>
+                    </div>            
                 </div>
             </div>
         </div>

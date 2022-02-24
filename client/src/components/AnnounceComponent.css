@@ -15,7 +15,7 @@
 .tap-top-check{
     display: flex;
     padding: 10px;
-    
+    align-items: centers;
 }
 .search{
     width: 420px;
@@ -35,4 +35,10 @@
 }
 .search input:hover{
     border-bottom: 3px solid #B00020;
+}
+.logo-vacc{
+    width: 25px;
+    height: 25px;
+    padding-right: 20px;
+    color: #2B2118;
 }
