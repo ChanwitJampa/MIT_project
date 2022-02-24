@@ -28,6 +28,20 @@
   color: #61dafb;
 }
 
+.container{
+  width: 1000rem;
+  height: 100rem;
+  background-color: blue;
+}
+
+.mapBox{
+  background-color: #FFF;
+  padding: 0;
+  margin-left: -15rem;
+  margin-top: -23rem;
+
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
