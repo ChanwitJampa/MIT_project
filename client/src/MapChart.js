@@ -29,7 +29,7 @@ const MapChart = ({ setTooltipContent }) => {
     <>
       {/* <ComposableMap data-tip="" projectionConfig={{ scale: 270}} width={1000} height={690}> */}
       <ComposableMap data-tip="" projectionConfig={{ scale: 1000}}>
-        <ZoomableGroup center={[100,8]}>
+        <ZoomableGroup center={[115,8]}>
           <Geographies  geography={geoUrl}>
             {({ geographies }) =>
               geographies.map(geo => (
@@ -62,9 +62,7 @@ const MapChart = ({ setTooltipContent }) => {
               ))
             }
           </Geographies>
-          <Marker coordinates={[13.7563, 100.5018]}>
-              <circle r={8} fill="#F53" />
-          </Marker>
+          
         </ZoomableGroup>
       </ComposableMap>
     </>
