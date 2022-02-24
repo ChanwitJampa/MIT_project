@@ -5,6 +5,7 @@ import AnnounceComponent from "./components/AnnounceComponent";
 import AddHospitalComponent from "./components/AddHospitalComponent";
 import App from "./App"
 import HospitalComponent from "./components/HospitalComponent";
+import AddAnnounceComponent from "./components/AddAnnounceComponent";
 const MyRoute=()=>{
     return(
         <BrowserRouter>
@@ -15,6 +16,7 @@ const MyRoute=()=>{
                 <Route path="/register" exact component={RegisterComponent}/>
                 <Route path="/addhospital" exact component={AddHospitalComponent}/>
                 <Route path="/hospital" exact component={HospitalComponent}/>
+                <Route path="/addannounce" exact component={AddAnnounceComponent}/>
             </Switch>
         </BrowserRouter>
     );
