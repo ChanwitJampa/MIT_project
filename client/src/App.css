@@ -37,13 +37,9 @@
 .mapBox{
   background-color: #FFF;
   padding: 0;
-  margin-left: -15rem;
-  margin-top: -23rem;
+  /* margin-left: -15rem; */
+  /* margin-top: -23rem; */
+  /* height: 100%; */
 
-}
 
-.rect {
-  width: 400;
-  height: 300;
-  fill: transparent;
 }
