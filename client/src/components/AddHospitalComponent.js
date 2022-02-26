@@ -9,7 +9,7 @@ const AddHospitalComponent=()=>{
             <div className="container"> 
                 <h1>Add hospital</h1>
                 <div className="tap-top-select">
-                    <div className="text-box">
+                    <div className="content-box">
                     <text>ชื่อโรงพยาบาล</text>
                     <div className='name'>
                             <input 

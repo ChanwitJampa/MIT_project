@@ -1,8 +1,8 @@
-.text-box{
+.content-box{
+    padding: 40px 0px 60px 60px;
     background-color: #BCBEC0;
-    padding: 200px;
-    margin: 150px;
     border-radius: 20px;
+    margin: 20px;
 }
 .button-addnew{
     padding: 15px 30px 15px 20px;

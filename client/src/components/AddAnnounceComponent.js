@@ -80,7 +80,7 @@ const AddAnnounceComponent=()=>{
                     <p>คิวอาโค้ด (สำหรับแบบลงทะเบียน)</p>
                         <input type="file"/>
                     <p>ประกาศเพิ่มเติม</p>
-                        <textarea type="text"/>
+                        <textarea type="text" />
                 </div>
             </div>
         </div>
