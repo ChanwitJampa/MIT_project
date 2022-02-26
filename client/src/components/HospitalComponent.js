@@ -2,9 +2,26 @@ import { useEffect, useState } from "react";
 import NavbarComponent from "./NavbarComponent";
 import './HospitalComponent.css';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import { faAdd } from "@fortawesome/free-solid-svg-icons";
-
+import { faAdd, faTrash } from "@fortawesome/free-solid-svg-icons";
+import axios from "axios";
 const HospitalComponent=()=>{
+    const [hospital,setHospital]=useState([])
+    const fetchData=()=>{
+      axios.get(`http://localhost:5000/api/hospitals`)
+      .then(response=>{
+        console.log(response.data)
+          setHospital(response.data);
+          
+      })
+      .catch(err=>alert(err));
+      
+      
+    }
+    //ใช้ useEffect ในการสั่งใช้งาน fetchData ทันทีที่เปิดหน้านี้ขึ้นมา
+    useEffect(()=>{
+        fetchData()
+        console.log("Hello")
+    },[])
     return(
         <div>   
             <NavbarComponent/>
@@ -157,22 +174,23 @@ const HospitalComponent=()=>{
   <thead className="table-thead">
     <tr>
       <th scope="col">โรงพยาบาล</th>
-      <th scope="col">วันที่ให้บริการ</th>
-      <th scope="col">จำนวนที่รองรับ/วัน</th>
-      <th scope="col">ชนิดวัคซีน</th>
-      <th scope="col">การลงทะเบียน</th>
-      <th scope="col">เพิ่มประกาศ</th>
+      <th scope="col">ที่อยู่</th>
+      <th scope="col">จังหวัด</th>
+      <th scope="col"></th>
+      <th scope="col"></th>
     </tr>
   </thead>
   <tbody className="table-tbody">
-    <tr>
-      <td scope="row">โรงพยาบาลกำแพงแสน</td>
-      <td>7-9 กุมภาพันธ์</td>
-      <td>500</td>
-      <td>ไฟเซอร์,แอสต้า</td>
-      <td>walk in</td>
-      <td><button type="button" class="btn btn" style={{backgroundColor:"#B00020",color:"#FFFFFF"}}><FontAwesomeIcon icon={faAdd}/>ADD</button></td>
+    {hospital.map((hospital)=>(
+      <tr>
+      <td scope="row">{hospital.name}</td>
+      <td>{hospital.latitude}</td>
+      <td>{hospital.longitude}</td>
+      <td><button type="button" class="btn btn-primary" ><FontAwesomeIcon icon={faAdd}/>Edit</button></td>
+      <td>  <button type="button" class="btn btn-danger" ><FontAwesomeIcon icon={faTrash}/>Delete</button></td>
     </tr>
+    ))}
+    
   </tbody>
 </table>
 <button type="button" className="button-addnew"><FontAwesomeIcon icon={faAdd}/>Add New</button>
