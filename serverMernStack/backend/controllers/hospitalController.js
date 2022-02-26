@@ -27,11 +27,26 @@ const setHospital = asyncHandler(async (req, res) => {
         res.status(400)
         throw new Error('Please add a longitude field')
     }
+    if (!req.body.province) {
+        res.status(400)
+        throw new Error('Please add a province field')
+    }
+    if (!req.body.district) {
+        res.status(400)
+        throw new Error('Please add a district field')
+    }
+    if (!req.body.subDistrict) {
+        res.status(400)
+        throw new Error('Please add a subDistrict field')
+    }
 
     const hospital = await Hospital.create({
         name: req.body.name,
         latitude: req.body.latitude,
-        longitude: req.body.longitude
+        longitude: req.body.longitude,
+        province: req.body.province,
+        district: req.body.district,
+        subDistrict: req.body.subDistrict
     })
     res.status(200).json(hospital)
 
@@ -47,6 +62,7 @@ const putHospital = asyncHandler(async (req, res) => {
         res.status(400)
         throw new Error('hospital id not found')
     }
+   
     const updatedHospital = await Hospital.findByIdAndUpdate(req.params.id,req.body,{new:true})
     res.status(200).json(updatedHospital)
 })

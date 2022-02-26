@@ -12,7 +12,20 @@ const hospitalSchema = mongoose.Schema({
     longitude:{
         type: String,
         required:[true,'Please add a longitude']
+    },
+    province:{
+        type: String,
+        required:[true,'Please add a province']
+    },
+    district:{
+        type: String,
+        required:[true,'Please add a district']
+    },
+    subDistrict:{
+        type: String,
+        required:[true,'Please add a subDistrict']
     }
+    
 },
     {
         timestamps: true,
