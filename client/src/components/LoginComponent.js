@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react";
 import NavbarComponent from "./NavbarComponent";
 import "./LoginComponent.css";
+
 const LoginComponent=()=>{
     return(
-        <div>   
+        <div>  
             <NavbarComponent/>
             <div className="container">
-                <div className="outer">
-                    <div className="inner">
+                <div className="outerLogin">
+                    <div className="innerLogin">
                         <form>
                             <h3>Login</h3>
                             <div className="form-group">

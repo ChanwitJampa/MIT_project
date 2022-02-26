@@ -1,12 +1,12 @@
 
-  .outer {
+  .outerRegister {
     display: flex;
     justify-content: center;
     flex-direction: column;
     text-align: left;
   }
   
-  .inner {
+  .innerRegister {
     width: 450px;
     margin: auto;
     background: #ffffff;
@@ -16,12 +16,12 @@
     transition: all .3s;
   }
   
-  .outer .form-control:focus {
+  .outerRegister .form-control:focus {
     border-color: #167bff;
     box-shadow: none;
   }
   
-  .outer h3 {
+  .outerRegister h3 {
     text-align: left;
     margin: 0;
     line-height: 1;
@@ -54,10 +54,14 @@
     border-radius: 20px;
   }
 
-  .form button{
+  .btn btn-danger{
     border-radius: 20px;
   }
 
-  .button {
-    border-radius: 20px; 
-  }
+  .dropdown{
+    padding: 10px;
+}
+
+  .dropdown select{
+    border-radius: 20px;
+}

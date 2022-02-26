@@ -1,12 +1,13 @@
 import NavbarComponent from "./NavbarComponent";
 import "./RegisterComponent.css";
+
 const RegisterComponent=()=>{
     return(
         <div>
             <NavbarComponent/>
-            <div className="container">
-                <div className="outer">
-                    <div className="inner">
+            <div className= "container">
+                <div className="outerRegister">
+                    <div className="innerRegister">
                         <form>
                             <h3>Register</h3>
 
@@ -40,9 +41,12 @@ const RegisterComponent=()=>{
                                 <input type="password" className="form-control" placeholder="Enter password" />
                             </div>
 
-                            <div className="form-group">
+                            <div className="dropdown">
                                 <label>Hospital</label>
-                                <input type="password" className="form-control" placeholder="Enter password" />
+                                <select  aria-label="Default select example">
+                                    <option selected>HuaHin Hospital</option>
+                                    <option value="1">Bangkok Hospital</option>
+                                </select> 
                             </div>
 
                             <button type="submit" className="btn btn-danger">Sign up</button>
