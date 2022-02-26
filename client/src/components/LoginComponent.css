@@ -54,6 +54,12 @@
     border-radius: 20px;
   }
 
-  .button {
-      border-radius: 10px;
+  .form-group input::placeholder{
+    color: #ccc;
+  }
+
+  .innerLogin button {
+      border-radius: 20px;
+      width: 341px;
+      margin-top: 15px;
   }

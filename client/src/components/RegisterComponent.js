@@ -41,7 +41,7 @@ const RegisterComponent=()=>{
                                 <input type="password" className="form-control" placeholder="Enter password" />
                             </div>
 
-                            <div className="dropdown">
+                            <div className="form-group">
                                 <label>Hospital</label>
                                 <select  aria-label="Default select example">
                                     <option selected>HuaHin Hospital</option>

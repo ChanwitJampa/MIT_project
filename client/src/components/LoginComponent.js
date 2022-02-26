@@ -18,7 +18,7 @@ const LoginComponent=()=>{
 
                             <div className="form-group">
                                 <label>Password</label>
-                                <input type="password" className="form-control" placeholder="Enter password" />
+                                <input type="password" className="form-control" placeholder="Enter password" id="password"/>
                             </div>
 
                             <p className="forgot-password text-right">
