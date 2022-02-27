@@ -16,6 +16,11 @@ const vaccineSchema = mongoose.Schema({
 })
 
 const announceSchema = mongoose.Schema({
+    hospitalID:{
+        type:String,
+        required:[true, 'Please add a hospitalID']
+
+    },
     hospitalName: {
         type: String,
         required: [true, 'Please add a hospitalName']
@@ -30,7 +35,6 @@ const announceSchema = mongoose.Schema({
     },
     DateEnd: {
         type: String,
-        required: [true, 'Please add a  DateEnd']
     },
     numberPeople: {
         type: String,

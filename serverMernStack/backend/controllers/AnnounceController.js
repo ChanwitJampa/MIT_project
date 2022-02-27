@@ -19,10 +19,11 @@ const getAnnounces = asyncHandler(async (req, res) => {
 //@access Private
 const setAnnounce = asyncHandler(async (req, res) => {
     const announce = await Announce.create({
+        hospitalID:req.body.hospitalID,
         hospitalName: req.body.hospitalName,
         vaccinationSite: req.body.vaccinationSite,
         DateStart: req.body.DateStart,
-        DateEnd: req.body.DateEnd,
+        DateEnd: req.body.DateEnd ===  undefined ?  "null" :req.body.DateEnd ,
         numberPeople: req.body.numberPeople,
         timeSet:req.body.timeSet,
         vaccine: req.body.vaccine,
