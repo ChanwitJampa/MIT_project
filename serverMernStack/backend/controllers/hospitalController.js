@@ -15,33 +15,33 @@ const getHospitals = asyncHandler(async (req, res) => {
 //@route POST /api/hospitals
 //@access Private
 const setHospital = asyncHandler(async (req, res) => {
-    if (!req.body.name) {
-        res.status(400)
-        throw new Error('Please add a name field')
-    }
-    if (!req.body.latitude) {
-        res.status(400)
-        throw new Error('Please add a latitude field')
-    }
-    if (!req.body.longitude) {
-        res.status(400)
-        throw new Error('Please add a longitude field')
-    }
-    if (!req.body.province) {
-        res.status(400)
-        throw new Error('Please add a province field')
-    }
-    if (!req.body.district) {
-        res.status(400)
-        throw new Error('Please add a district field')
-    }
-    if (!req.body.subDistrict) {
-        res.status(400)
-        throw new Error('Please add a subDistrict field')
-    }
+    // if (!req.body.name) {
+    //     res.status(400)
+    //     throw new Error('Please add a name field')
+    // }
+    // if (!req.body.latitude) {
+    //     res.status(400)
+    //     throw new Error('Please add a latitude field')
+    // }
+    // if (!req.body.longitude) {
+    //     res.status(400)
+    //     throw new Error('Please add a longitude field')
+    // }
+    // if (!req.body.province) {
+    //     res.status(400)
+    //     throw new Error('Please add a province field')
+    // }
+    // if (!req.body.district) {
+    //     res.status(400)
+    //     throw new Error('Please add a district field')
+    // }
+    // if (!req.body.subDistrict) {
+    //     res.status(400)
+    //     throw new Error('Please add a subDistrict field')
+    // }
 
     const hospital = await Hospital.create({
-        name: req.body.name,
+        hospitalName: req.body.hospitalName,
         latitude: req.body.latitude,
         longitude: req.body.longitude,
         province: req.body.province,
