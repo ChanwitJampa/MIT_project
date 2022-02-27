@@ -1,14 +1,10 @@
 .content-box{
-    padding: 40px 0px 60px 60px;
+    padding: 40px 120px 60px 60px;
     background-color: #BCBEC0;
     border-radius: 20px;
-    margin: 20px;
+    margin: auto;
 }
-.input-text{
-    padding: 5px;
-    border-radius: 15px;
-    width: 300px;
-}
+
 .text-line{
     display: flex;
 }

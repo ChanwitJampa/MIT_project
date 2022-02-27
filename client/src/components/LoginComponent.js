@@ -1,15 +1,17 @@
 import { useEffect, useState } from "react";
+import {Link} from "react-router-dom";
 import NavbarComponent from "./NavbarComponent";
 import "./LoginComponent.css";
 
 const LoginComponent=()=>{
+    
     return(
         <div>  
             <NavbarComponent/>
             <div className="container">
                 <div className="outerLogin">
                     <div className="innerLogin">
-                        <form>
+                        <form >
                             <h3>Login</h3>
                             <div className="form-group">
                                 <label>Email</label>
@@ -22,7 +24,7 @@ const LoginComponent=()=>{
                             </div>
 
                             <p className="forgot-password text-right">
-                                Forgot <a href="#">password?</a>
+                                Don't have an account <Link to="/register" >Register</Link>
                             </p>
                             
                             <button type="submit" className="btn btn-danger">Sign in</button>

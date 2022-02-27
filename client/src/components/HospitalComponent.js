@@ -174,7 +174,7 @@ const HospitalComponent=()=>{
   <thead className="table-thead">
     <tr>
       <th scope="col">โรงพยาบาล</th>
-      <th scope="col">ที่อยู่</th>
+      <th scope="col">อำเภอ</th>
       <th scope="col">จังหวัด</th>
       <th scope="col"></th>
       <th scope="col"></th>
@@ -184,8 +184,8 @@ const HospitalComponent=()=>{
     {hospital.map((hospital)=>(
       <tr>
       <td scope="row">{hospital.name}</td>
-      <td>{hospital.latitude}</td>
-      <td>{hospital.longitude}</td>
+      <td>{hospital.district}</td>
+      <td>{hospital.province}</td>
       <td><button type="button" class="btn btn-primary" ><FontAwesomeIcon icon={faAdd}/>Edit</button></td>
       <td>  <button type="button" class="btn btn-danger" ><FontAwesomeIcon icon={faTrash}/>Delete</button></td>
     </tr>
