@@ -28,9 +28,9 @@ const setAnnounce = asyncHandler(async (req, res) => {
         timeSet:req.body.timeSet,
         vaccine: req.body.vaccine,
         registrationType: req.body.registrationType,
-        linkRegistration: req.body.linkRegistration,
-        image: req.body.image,
-        more: req.body.more
+        linkRegistration: req.body.linkRegistration ===  undefined ?  "null" : req.body.linkRegistration ,
+        image: req.body.image ===  undefined ?  "null" : req.body.image ,
+        more: req.body.more ===  undefined ?  "null" : req.body.more
     })
     res.status(200).json(announce)
 

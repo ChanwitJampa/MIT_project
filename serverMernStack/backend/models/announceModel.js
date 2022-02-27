@@ -64,7 +64,7 @@ const announceSchema = mongoose.Schema({
     }
 )
 
-module.exports = mongoose.model('announce', announceSchema)
+module.exports = mongoose.model('Announce', announceSchema)
 
 
 

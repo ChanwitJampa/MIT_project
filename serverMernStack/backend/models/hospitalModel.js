@@ -1,9 +1,9 @@
 const mongoose = require('mongoose')
 
 const hospitalSchema = mongoose.Schema({
-    name: {
+    hospitalName: {
         type: String,
-        required: [true, 'Please add a text value']
+        required: [true, 'Please add a hospitalName value']
     },
     latitude:{
         type: String,

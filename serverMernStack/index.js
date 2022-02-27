@@ -26,6 +26,7 @@ app.use(express.urlencoded({ extended : false}))
 
 app.use('/api/hospitals',require('./backend/routes/hospitalsRoutes'))
 app.use('/api/announces',require('./backend/routes/announceRoutes'))
+app.use('/api/Users',require('./backend/routes/userRouters'))
 
 // app.post('/api/sayHello', (request, response) => {
 //     let a = request.body.a;
