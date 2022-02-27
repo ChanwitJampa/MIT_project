@@ -24,6 +24,10 @@ const hospitalSchema = mongoose.Schema({
     subDistrict:{
         type: String,
         required:[true,'Please add a subDistrict']
+    },
+    address:{
+        type: String,
+        required:[true,'Please add a subDistrict']
     }
     
 },

@@ -46,7 +46,8 @@ const setHospital = asyncHandler(async (req, res) => {
         longitude: req.body.longitude,
         province: req.body.province,
         district: req.body.district,
-        subDistrict: req.body.subDistrict
+        subDistrict: req.body.subDistrict,
+        address: req.body.address
     })
     res.status(200).json(hospital)
 
