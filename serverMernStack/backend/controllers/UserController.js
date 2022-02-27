@@ -26,7 +26,7 @@ const setUser = asyncHandler(async (req, res) => {
         password: req.body.password,
         hospitalName: req.body.hospitalName,
         hospitalID: req.body.hospitalID,
-     
+        role: req.body.role  ===  undefined ?  "user" : req.body.role
     })
     res.status(200).json(user)
 

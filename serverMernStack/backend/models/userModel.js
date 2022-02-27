@@ -28,6 +28,9 @@ const hospitalSchema = mongoose.Schema({
     hospitalID:{
         type: String,
         required:[true,'Please add a hospital ID']
+    },
+    role:{
+        type: String
     }
     
 },
