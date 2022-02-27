@@ -1,5 +1,6 @@
 
 const asyncHandler = require('express-async-handler')
+const version = require('nodemon/lib/version')
 
 const Hospital = require('../models/hospitalModel')
 
