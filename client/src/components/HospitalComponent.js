@@ -4,6 +4,8 @@ import './HospitalComponent.css';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import { faAdd, faTrash } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
+import Swal from "sweetalert2";
+import {Link,withRouter} from "react-router-dom";
 const HospitalComponent=()=>{
     const [hospital,setHospital]=useState([])
     const fetchData=()=>{
@@ -22,6 +24,27 @@ const HospitalComponent=()=>{
         fetchData()
         console.log("Hello")
     },[])
+    //ลบโรงพยาบาล
+    const confrimDelete=(id)=>{
+      //axios.delete(`${process.env.REACT_APP_API}/blog`)
+      Swal.fire({
+          title:"คุณต้องการลบโรงพยาบาลหรือไม่?",
+          icon:"warning",
+          showCancelButton:true
+      }).then((result)=>{
+          if(result.isConfirmed){
+              deleteHospital(id)
+          }
+      })
+    }
+    const deleteHospital=(id)=>{
+      axios.delete(`http://localhost:5000/api/hospitals/${id}`)
+      .then(response=>{
+          Swal.fire("Deleted",response.data.message,"success")
+          fetchData()
+      })
+      .catch(err=>alert(err))
+  }
     return(
         <div>   
             <NavbarComponent/>
@@ -183,17 +206,17 @@ const HospitalComponent=()=>{
   <tbody className="table-tbody">
     {hospital.map((hospital)=>(
       <tr>
-      <td scope="row">{hospital.name}</td>
+      <td scope="row">{hospital.hospitalName}</td>
       <td>{hospital.district}</td>
       <td>{hospital.province}</td>
-      <td><button type="button" class="btn btn-primary" ><FontAwesomeIcon icon={faAdd}/>Edit</button></td>
-      <td>  <button type="button" class="btn btn-danger" ><FontAwesomeIcon icon={faTrash}/>Delete</button></td>
+      <td><Link to={`/edithospital/${hospital._id}`} type="button" class="btn btn-primary" ><FontAwesomeIcon icon={faAdd}/>Edit</Link></td>
+      <td><button className="btn btn-danger" onClick={()=>confrimDelete(hospital._id)}><FontAwesomeIcon icon={faTrash}/>Delete</button></td>
     </tr>
     ))}
     
   </tbody>
 </table>
-<button type="button" className="button-addnew"><FontAwesomeIcon icon={faAdd}/>Add New</button>
+<Link to="/addhospital" type="button" className="button-addnew"><FontAwesomeIcon icon={faAdd}/>Add New</Link>
             </div>
         </div>
     )

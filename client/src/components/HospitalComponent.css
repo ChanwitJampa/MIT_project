@@ -48,6 +48,7 @@
     background-color: #2B2118;
     border-radius: 20px;
     color: #FFFFFF;
+    text-decoration: none;
 }
 .button-addnew:hover{
     background-color: black;

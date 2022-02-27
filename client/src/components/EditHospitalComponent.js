@@ -3,10 +3,20 @@ import { useEffect, useState } from "react";
 import "./AddHospitalComponent.css";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import { faAdd } from "@fortawesome/free-solid-svg-icons";
-import axios from "axios";
 import Swal from "sweetalert2";
-const AddHospitalComponent=()=>{
+import axios from "axios";
+const EditHospitalComponent=(props)=>{
+    useEffect(()=>{
+        axios.get(`http://localhost:5000/api/hospitals/${props.match.params._id}`)
+        .then(response=>{
+            const {_id,hospitalName,address,latitude,longitude,province,district,subDistrict}= response.data
+            setState({...state,_id,hospitalName,address,latitude,longitude,province,district,subDistrict})
+        })
+        .catch(err=>alert(err))
+        // eslint-disable-next-line
+    },[])
     const [state,setState]=useState({
+      __id:"",
       hospitalName:"",
       address:"",
       latitude:"0",
@@ -15,35 +25,30 @@ const AddHospitalComponent=()=>{
       district:"",
       subDistrict:""
     })
-    const {hospitalName,address,latitude,longitude,province,district,subDistrict}=state
+    const {_id,hospitalName,address,latitude,longitude,province,district,subDistrict}=state
     const inputValue=name=>event=>{
         console.log(name,"=",event.target.value)
         setState({...state,[name]:event.target.value});
     }
     const submitForm=(event)=>{
       event.preventDefault();
-      console.table({hospitalName,address,latitude,longitude,province, district,subDistrict});
-      axios.post(`http://localhost:5000/api/hospitals`,{hospitalName,address,latitude,longitude,province,district,subDistrict})
+      console.table({_id,hospitalName,address,latitude,longitude,province, district,subDistrict});
+      axios.put(`http://localhost:5000/api/hospitals/${_id}`,{_id,hospitalName,address,latitude,longitude,province,district,subDistrict})
       .then(response=>{
         Swal.fire(
-          'Alert',
-         'บันทึกข้อมูลเรียบร้อย',
-         'success'
-        )
-        setState({...state,hospitalName:"",
-        address:"",
-        latitude:"0",
-        longitude:"0",
-        province:"",
-        district:"",
-        subDistrict:""})
+            'Alert',
+           'บันทึกข้อมูลเรียบร้อย',
+           'success'
+          )
+        const {_id,hospitalName,address,latitude,longitude,province,district,subDistrict}=response.data
+        setState({...state,_id,hospitalName,address,latitude,longitude,province,district,subDistrict})
       })
       .catch((error)=>{
         Swal.fire(
-          'Alert',
-          //err.response.data.error,
-         'error'
-       )
+            'Alert',
+            //err.response.data.error,
+           'error'
+         )
       }
       )
     }
@@ -51,20 +56,20 @@ const AddHospitalComponent=()=>{
         <div>
             <NavbarComponent/>
             <div className="container"> 
-                <h1>Add hospital</h1>
+                <h1>Edit hospital</h1>
                 <div className="content-box">
                   <form onSubmit={submitForm}>
                   <div className="form-group">
                     <label>ชื่อโรงพยาบาล</label>
-                    <input type="text" className="form-control" placeholder="ชื่อโรงพยาบาล" onChange={inputValue("hospitalName")}/>
+                    <input type="text" className="form-control" placeholder="ชื่อโรงพยาบาล" value={hospitalName} onChange={inputValue("hospitalName")}/>
                 </div>
                 <div className="form-group">
                     <label>ที่อยู่</label>
-                    <input type="text" className="form-control" placeholder="ที่อยู่" onChange={inputValue("address")}/>
+                    <input type="text" className="form-control" placeholder="ที่อยู่" value={address} onChange={inputValue("address")}/>
                 </div>
                 <div className="form-group">
                     <label>จังหวัด</label>
-                    <select class="form-select" searchable="Search here.." onChange={inputValue("province")}>
+                    <select class="form-select" searchable="Search here.." value={province} onChange={inputValue("province")}>
                               <option value="1" disabled selected>เลือกจังหวัด</option>
                               <option value="กรุงเทพมหานคร">กรุงเทพมหานคร</option>
                               <option value="นครปฐม">นครปฐม</option>
@@ -73,7 +78,7 @@ const AddHospitalComponent=()=>{
                 </div>
                 <div className="form-group">
                     <label>อำเภอ</label>
-                    <select class="form-select" searchable="Search here.." onChange={inputValue("district")}>
+                    <select class="form-select" searchable="Search here.." value={district} onChange={inputValue("district")}>
                               <option value="1" disabled selected>เลือกอำเภอ</option>
                               <option value="เมืองนครปฐม">เมืองนครปฐม</option>
                               <option value="กำแพงแสน">กำแพงแสน</option>
@@ -86,7 +91,7 @@ const AddHospitalComponent=()=>{
                 </div>
                 <div className="form-group">
                     <label>ตำบล</label>
-                    <select class="form-select" searchable="Search here.." onChange={inputValue("subDistrict")}>
+                    <select class="form-select" searchable="Search here.." value={subDistrict} onChange={inputValue("subDistrict")}>
                                 <option value="1" disabled selected>เลือกตำบล</option>
                                 <option value="โพรงมะเดื่อ">โพรงมะเดื่อ</option>
                                 <option value="ดอนยายหอม">ดอนยายหอม</option>
@@ -197,11 +202,11 @@ const AddHospitalComponent=()=>{
                     </select>
                 </div> 
                     <br/>
-                    <button type="submit" className="button-addnew"><FontAwesomeIcon icon={faAdd}/>Add New</button>
+                    <button type="submit" className="button-addnew"><FontAwesomeIcon icon={faAdd}/>update</button>
                 </form>
               </div>
           </div>
       </div>
     )
 }
-export default AddHospitalComponent;
+export default EditHospitalComponent;
