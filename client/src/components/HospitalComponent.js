@@ -9,18 +9,20 @@ import { Link, withRouter } from "react-router-dom";
 const HospitalComponent = () => {
   const [hospital, setHospital] = useState([]);
   const [provinces, setProvinces] = useState([]);
+  const [provincesget,setProvincesGet] = useState('');
+  const [district, setDistrict] = useState([]);
   const fetchData = () => {
     axios
-      .get("https://thaiaddressapi-thaikub.herokuapp.com/v1/thailand/provinces")
+      .get(`https://thaiaddressapi-thaikub.herokuapp.com/v1/thailand/provinces`)
       .then((res) => {
         console.log(res.data.data);
         setProvinces(res.data.data);
       });
     axios
-      .get("https://thaiaddressapi-thaikub.herokuapp.com/v1/thailand/provinces/")
-      .then(res=>{
-        console.log(res.data.district);
-        setProvinces.district(res.data.district);
+      .get(`https://thaiaddressapi-thaikub.herokuapp.com/v1/thailand/provinces/${provincesget}`)
+      .then((res)=>{
+        console.log(res.data.data);
+        setDistrict(res.data.data);
       })
     axios
       .get(`http://localhost:5000/api/hospitals`)
@@ -66,7 +68,8 @@ const HospitalComponent = () => {
           <div className="tap-top-select-in">
 
             <div className="tap-select">
-              <select class="mdb-select " searchable="Search here..">
+              <select class="mdb-select " searchable="Search here.." onChange={(event)=>{                      
+                setProvincesGet(event.target.value);                     }}>
               <option value="1" disabled selected>เลือกจังหวัด</option>
                 {provinces.map((provinces) => (
                   <option value="1">{provinces.province}</option>
@@ -76,8 +79,8 @@ const HospitalComponent = () => {
             <div className="tap-select">
               <select class="mdb-select" searchable="Search here..">
                 <option value="1" disabled selected>เลือกอำเภอ</option>
-                {provinces.map((provinces) => (
-                  <option value="1">{provinces.province.district}</option>
+                {district.data.map((district) => (
+                  <option value="1">{district.district}</option>
                 ))}
               </select>
             </div>
