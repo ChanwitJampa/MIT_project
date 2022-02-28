@@ -3,8 +3,21 @@ import NavbarComponent from "./NavbarComponent";
 import './AnnounceComponent.css';
 import {faSyringe} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import axios from "axios";
 const AnnounceComponent=()=>{
-    const [searchTrips,setSearchTrips]=useState('');
+    const [searchAnnounce,setSearchAnnounce]=useState('');
+    const [announce,setAnnounce]=useState([]);
+    const fetchData=()=>{
+        axios.get(`http://localhost:5000/api/announces`)
+        .then((res)=>{
+            setAnnounce(res.data)
+        }).catch((err)=>{
+            console.log(err)
+        })
+    }
+    useEffect(()=>{
+        fetchData()
+    },[])
     return(
         <div>
             <NavbarComponent/>
@@ -41,7 +54,7 @@ const AnnounceComponent=()=>{
                             type='search'
                             placeholder="ค้นหา..."
                             onChange={(event)=>{
-                            setSearchTrips(event.target.value);
+                            setSearchAnnounce(event.target.value);
                             }}/>
                         </div>
                 </div>
@@ -68,17 +81,18 @@ const AnnounceComponent=()=>{
                     <label class="form-check-label" for="inlineCheckbox5">ซิโนแวก</label>
                     </div>            
                 </div>
+                {announce.map((announce)=>(
                 <div className="text-box">
                     <div className="text-line">
-                        <div style={{padding:"10px"}}><h3>โรงพยาบาลกำแพงแสน</h3></div>
+                        <div style={{padding:"10px"}}><h3>{announce.hospitalName}</h3></div>
                         <p>47 หมู่ 4 ต.กำแพงแสน อ.กำแพงแสน จ.นครปฐม</p>
                     </div>
                     <div className="text-line">
-                        <p>สถานที่ฉีดวัคซีน : อาคารคอนเวนชั่น มหาวิทยาลัยเกษตรศาสตร์ วิทยาเขตกำแพงแสน</p>
+                        <p>{announce.vaccinationSite}</p>
                     </div>
                     <div className="text-line">
                         <p><span>วันที่ 8 - 12 กุมภาพันธ์ 2565</span>
-                            <span>วันละ 500 คน</span>
+                            <span>วันละ {announce.numberPeople} คน</span>
                             <span>รอบเช้าเวลา 8.00-12.00</span>
                             <span>รอบบ่ายเวลา 13.00-14.00</span>
                         </p>
@@ -93,35 +107,21 @@ const AnnounceComponent=()=>{
                             </tr>
                         </thead>
                         <tbody>
+                            {announce.vaccine.map((vaccine)=>(
                             <tr>
-                            <th scope="row">1</th>
-                            <td>อายุ 18 ปีขึ้นไป</td>
-                            <td>แอสต้าเซเนก้า</td>
+                            <th scope="row">{vaccine.numberVaccine}</th>
+                            <td>{vaccine.ageRange}</td>
+                            <td>{vaccine.vaccineType}</td>
                             </tr>
-                            <tr>
-                            <th scope="row"></th>
-                            <td>เด็กอายุ 12-18 ปี</td>
-                            <td>ไฟเซอร์</td>
-                            </tr>
-                            <tr>
-                            <th scope="row">2</th>
-                            <td></td>
-                            <td>ไฟเซอร์, แอสต้าเซเนก้า</td>
-                            </tr>
-                            <tr>
-                            <th scope="row">3</th>
-                            <td></td>
-                            <td>ไฟเซอร์, แอสต้าเซเนก้า</td>
-                            </tr>
+                            ))}
                         </tbody>
                         </table>  
                     </div>
                     <div className="text-line">
-                        <p><span>เพิ่มเติม</span>
-                            
-                        </p>
+                        <p><span>เพิ่มเติม: {announce.more}</span></p>
                     </div>   
                 </div>
+                ))}
                 <footer>
                     <hr className="line"/>
                     <p>2022 ©ภาควิชาวิศวกรรมคอมพิวเตอร์ Kasetsart University © Version : 1.0</p>
