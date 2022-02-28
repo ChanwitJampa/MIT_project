@@ -1,42 +1,66 @@
 import NavbarComponent from "./NavbarComponent";
 import "./AddAnnounceComponent.css";
+import { useEffect, useState } from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import { faAdd } from "@fortawesome/free-solid-svg-icons";
+
 const AddAnnounceComponent=()=>{
+    const [state,setState]=useState({
+        hospitalID:"621a99528503e41d702f31f0",
+        hospitalName:"โรงพยาบาลกำแพงแสน",
+        vaccinationSite:"",
+    })
+    const inputValue=name=>event=>{
+        setState({...state,[name]:hospitalID,hospitalName,vaccinationSite})
+        
+    }
+    const {hospitalID,hospitalName,vaccinationSite,DateStart,DateEnd,numberPeople,vaccine,registrationType,linkRegistration,image,more}=state
     return(
         <div>
             <NavbarComponent/>
             <div className="container"> 
                 <h1>เขียนประกาศ</h1>
                 <div className="content-box">
-                    <h4>โรงพยาบาลกำแพงแสน</h4>
-                    <p>สถานที่ฉีดวัคซีน</p>
-                    <input type="text" className="input-text" placeholder="ex มหาวิทยาลัยเกษตรศาสตร์"/>
-                    <p>จำนวนวัน</p>
-                    <div style={{display:"flex"}}>
-                        <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1"/>
-                        <label class="form-check-label" for="inlineCheckbox1">1 วัน</label>
-                        <input type="date"/>
+                    <h4>โรงพยาบาล</h4>
+                    <div className="form-group">
+                        <input type="text" value={hospitalName} className="form-control" disabled/>
                     </div>
-                    <div style={{display:"flex"}}>
-                        <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1"/>
-                        <label class="form-check-label" for="inlineCheckbox1">หลายวัน</label>
-                        <input type="date"/>
+                    <div className="form-group">
+                    <label>สถานที่ฉีดวัคซีน</label>
+                    <input type="text" className="form-control" placeholder="ex มหาวิทยาลัยเกษตรศาสตร์" onChange={inputValue("vaccinationSite")}/>
+                    </div>
+                    <div className="form-group">
+                    <label>จำนวนวัน</label>
+                    <select class="form-select" searchable="Search here.." >
+                              <option value="1" disabled selected>เลือกจำนวนวัน</option>
+                              <option value="1">1 วัน</option>
+                              <option value="2">หลายวัน</option>
+                    </select>
+                    </div>
+                    <div className="form-group">
+                    <label>ระยะเวลา</label>
+                    <input type="date" className="form-control" onChange={inputValue("DateStart")}/>
                         ถึงวันที่
-                        <input type="date"/>
+                    <input type="date" className="form-control" onChange={inputValue("DateEnd")}/>
                     </div>
-                    <p>จำนวนคน</p>
-                    <input type="number" className="input-text" placeholder="ex 500, 3000"/>
-                    <p>เวลารอบเช้า</p>
-                    <input type="time"/>
-                    <p>เวลารอบบ่าย</p>
-                    <input type="time"/>
+                    <div className="form-group">
+                    <label>จำนวนคนน</label>
+                    <input type="number" className="form-control" placeholder="ex 500, 3000" onChange={inputValue("numberPeople")}/>
+                    </div>
+                    <div className="form-group">
+                    <label>เวลารอบเช้า</label>
+                    <input type="time"  onChange={inputValue("vaccinationSite")}/>
+                    </div>
+                    <div className="form-group">
+                    <label>เวลารอบบ่าย</label>
+                    <input type="time"  onChange={inputValue("vaccinationSite")}/>
+                    </div>
                     <div className="text-line">
                         <p>วัคซีน</p>
                         <div className="tap-top-select-in">
                             <div className="tap-select">
                             <select aria-label="Default select example">
-                            <option selected>เลือกเข็มที่</option>
+                            <option disabled selected>เลือกเข็มที่</option>
                             <option value="1">1</option>
                             <option value="2">2</option>
                             <option value="3">3</option>
@@ -46,7 +70,7 @@ const AddAnnounceComponent=()=>{
                         </div>
                     <div className="tap-select">
                         <select  aria-label="Default select example">
-                            <option selected>เลือกช่วงอายุ</option>
+                            <option disabled selected>เลือกช่วงอายุ</option>
                             <option value="1">เด็ก 12-18 ปี</option>
                             <option value="2">18 ปีขึ้นไป</option>
                             <option value="3">สูงกว่า 60 ปี</option>
@@ -54,7 +78,7 @@ const AddAnnounceComponent=()=>{
                     </div>
                     <div className="tap-select">
                             <select aria-label="Default select example">
-                            <option selected>เลือกวัคซีน</option>
+                            <option disabled selected>เลือกวัคซีน</option>
                             <option value="1">ไฟเซอร์</option>
                             <option value="2">แอสต้าเซเนก้า</option>
                             <option value="3">โมเดอร์นา</option>
@@ -65,22 +89,27 @@ const AddAnnounceComponent=()=>{
                     </div>
                     <button type="button" className="button-vaccine"><FontAwesomeIcon icon={faAdd}/>Add vaccine</button>
                     </div>
-                    <div className="text-line">
-                        <p>ประเภทการลงทะเบียน</p>
-                        <div className="tap-select">
-                            <select aria-label="Default select example">
-                            <option selected>เลือกวัคซีน</option>
-                            <option value="1">Register</option>
-                            <option value="2">Walk in</option>
-                        </select>
-                        </div>
+                    <div className="form-group">
+                    <label>ประเภทการลงทะเบียน</label>
+                    <select class="form-select" searchable="Search here.." onChange={inputValue("registrationType")}>
+                              <option value="1" disabled selected>เลือกเภท</option>
+                              <option value="1">Register</option>
+                              <option value="2">Walk in</option>
+                    </select>
                     </div>
-                    <p>ลิงค์ลงทะเบียน (สำหรับแบบลงทะเบียน)</p>
-                        <input type="text" className="input-text" placeholder= "ex http://hospitalnakornpathom.com"/>
-                    <p>คิวอาโค้ด (สำหรับแบบลงทะเบียน)</p>
-                        <input type="file"/>
-                    <p>ประกาศเพิ่มเติม</p>
-                        <textarea type="text" />
+                    <div className="form-group">
+                    <label>ลิงค์ลงทะเบียน (สำหรับแบบลงทะเบียน)</label>
+                    <input type="url"  className="form-control" onChange={inputValue("linkRegistration")} placeholder= "ex http://hospitalnakornpathom.com"/>
+                    </div>
+                    <div className="form-group">
+                    <label>เพิ่มไฟล์รูปคิวอาโค้ด (สำหรับแบบลงทะเบียน)</label>
+                    <input type="file"  className="form-control" onChange={inputValue("image")} />
+                    </div>
+                    <div className="form-group">
+                    <label>ประกาศเพิ่มเติม</label>
+                    <input type="text" className="form-control" onChange={inputValue("more")} />
+                    </div>
+                    
                 </div>
             </div>
         </div>
