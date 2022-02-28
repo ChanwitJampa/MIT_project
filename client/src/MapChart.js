@@ -38,9 +38,11 @@ const MapChart = ({ setTooltipContent, props }) => {
                     setpName(NAME_1);
                     console.log("hover:");
                     console.log({pName});
-                    props = pName;
+                    // props = pName;
 
-                    setTooltipContent(`${NAME_1} — ${(ID_1)}`);
+                    // setTooltipContent(`${NAME_1} — ${(ID_1)}`);
+                    setTooltipContent(`${NAME_1}`);
+                    props(`${NAME_1}`);
                   }}
                     onMouseLeave={() => {
                     setTooltipContent("");
@@ -61,6 +63,8 @@ const MapChart = ({ setTooltipContent, props }) => {
                     props = pName;
 
                     props.changeWord(pName)
+                    // props(`${NAME_1}`);
+
 
                   }}
 
