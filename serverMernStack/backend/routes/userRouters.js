@@ -1,9 +1,9 @@
 const express = require('express')
 const router = express.Router()
-const { getUsers,setUser,putUser,deleteUser,getUser } = require('../controllers/userController')
+const { getUsers,setUser,putUser,deleteUser,getUser,deleteUserByGmail } = require('../controllers/userController')
 
 
-router.route('/').get(getUsers).post(setUser)
+router.route('/').get(getUsers).post(setUser).delete(deleteUserByGmail)
 router.route('/:id').put(putUser).delete(deleteUser).get(getUser)
 
 

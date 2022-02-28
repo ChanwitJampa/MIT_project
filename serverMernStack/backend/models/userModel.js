@@ -19,6 +19,7 @@ const hospitalSchema = mongoose.Schema({
     },
     password:{
         type: String,
+        select: false,
         required:[true,'Please add a assword']
     },
     hospitalName:{
@@ -30,7 +31,11 @@ const hospitalSchema = mongoose.Schema({
         required:[true,'Please add a hospital ID']
     },
     role:{
-        type: String
+        type: String,
+        select: false
+    },
+    token:{
+        type:String
     }
     
 },

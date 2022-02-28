@@ -4,7 +4,7 @@ const mongoose=require("mongoose")
 const colors = require('colors')
 
 const connectDB = require('./backend/config/db')
-
+const auth= require('./backend/middleware/auth')
 
 const multer = require('multer');
 
@@ -27,7 +27,11 @@ app.use(express.urlencoded({ extended : false}))
 app.use('/api/hospitals',require('./backend/routes/hospitalsRoutes'))
 app.use('/api/announces',require('./backend/routes/announceRoutes'))
 app.use('/api/Users',require('./backend/routes/userRouters'))
+app.use('/api/login',require('./backend/routes/loginRouters'))
 
+// app.post('/welcome',auth,(req,res)=>{
+//     res.status(200).send("Welcome ")
+// })
 // app.post('/api/sayHello', (request, response) => {
 //     let a = request.body.a;
 //     let b = request.body.b;

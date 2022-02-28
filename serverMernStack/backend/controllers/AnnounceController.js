@@ -8,6 +8,7 @@ const Announce = require('../models/announceModel')
 //@route GET /api/announces
 //@access Private
 const getAnnounces = asyncHandler(async (req, res) => {
+
     const announces = await Announce.find()
     res.status(200).json(announces)
 })
