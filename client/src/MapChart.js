@@ -1,4 +1,5 @@
-import React, { memo } from "react";
+import React, { memo,useState }  from "react";
+
 import {
   ZoomableGroup,
   ComposableMap,
@@ -8,28 +9,24 @@ import {
 } from "react-simple-maps";
 // import thMap from './thailand-provinces.json'
 import thMap2 from './thailand-provinces.topojson'
+import './App.js'
 
 // const geoUrl =
 //   "https://raw.githubusercontent.com/zcreativelabs/react-simple-maps/master/topojson-maps/world-110m.json";
 // const geoUrl = thMap ;
 const geoUrl = thMap2 ;
 
-const rounded = num => {
-  if (num > 1000000000) {
-    return Math.round(num / 100000000) / 10 + "Bn";
-  } else if (num > 1000000) {
-    return Math.round(num / 100000) / 10 + "M";
-  } else {
-    return Math.round(num / 100) / 10 + "K";
-  }
-};
+const MapChart = ({ setTooltipContent, props }) => {
 
-const MapChart = ({ setTooltipContent }) => {
+
+  const [pName, setpName] = useState("");
+
+
   return (
     <>
       {/* <ComposableMap data-tip="" projectionConfig={{ scale: 270}} width={1000} height={690}> */}
-      <ComposableMap data-tip="" projectionConfig={{ scale: 1000}}>
-        <ZoomableGroup center={[115,8]}>
+      <ComposableMap data-tip="" projectionConfig={{ scale: 1900}} width={800} height={695}>
+        <ZoomableGroup center={[100,13.5]} minZoom={1} maxZoom={5}>
           <Geographies  geography={geoUrl}>
             {({ geographies }) =>
               geographies.map(geo => (
@@ -38,14 +35,40 @@ const MapChart = ({ setTooltipContent }) => {
                   geography={geo}
                   onMouseEnter={() => {
                     const { NAME_1, ID_1 } = geo.properties;
+                    setpName(NAME_1);
+                    console.log("hover:");
+                    console.log({pName});
+                    props = pName;
+
                     setTooltipContent(`${NAME_1} — ${(ID_1)}`);
                   }}
-                  onMouseLeave={() => {
+                    onMouseLeave={() => {
                     setTooltipContent("");
+                    // setpName("");
+                    // props = pName;
+
                   }}
+
+                  onClick={() => {
+                    const { NAME_1, ID_1 } = geo.properties;
+
+                    console.log("CLICK");
+                    console.log({NAME_1});
+
+                    setpName(NAME_1);
+                    console.log({pName});
+
+                    props = pName;
+
+                    props.changeWord(pName)
+
+                  }}
+
+
                   style={{
                     default: {
-                      fill: "#D6D6DA",
+                      fill: "#000",
+                      // fill: "#D6D6DA",
                       outline: "none"
                     },
                     hover: {
@@ -69,4 +92,5 @@ const MapChart = ({ setTooltipContent }) => {
   );
 };
 
-export default memo(MapChart);
+// export default memo(MapChart);
+export default MapChart;

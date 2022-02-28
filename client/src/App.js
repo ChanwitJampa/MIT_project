@@ -33,13 +33,37 @@ import MapChart from "./MapChart";
 function App() {
   const [content, setContent] = useState("");
 
+
+  const [name, setName] = useState("blank")
+
+  const [pName, setpName] = useState("test");
+
+
   return (
-    <div>
+    <div className="container2">
       <NavbarComponent />
-      <div className="mapBox" >
-        <MapChart setTooltipContent={setContent} />
+      <div className="mapBox">
+        <MapChart setTooltipContent={setContent} onChange={ value => setpName(value)} />
         <ReactTooltip>{content}</ReactTooltip>
+        <div className="informationBox">
+          <h1 className="headerInformation">HELLO</h1>
+          <h1 className="provinceName">{pName}</h1>
+
+          <h2 className="infoText">new case: </h2>
+          <h2 className="infoText">total case: </h2>
+          <h2 className="infoText">newcase excludeabroad: </h2>
+          <h2 className="infoText">total case excludeabroad: </h2>
+          <h2 className="infoText">new death: </h2>
+          <h2 className="infoText">total death: </h2>
+          <h2 className="infoText">update date: </h2>
+
+
+        </div>
       </div>
+
+      {/* <div className="informationBox">
+        <h1>HELLO</h1>
+      </div> */}
 
       {/* <div className="container">
         <ComposableMap projectionConfig={{ scale: 200 }}>
