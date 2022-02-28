@@ -101,7 +101,15 @@ function App() {
               </tr>
             </thead>
             <tbody className="table-tbody">
-              {hospital.map((hospital) => (
+              {hospital.forEach(hospital => {
+
+                if(true)
+                {
+
+
+                }
+
+                return (
 
                 <tr>
                   {/* <td scope="row">{hospital.province}</td> */}
@@ -115,7 +123,10 @@ function App() {
                   <td>{hospital.total_death}</td>
                   <td>{hospital.update_date}</td>
                 </tr>
-              ))}
+
+                )
+                
+                })}
             </tbody>
           </table>
         </div>
