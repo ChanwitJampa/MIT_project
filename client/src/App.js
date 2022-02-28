@@ -45,21 +45,31 @@ function App() {
         `https://covid19.ddc.moph.go.th/api/Cases/timeline-cases-by-provinces`
       )
       .then((response) => {
-        // console.log(response.data);
-        setHospital(response.data);
+        console.log(response.data);
+        // setHospital(response.data);
+
+        setHospital(((response.data).slice(response.data.length-78,response.data.length-1)));
+
+
+
+
+
+
+
         
+        // console.log(hospital);
         // hospital.forEach( (e) => {
         //   console.log(e.province);
         // })
 
-        console.log(hospital)
       })
       .catch((err) => alert(err));
   };
   //ใช้ useEffect ในการสั่งใช้งาน fetchData ทันทีที่เปิดหน้านี้ขึ้นมา
   useEffect(() => {
-    fetchData();
+    fetchData()
     console.log("Hello");
+
   }, []);
 
   const [pName, setpName] = useState("ยินดีต้อนรับ");
@@ -75,6 +85,8 @@ function App() {
         <div className="informationBox">
           <h1 className="headerInformation">HELLO</h1>
           <h1 className="provinceName">{pName}</h1>
+          {/* <h1 className="provinceName">{hospital.province[0]}</h1> */}
+
           {/* <h1 className="provinceName">{content}</h1> */}
 
           {/* <h2 className="infoText">new case: +  </h2>
@@ -97,14 +109,12 @@ function App() {
                 <th scope="col">new_death</th>
                 <th scope="col">total_death</th>
                 <th scope="col">update_date</th>
-                {/* <th scope="col"></th> */}
               </tr>
             </thead>
             <tbody className="table-tbody">
               {hospital.map((hospital) => (
 
                 <tr>
-                  {/* <td scope="row">{hospital.province}</td> */}
                   <td>{hospital.province}</td>
                   <td>{hospital.txn_date}</td>
                   <td>{hospital.new_case}</td>
