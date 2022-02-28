@@ -17,8 +17,9 @@ const vaccineSchema = mongoose.Schema({
 
 const announceSchema = mongoose.Schema({
     hospitalID:{
-        type:String,
-        required:[true, 'Please add a hospitalID']
+        type: mongoose.Schema.Types.ObjectId,
+        ref:"Hospital",
+        required:[true,'Please add a hospital ID']
 
     },
     hospitalName: {
