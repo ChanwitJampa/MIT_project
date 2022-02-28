@@ -13,7 +13,7 @@ const HospitalComponent=()=>{
       .then(response=>{
         console.log(response.data)
           setHospital(response.data);
-          
+          console.log(hospital)
       })
       .catch(err=>alert(err));
       
