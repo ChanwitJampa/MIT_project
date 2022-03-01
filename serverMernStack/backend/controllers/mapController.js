@@ -60,19 +60,19 @@ const newTotalCase = asyncHandler(async(req,res)=>{
                     traveler_total=response.data[lengthData-1-i].new_case_excludeabroad + traveler_total
 
                     if(count==1){
-                        data.new_total_1 = new_total
-                        data.death_total_1 = death_total
-                        data.traveler_total_1 = new_total - traveler_total
+                        data[0].new_total_1 = new_total
+                        data[0].death_total_1 = death_total
+                        data[0].traveler_total_1 = new_total - traveler_total
                     }
                     else if(count==7){
-                        data.new_total_7 = new_total
-                        data.death_total_7 = death_total
-                        data.traveler_total_7 = new_total - traveler_total
+                        data[0].new_total_7 = new_total
+                        data[0].death_total_7 = death_total
+                        data[0].traveler_total_7 = new_total - traveler_total
                     }
                     else if(count==30){
-                        data.new_total_30 = new_total
-                        data.death_total_30 = death_total
-                        data.traveler_total_30 = new_total - traveler_total
+                        data[0].new_total_30 = new_total
+                        data[0].death_total_30 = death_total
+                        data[0].traveler_total_30 = new_total - traveler_total
                     }
 
                 }
