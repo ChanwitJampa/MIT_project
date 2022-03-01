@@ -31,7 +31,14 @@ const RegisterComponent=()=>{
         event.preventDefault();
         axios.post(`http://localhost:5000/api/user`,{firstName,lastName,idCard,email,password,hospitalName,hospitalID}).then(res=>{
             console.log(res.data)
-
+            setUser({...user,
+            firstName:"",
+            lastName:"",
+            idCard:"",
+            email:"",
+            password:"",
+            hospitalName:"",
+            hospitalID:""})
         })
     }
 
@@ -41,7 +48,7 @@ const RegisterComponent=()=>{
             <div className= "container">
                 <div className="outerRegister">
                     <div className="innerRegister">
-                        <form>
+                        <form onSubmit={signupForm}>
                             <h3>Register</h3>
 
                             <div className="form-group">
