@@ -20,12 +20,16 @@ const newTotalCase = asyncHandler(async(req,res)=>{
         new_total_30:"",
         death_total_1:"",
         death_total_7:"",
-        death_total_30:""
+        death_total_30:"",
+        traveler_total_1:"",
+        traveler_total_7:"",
+        traveler_total_30:""
     }
      var check =0
      var count = 0;
      var new_total=0
      var death_total=0
+     var traveler_total=0
 
     const maxfindWithOutFound = 100
 
@@ -53,18 +57,22 @@ const newTotalCase = asyncHandler(async(req,res)=>{
                     count=count+1
                     new_total=response.data[lengthData-1-i].new_case + new_total
                     death_total=response.data[lengthData-1-i].new_death + death_total
+                    traveler_total=response.data[lengthData-1-i].new_case_excludeabroad + traveler_total
 
                     if(count==1){
-                        data.new_total_1=new_total
-                        data.death_total_1= death_total
+                        data.new_total_1 = new_total
+                        data.death_total_1 = death_total
+                        data.traveler_total_1 = new_total - traveler_total
                     }
                     else if(count==7){
-                        data.new_total_7=new_total
-                        data.death_total_7= death_total
+                        data.new_total_7 = new_total
+                        data.death_total_7 = death_total
+                        data.traveler_total_7 = new_total - traveler_total
                     }
                     else if(count==30){
-                        data.new_total_30=new_total
-                        data.death_total_30= death_total
+                        data.new_total_30 = new_total
+                        data.death_total_30 = death_total
+                        data.traveler_total_30 = new_total - traveler_total
                     }
 
                 }
