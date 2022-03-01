@@ -32,7 +32,7 @@
   margin-top: 7rem;
   margin-right: 2rem;
   width: 100rem;
-  height: 45rem;
+  height: 65rem;
   background-color: crimson;
   z-index: 0;
   border-radius: 2rem;
@@ -53,4 +53,40 @@
 .infoText{
   font-size: 1rem;
   font-weight: bold;
+}
+
+.history{
+  margin-bottom: 5rem;
+}
+
+.css-pfr4gq {
+  position: absolute;
+  height: 4px;
+  overflow: hidden;
+  background-color: #ffffff!important;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  display: block;
+  border-radius: 2px;
+  will-change: left,right;
+  -webkit-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+  -webkit-animation: animation-1dkbetu 2.1s cubic-bezier(0.65, 0.815, 0.735, 0.395) infinite;
+  animation: animation-1dkbetu 2.1s cubic-bezier(0.65, 0.815, 0.735, 0.395) infinite;
+}
+
+.css-1tgyhd0 {
+  position: absolute;
+  height: 4px;
+  overflow: hidden;
+  background-color: #ffffff!important;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  display: block;
+  border-radius: 2px;
+  will-change: left,right;
+  -webkit-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+  -webkit-animation: animation-1rt1w7v 2.1s 1.15s cubic-bezier(0.165, 0.84, 0.44, 1) infinite;
+  animation: animation-1rt1w7v 2.1s 1.15s cubic-bezier(0.165, 0.84, 0.44, 1) infinite;
 }

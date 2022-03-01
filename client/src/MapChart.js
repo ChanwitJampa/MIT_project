@@ -26,7 +26,7 @@ const MapChart = ({ setTooltipContent, props }) => {
     <>
       {/* <ComposableMap data-tip="" projectionConfig={{ scale: 270}} width={1000} height={690}> */}
       <ComposableMap data-tip="" projectionConfig={{ scale: 1900}} width={800} height={695}>
-        <ZoomableGroup center={[100,13.5]} minZoom={1} maxZoom={5}>
+        <ZoomableGroup center={[100,13.5]} minZoom={1} maxZoom={1} >
           <Geographies  geography={geoUrl}>
             {({ geographies }) =>
               geographies.map(geo => (
@@ -42,7 +42,7 @@ const MapChart = ({ setTooltipContent, props }) => {
 
                     // setTooltipContent(`${NAME_1} — ${(ID_1)}`);
                     setTooltipContent(`${NAME_1}`);
-                    props(`${NAME_1}`);
+                    // props(`${NAME_1}`);
                   }}
                     onMouseLeave={() => {
                     setTooltipContent("");
@@ -59,8 +59,9 @@ const MapChart = ({ setTooltipContent, props }) => {
 
                     setpName(NAME_1);
                     console.log({pName});
+                    props(`${NAME_1}`);
 
-                    props = pName;
+                    // props = pName;
 
                     // props.changeWord(pName)
                     // props(`${NAME_1}`);
