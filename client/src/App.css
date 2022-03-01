@@ -26,25 +26,30 @@
   display: flex;
   flex-direction: row;
   height: 100%;
+  justify-content: center;
+  align-items: center;
 }
 
 .tableprovince{
   margin: 5rem;
+  margin: auto;
 }
 
 .informationBox{
+  justify-content: center;
+  align-items: center;
   margin-top: 12rem;
   margin-right: 2rem;
-  width: 60%;
+  width: 100%;
   height: 100%;
   background-color: crimson;
   z-index: 0;
   border-radius: 2rem;
-  boxShadow: "1px 3px 1px #9E9E9E"
+  text-align: center;
 }
 
 .headerInformation{
-  margin-top: 10rem;
+  margin-top: 5rem;
   color: #FFF;
 }
 
@@ -63,10 +68,43 @@
 
 .history{
   /* margin-top: 10rem; */
+  display: flex;
+  flex-direction: row;
+  /* margin-left: ; */
+  align-self: center;
+  justify-content: center;
+  align-items: center;
+}
+
+.historyHeader{
+  color: #FFF;
+  font-size: 1.5rem;
+}
+
+.textHistory{
+  font-size: 1rem;
+  color: #FFF;
+}
+
+.box1{
+margin: 2rem;
+text-align: start;
+}
+
+.box2{
+  margin: 2rem;
+  text-align: start;
+
+}
+
+.box3{
+  margin: 2rem;
+  text-align: start;
+
 }
 
 .loadingbar{
-  margin-top: 100rem;
+  margin-top: 10rem;
 
 }
 
@@ -79,14 +117,10 @@
 }
 
 .space3{
-  margin: 3rem;
-  height: 7rem;
+  margin: 0rem;
+  margin-top: 2rem;
+  height: 5rem;
 
-}
-
-.textHistory{
-  font-size: 2rem;
-  color: #FFF;
 }
 
 .newTable{

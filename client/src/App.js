@@ -13,7 +13,15 @@ import MapChart from "./MapChart";
 
 import BarLoader from "react-spinners/BarLoader";
 
-import { Icon, Table, Header } from "semantic-ui-react";
+import { Table, Header } from "semantic-ui-react";
+import { Icon, Button } from "semantic-ui-react";
+
+import {
+  SmileTwoTone,
+  HeartTwoTone,
+  CheckCircleTwoTone,
+  ClockCircleOutlined,
+} from "@ant-design/icons";
 
 // function generateGdpPerCapita(geographies) {
 //   let minGdpPerCapita = Infinity;
@@ -148,6 +156,7 @@ function App() {
   useEffect(() => {
     // setHospital(hospital.filter(hospital.province == pName))
     pullHistory(pName);
+    // console.log(history[0])
 
     if (pName != "กรุณาเลือกจังหวัด") {
       setHistory([]);
@@ -171,6 +180,14 @@ function App() {
           <h1 className="headerInformation">
             ยอดข้อมูลผู้ติดเชื้อโควิดในแต่ละจังหวัด
           </h1>
+
+          {/* <Button color="red" basic icon>
+            <Icon name="log out">
+              Logout
+            </Icon>
+          </Button> */}
+
+
           <h1 className="provinceName">{pName}</h1>
           {/* <h1 className="provinceName">{hospital.province[0]}</h1> */}
 
@@ -229,32 +246,10 @@ function App() {
             </tbody>
           </table>
 
-          <div className="space1"></div>
-
-          {history.map((history) => (
-            <div className="history">
-              <h1 className="textHistory">
-                จำนวนติดเชื้อทั้งหมดใน 1 วัน = {history.new_total_1}
-              </h1>
-              <h1 className="textHistory">
-                จำนวนติดเชื้อทั้งหมดใน 7 วัน = {history.new_total_7}
-              </h1>
-              <h1 className="textHistory">
-                จำนวนติดเชื้อทั้งหมดใน 30 วัน = {history.new_total_30}
-              </h1>
-              <h1 className="textHistory">
-                จำนวนตายทั้งหมดใน 1 วัน = {history.death_total_1}
-              </h1>
-              <h1 className="textHistory">
-                จำนวนตายทั้งหมดใน 7 วัน = {history.death_total_7}
-              </h1>
-              <h1 className="textHistory">
-                จำนวนตายทั้งหมดใน 30 วัน = {history.death_total_30}
-              </h1>
-            </div>
-          ))}
-
           <div className="space3">
+          <ClockCircleOutlined style={{fontSize:"3rem",color:"#FFF",marginBottom:"2rem",marginTop:"1rem"}}/>
+          {/* <h1 style={{fontSize:"1rem",color:"#FFF",marginBottom:"2rem"}}>ประวัติย้อนหลัง</h1> */}
+
             <BarLoader
               className="loadingbar"
               color={color}
@@ -262,74 +257,111 @@ function App() {
               css={override}
               size={150}
             />
+            
           </div>
+
+          {/* <div className="space1"></div> */}
+
+          {history.map((history) => (
+            <div className="history">
+              <div className="box1">
+
+                <h1 className="historyHeader">ยอดวันนี้</h1>
+                <h1 className="textHistory">
+                  ติดเชื้อ = {history.new_total_1}
+                </h1>
+                <h1 className="textHistory">
+                  เสียชีวิต = {history.death_total_1}
+                </h1>
+              </div>
+
+              <div className="box2">
+                <h1 className="historyHeader">ยอดย้อนหลัง 7 วัน</h1>
+
+                <h1 className="textHistory">
+                  ติดเชื้อ = {history.new_total_7}
+                </h1>
+                <h1 className="textHistory">
+                  เสียชีวิต = {history.death_total_7}
+                </h1>
+              </div>
+
+              <div className="box3">
+                <h1 className="historyHeader">ยอดย้อนหลัง 30 วัน</h1>
+
+                <h1 className="textHistory">
+                  ติดเชื้อ = {history.new_total_30}
+                </h1>
+                <h1 className="textHistory">
+                  เสียชีวิต = {history.death_total_30}
+                </h1>
+              </div>
+            </div>
+          ))}
 
           <div className="space2"></div>
 
+          {/* <div className="newTable">
+            {history.map((history) => (
+              <Table basic="very" celled collapsing>
+                <Table.Header>
+                  <Table.Row>
+                    <Table.HeaderCell>หัวข้อ</Table.HeaderCell>
+                    <Table.HeaderCell>จำนวน</Table.HeaderCell>
+                  </Table.Row>
+                </Table.Header>
 
-            <div className="newTable">
+                <Table.Body>
+                  <Table.Row>
+                    <Table.Cell>
+                      <Header as="h7" image>
+                        <Header.Content>
+                          Lena
+                          <Header.Subheader>Human Resources</Header.Subheader>
+                        </Header.Content>
+                      </Header>
+                    </Table.Cell>
+                    <Table.Cell>{history.new_total_1}</Table.Cell>
+                  </Table.Row>
+                  <Table.Row>
+                    <Table.Cell>
+                      <Header as="h7" image>
+                        <Header.Content>
+                          Matthew
+                          <Header.Subheader>Fabric Design</Header.Subheader>
+                        </Header.Content>
+                      </Header>
+                    </Table.Cell>
+                    <Table.Cell>15</Table.Cell>
+                  </Table.Row>
+                  <Table.Row>
+                    <Table.Cell>
+                      <Header as="h7" image>
+                        <Header.Content>
+                          Lindsay
+                          <Header.Subheader>Entertainment</Header.Subheader>
+                        </Header.Content>
+                      </Header>
+                    </Table.Cell>
+                    <Table.Cell>12</Table.Cell>
+                  </Table.Row>
+                  <Table.Row>
+                    <Table.Cell>
+                      <Header as="h7" image>
+                        <Header.Content>
+                          Mark
+                          <Header.Subheader>Executive</Header.Subheader>
+                        </Header.Content>
+                      </Header>
+                    </Table.Cell>
+                    <Table.Cell>11</Table.Cell>
+                  </Table.Row>
+                </Table.Body>
+              </Table>
+            ))}
 
 
-          <Table basic="very" celled collapsing>
-            <Table.Header>
-              <Table.Row>
-                <Table.HeaderCell>หัวข้อ</Table.HeaderCell>
-                <Table.HeaderCell>จำนวน</Table.HeaderCell>
-              </Table.Row>
-            </Table.Header>
-
-
-            <Table.Body>
-              <Table.Row>
-                <Table.Cell>
-                  <Header as="h7" image>
-                    <Header.Content>
-                      Lena
-                      <Header.Subheader>Human Resources</Header.Subheader>
-                    </Header.Content>
-                  </Header>
-                </Table.Cell>
-                <Table.Cell>22</Table.Cell>
-              </Table.Row>
-              <Table.Row>
-                <Table.Cell>
-                  <Header as="h7" image>
-                    <Header.Content>
-                      Matthew
-                      <Header.Subheader>Fabric Design</Header.Subheader>
-                    </Header.Content>
-                  </Header>
-                </Table.Cell>
-                <Table.Cell>15</Table.Cell>
-              </Table.Row>
-              <Table.Row>
-                <Table.Cell>
-                  <Header as="h7" image>
-                    <Header.Content>
-                      Lindsay
-                      <Header.Subheader>Entertainment</Header.Subheader>
-                    </Header.Content>
-                  </Header>
-                </Table.Cell>
-                <Table.Cell>12</Table.Cell>
-              </Table.Row>
-              <Table.Row>
-                <Table.Cell>
-                  <Header as="h7" image>
-                    <Header.Content>
-                      Mark
-                      <Header.Subheader>Executive</Header.Subheader>
-                    </Header.Content>
-                  </Header>
-                </Table.Cell>
-                <Table.Cell>11</Table.Cell>
-              </Table.Row>
-            </Table.Body>
-          </Table>
-
-            </div>
-            
-
+          </div> */}
         </div>
       </div>
 
