@@ -13,9 +13,6 @@ import MapChart from "./MapChart";
 
 import BarLoader from "react-spinners/BarLoader";
 
-
-
-
 // function generateGdpPerCapita(geographies) {
 //   let minGdpPerCapita = Infinity;
 //   let maxGdpPercapita = -Infinity;
@@ -36,7 +33,6 @@ import BarLoader from "react-spinners/BarLoader";
 // const geoUrl =
 //   "https://raw.githubusercontent.com/zcreativelabs/react-simple-maps/master/topojson-maps/world-110m.json";
 
-
 const covidURL =
   "https://covid19.ddc.moph.go.th/api/Cases/timeline-cases-by-provinces";
 
@@ -47,19 +43,18 @@ function App() {
 
   const [history, setHistory] = useState([]);
 
-  const [pName, setpName] = useState("ยินดีต้อนรับ");
+  const [pName, setpName] = useState("กรุณาเลือกจังหวัด");
 
   let [loading, setLoading] = useState(false);
   let [color, setColor] = useState("#ffffff");
-  
+
   const override = `
   display: block;
   margin: 0 auto;
   border-color: blue;
 `;
-  
-  const fetchData = () => {
 
+  const fetchData = () => {
     axios
       .get(
         `https://covid19.ddc.moph.go.th/api/Cases/timeline-cases-by-provinces`
@@ -68,7 +63,12 @@ function App() {
         console.log(response.data);
         // setHospital(response.data);
 
-        setHospital((response.data).slice(response.data.length-78,response.data.length-1));
+        setHospital(
+          response.data.slice(
+            response.data.length - 78,
+            response.data.length - 1
+          )
+        );
 
         // const filterItem = hospital.filter(filtername => {
         //   if(filtername)
@@ -80,104 +80,82 @@ function App() {
         // hospital.forEach( (e) => {
         //   console.log(e.province);
         // })
-
       })
       .catch((err) => alert(err));
 
-      const provinceName = "ตาก";
+    const provinceName = "ตาก";
 
-  // axios
-  //     .get(
-  //       // `http://localhost:5000/api/province`,{provinceName} 
-  //       // `http://localhost:5000/api/map/${provinceName}` 
-  //       `http://localhost:5000/api/map/${pName}` 
-  //     )
-  //     .then((response) => {
-  //       console.log("TEST API ==== === = = = ")
-  //       console.log(response.data);
-  //       console.log(response.data[0].new_total_1);
+    // axios
+    //     .get(
+    //       // `http://localhost:5000/api/province`,{provinceName}
+    //       // `http://localhost:5000/api/map/${provinceName}`
+    //       `http://localhost:5000/api/map/${pName}`
+    //     )
+    //     .then((response) => {
+    //       console.log("TEST API ==== === = = = ")
+    //       console.log(response.data);
+    //       console.log(response.data[0].new_total_1);
 
-  //       // setHistory(response.data);
-  //       setHistory(response.data);
+    //       // setHistory(response.data);
+    //       setHistory(response.data);
 
-  //       // console.log(history.new_total_1)
-  //       // setHospital(response.data);
+    //       // console.log(history.new_total_1)
+    //       // setHospital(response.data);
 
-  //       // setHospital((response.data).slice(response.data.length-78,response.data.length-1));
+    //       // setHospital((response.data).slice(response.data.length-78,response.data.length-1));
 
-  //       // const filterItem = hospital.filter(filtername => {
-  //       //   if(filtername)
-  //       // });
+    //       // const filterItem = hospital.filter(filtername => {
+    //       //   if(filtername)
+    //       // });
 
-  //       // console.log(filterItem);
+    //       // console.log(filterItem);
 
+    //       // console.log(hospital);
+    //       // hospital.forEach( (e) => {
+    //       //   console.log(e.province);
+    //       // })
 
-
-        
-  //       // console.log(hospital);
-  //       // hospital.forEach( (e) => {
-  //       //   console.log(e.province);
-  //       // })
- 
-  //     })
-  //     .catch((err) => alert(err));
-  
-
+    //     })
+    //     .catch((err) => alert(err));
   };
 
   const pullHistory = (pName) => {
-
-    if(pName != "ยินดีต้อนรับ")
-    {
+    if (pName != "กรุณาเลือกจังหวัด") {
       axios
         .get(
-          // `http://localhost:5000/api/map/${provinceName}` 
-          `http://localhost:5000/api/map/${pName}` 
+          // `http://localhost:5000/api/map/${provinceName}`
+          `http://localhost:5000/api/map/${pName}`
         )
         .then((response) => {
-          console.log("TEST API ==== === = = = ")
+          console.log("TEST API ==== === = = = ");
           console.log(response.data);
           console.log(response.data[0].new_total_1);
-  
+
           setHistory(response.data);
-  
-   
-        })
-        // .catch((err) => alert(err));
-
+        });
+      // .catch((err) => alert(err));
     }
-
-
-  }
+  };
 
   //ใช้ useEffect ในการสั่งใช้งาน fetchData ทันทีที่เปิดหน้านี้ขึ้นมา
   useEffect(() => {
-    fetchData()
+    fetchData();
     console.log("Hello");
-
   }, []);
 
   useEffect(() => {
+    // setHospital(hospital.filter(hospital.province == pName))
+    pullHistory(pName);
 
-  // setHospital(hospital.filter(hospital.province == pName))
-  pullHistory(pName);
-
-  if(pName != "ยินดีต้อนรับ")
-    {
-
+    if (pName != "กรุณาเลือกจังหวัด") {
       setHistory([]);
-      
+      setLoading(true);
 
-
-  setLoading(true)
-    setTimeout(() => {
-    setLoading(false)
-    }, 2000)
-
-  }
-  } ,[pName]);
-
-
+      setTimeout(() => {
+        setLoading(false);
+      }, 2000);
+    }
+  }, [pName]);
 
   return (
     <div className="container2">
@@ -188,7 +166,9 @@ function App() {
         <MapChart setTooltipContent={setContent} props={setpName} />
         <ReactTooltip>{content}</ReactTooltip>
         <div className="informationBox">
-          <h1 className="headerInformation">HELLO</h1>
+          <h1 className="headerInformation">
+            ยอดข้อมูลผู้ติดเชื้อโควิดในแต่ละจังหวัด
+          </h1>
           <h1 className="provinceName">{pName}</h1>
           {/* <h1 className="provinceName">{hospital.province[0]}</h1> */}
 
@@ -202,7 +182,7 @@ function App() {
           <h2 className="infoText">total death: </h2>
           <h2 className="infoText">update date: </h2> */}
 
-          <table class="table" style={{ backgroundColor: "#FFFFFF" }}>
+          <table class="table" className="tableprovince" style={{ backgroundColor: "#FFFFFF",paddingRight:"50rem",paddingLeft:"50rem" }}>
             <thead className="table-thead">
               <tr>
                 <th scope="col">ชื่อจังหวัด</th>
@@ -216,48 +196,68 @@ function App() {
               </tr>
             </thead>
             <tbody className="table-tbody">
-              {hospital.filter(province => province.province === pName).map((hospital) => (
-              // {hospital.filter(hospital.province === "จันทบุรี").map((hospital) => (
+              {hospital
+                .filter((province) => province.province === pName)
+                .map((hospital) => (
+                  // {hospital.filter(hospital.province === "จันทบุรี").map((hospital) => (
 
-                <tr>
-                  <td>{hospital.province}</td>
-                  <td>{hospital.txn_date}</td>
-                  <td>{hospital.new_case}</td>
-                  <td>{hospital.total_case}</td>
+                  <tr>
+                    <td>{hospital.province}</td>
+                    <td>{hospital.txn_date}</td>
+                    <td>{hospital.new_case}</td>
+                    <td>{hospital.total_case}</td>
 
-                  <td>{hospital.new_case - hospital.new_case_excludeabroad} </td>
-                  
-                  <td>{hospital.new_death}</td>
-                  <td>{hospital.total_death}</td>
-                  <td>{hospital.update_date}</td>
-                </tr>
-              ))}
+                    <td>
+                      {hospital.new_case - hospital.new_case_excludeabroad}{" "}
+                    </td>
+
+                    <td>{hospital.new_death}</td>
+                    <td>{hospital.total_death}</td>
+                    <td>{hospital.update_date}</td>
+                  </tr>
+                ))}
             </tbody>
           </table>
 
+          <div className="space1"></div>
 
+          {history.map((history) => (
+            <div className="history">
+              <h1 className="textHistory">
+                จำนวนติดเชื้อทั้งหมดใน 1 วัน = {history.new_total_1}
+              </h1>
+              <h1 className="textHistory">
+                จำนวนติดเชื้อทั้งหมดใน 7 วัน = {history.new_total_7}
+              </h1>
+              <h1 className="textHistory">
+                จำนวนติดเชื้อทั้งหมดใน 30 วัน = {history.new_total_30}
+              </h1>
+              <h1 className="textHistory">
+                จำนวนตายทั้งหมดใน 1 วัน = {history.death_total_1}
+              </h1>
+              <h1 className="textHistory">
+                จำนวนตายทั้งหมดใน 7 วัน = {history.death_total_7}
+              </h1>
+              <h1 className="textHistory">
+                จำนวนตายทั้งหมดใน 30 วัน = {history.death_total_30}
+              </h1>
+            </div>
+          ))}
 
-               {history.map((history) => (
+          <div className="space3">
+            <BarLoader
+              className="loadingbar"
+              color={color}
+              loading={loading}
+              css={override}
+              size={150}
+            />
 
-                <div className="history">
+          </div>
 
-                  <h1>new total = {history.new_total_1}</h1>
-                  <h1>new_total_7 = {history.new_total_7}</h1>
-                  <h1>new_total_30 = {history.new_total_30}</h1>
-                  <h1>death_total_1 = {history.death_total_1}</h1>
-                  <h1>death_total_7 = {history.death_total_7}</h1>
-                  <h1>death_total_30 = {history.death_total_30}</h1>
-                
-                </div>
-
-              ))}
-
-            <BarLoader color={color} loading={loading} css={override} size={150}/>
-
+          <div className="space2"></div>
         </div>
       </div>
-
-
 
       {/* <div className="informationBox">
         <h1>HELLO</h1>

@@ -28,14 +28,19 @@
   height: 100%;
 }
 
+.tableprovince{
+  margin: 5rem;
+}
+
 .informationBox{
-  margin-top: 7rem;
+  margin-top: 12rem;
   margin-right: 2rem;
-  width: 100rem;
-  height: 65rem;
+  width: 60%;
+  height: 100%;
   background-color: crimson;
   z-index: 0;
   border-radius: 2rem;
+  boxShadow: "1px 3px 1px #9E9E9E"
 }
 
 .headerInformation{
@@ -56,7 +61,30 @@
 }
 
 .history{
+  /* margin-top: 10rem; */
+}
+
+.loadingbar{
+  margin-top: 100rem;
+
+}
+
+.space1{
   margin-bottom: 5rem;
+}
+
+.space2{
+  margin-bottom: 3rem;
+}
+
+.space3{
+  margin: 3rem;
+  height: 10rem;
+
+}
+
+.textHistory{
+  font-size: 2rem;
 }
 
 .css-pfr4gq {
