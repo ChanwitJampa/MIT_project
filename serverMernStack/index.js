@@ -29,7 +29,7 @@ app.use('/api/announces', require('./backend/routes/announceRoutes'))
 app.use('/api/Users', require('./backend/routes/userRouters'))
 app.use('/api/login', require('./backend/routes/loginRouters'))
 
-app.use('/api/province', require('./backend/routes/mapRoutes'))
+app.use('/api/map', require('./backend/routes/mapRoutes'))
 
 
 
