@@ -14,7 +14,7 @@ const newTotalCase = asyncHandler(async(req,res)=>{
         return;
        // throw new Error('give me a provinceName')
     }
-    var data ={
+    var data =[{
         new_total_1:"",
         new_total_7:"",
         new_total_30:"",
@@ -24,7 +24,7 @@ const newTotalCase = asyncHandler(async(req,res)=>{
         traveler_total_1:"",
         traveler_total_7:"",
         traveler_total_30:""
-    }
+    }]
      var check =0
      var count = 0;
      var new_total=0
