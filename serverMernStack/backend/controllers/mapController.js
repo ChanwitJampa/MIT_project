@@ -9,7 +9,7 @@ const axios = require('axios')
 //@route GET /api/hospitals/:id
 //@access Private
 const newTotalCase = asyncHandler(async(req,res)=>{
-    if(!req.body.provinceName){
+    if(!req.params.provinceName){
         res.status(400).send("give me province name")
         return;
        // throw new Error('give me a provinceName')
@@ -34,7 +34,7 @@ const newTotalCase = asyncHandler(async(req,res)=>{
     const maxfindWithOutFound = 100
 
      var j=1
-    var name=req.body.provinceName
+    var name=req.params.provinceName
     await axios.get(`https://covid19.ddc.moph.go.th/api/Cases/timeline-cases-by-provinces`).then((response) => {
              var lengthData =  response.data.length
             for(var i=0;i< lengthData ;i=i+j){
@@ -79,9 +79,9 @@ const newTotalCase = asyncHandler(async(req,res)=>{
             }
         })
         if(check==0){
-            res.status(400).send(`not have this province name ${req.body.provinceName}`)
+            res.status(400).send(`not have this province name ${req.params.provinceName}`)
             return;
-           // throw new Error(`Not have this province name ${req.body.provinceName}`)
+           // throw new Error(`Not have this province name ${req.params.provinceName}`)
         }else if(check==1){
             res.status(200).json(data)
             return;

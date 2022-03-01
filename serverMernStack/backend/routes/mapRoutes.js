@@ -3,7 +3,7 @@ const router = express.Router()
 const { newTotalCase } = require('../controllers/mapController')
 
 
-router.route('/').post(newTotalCase)
+router.route('/:provinceName').post(newTotalCase)
 
 
 // router.get('/', getUsers)
