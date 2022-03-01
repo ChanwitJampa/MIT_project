@@ -7,6 +7,8 @@ import axios from "axios";
 const AnnounceComponent=()=>{
     const [searchAnnounce,setSearchAnnounce]=useState('');
     const [announce,setAnnounce]=useState([]);
+    const [district,setDistrict]=useState([]);
+    const [provinces,setProvinces]=useState([]);
     const fetchData=()=>{
         axios.get(`http://localhost:5000/api/announces`)
         .then((res)=>{
@@ -14,9 +16,23 @@ const AnnounceComponent=()=>{
         }).catch((err)=>{
             console.log(err)
         })
+        axios.get(`https://thaiaddressapi-thaikub.herokuapp.com/v1/thailand/provinces`)
+        .then((res) => {
+        console.log(res.data.data);
+        setProvinces(res.data.data);
+      });
     }
+    const fetchDistrict=(pro)=>{
+        axios
+          .get(`https://thaiaddressapi-thaikub.herokuapp.com/v1/thailand/provinces/${pro}`)
+          .then((res)=>{
+            console.log(res.data.data);
+            setDistrict(res.data.data);
+          })
+      }
     useEffect(()=>{
         fetchData()
+        fetchDistrict("กระบี่");
     },[])
     return(
         <div>
@@ -26,23 +42,38 @@ const AnnounceComponent=()=>{
                 <div className="tap-top-select">
                     <div className="tap-top-select-in">
                             <div className="tap-select">
-                            <select aria-label="Default select example">
-                            <option selected>เลือกจังหวัด</option>
-                            <option value="1">นครปฐม</option>
-                            <option value="2">ราชบุรี</option>
-                            <option value="3">สุพรรณบุรี</option>
+                            <select class="mdb-select " searchable="Search here.." onChange={(event)=>{                      
+                                console.log(event.target.value) ;
+                                fetchDistrict(event.target.value);
+                                setSearchAnnounce(event.target.value)  
+                                }}>
+                                <option selected disabled>เลือกจังหวัด</option>
+                                {provinces.map((provinces) => (
+                                <option value={provinces.province}>{provinces.province}</option>
+                                ))}
                             </select>
-                        </div>
+                            
+                    </div>
+                    <div className="tap-select">
+                        <select class="mdb-select" searchable="Search here.." onChange={(event)=>{
+                                setSearchAnnounce(event.target.value)
+                                }}>
+                                <option selected disabled>เลือกอำเภอ</option>
+                                {district.map((district) => (
+                                <option value={district.district}>{district.district}</option>
+                                ))}
+                        </select>
+                    </div>
                     <div className="tap-select">
                             <select aria-label="Default select example">
-                            <option selected>เลือกประเภทการลงทะเบียน</option>
+                            <option elected disabled>เลือกประเภทการลงทะเบียน</option>
                             <option value="1">Register</option>
                             <option value="2">Walk in</option>
                         </select>
                     </div>
                     <div className="tap-select">
                         <select  aria-label="Default select example">
-                            <option selected>เลือกช่วงอายุ</option>
+                            <option elected disabled>เลือกช่วงอายุ</option>
                             <option value="1">เด็ก 12-18 ปี</option>
                             <option value="2">18 ปีขึ้นไป</option>
                             <option value="3">สูงกว่า 60 ปี</option>
@@ -81,11 +112,23 @@ const AnnounceComponent=()=>{
                     <label class="form-check-label" for="inlineCheckbox5">ซิโนแวก</label>
                     </div>            
                 </div>
-                {announce.map((announce)=>(
+                {(announce).filter((announce)=>{
+                    if(searchAnnounce == ''){
+                        return announce
+                    }
+                    else if(announce.hospitalName.toString().includes(searchAnnounce)||
+                    announce.vaccinationSite.toString().includes(searchAnnounce)||
+                    announce.numberPeople.toString().includes(searchAnnounce)
+                    )
+                    {
+                        return announce
+                    }
+                }).map((announce)=>(
+                    
                 <div className="text-box">
                     <div className="text-line">
-                        <div style={{padding:"10px"}}><h3>{announce.hospitalName}</h3></div>
-                        <p>47 หมู่ 4 ต.กำแพงแสน อ.กำแพงแสน จ.นครปฐม</p>
+                        <div style={{padding:"10px"}}><h3>{announce.hospitalName}</h3>
+                        </div>
                     </div>
                     <div className="text-line">
                         <p>{announce.vaccinationSite}</p>
