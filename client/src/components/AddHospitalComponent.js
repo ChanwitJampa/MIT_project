@@ -6,14 +6,14 @@ import { faAdd } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 import Swal from "sweetalert2";
 const AddHospitalComponent = () => {
-  const [provinces, setProvinces] = useState([]);
-  const [district, setDistrict] = useState([]);
+  const [allprovinces, setAllProvinces] = useState([]);
+  const [alldistrict, setAllDistrict] = useState([]);
   const fetchData = () => {
     axios
       .get(`https://thaiaddressapi-thaikub.herokuapp.com/v1/thailand/provinces`)
       .then((res) => {
         console.log(res.data.data);
-        setProvinces(res.data.data);
+        setAllProvinces(res.data.data);
       });
   };
   const fetchDistrict = (pro) => {
@@ -23,7 +23,7 @@ const AddHospitalComponent = () => {
       )
       .then((res) => {
         console.log(res.data.data);
-        setDistrict(res.data.data);
+        setAllDistrict(res.data.data);
       });
   };
   useEffect(() => {
@@ -36,18 +36,15 @@ const AddHospitalComponent = () => {
     address: "",
     latitude: "0",
     longitude: "0",
-    province: "",
     district: "",
-    subDistrict: "",
   });
+  const [province,setProvince] =useState('');
   const {
     hospitalName,
     address,
     latitude,
     longitude,
-    province,
-    //district,
-    subDistrict,
+    district,
   } = state;
   const inputValue = (name) => (event) => {
     console.log(name, "=", event.target.value);
@@ -62,7 +59,6 @@ const AddHospitalComponent = () => {
       longitude,
       province,
       district,
-      subDistrict,
     });
     axios
       .post(`http://localhost:5000/api/hospitals`, {
@@ -72,7 +68,6 @@ const AddHospitalComponent = () => {
         longitude,
         province,
         district,
-        subDistrict,
       })
       .then((response) => {
         Swal.fire("Alert", "บันทึกข้อมูลเรียบร้อย", "success");
@@ -82,10 +77,9 @@ const AddHospitalComponent = () => {
           address: "",
           latitude: "0",
           longitude: "0",
-          province: "",
           district: "",
-          subDistrict: "",
         });
+        setProvince("");
       })
       .catch((error) => {
         Swal.fire(
@@ -126,21 +120,23 @@ const AddHospitalComponent = () => {
                 class="mdb-select "
                 searchable="Search here.."
                 onChange={(event) => {
-                  console.log(event.target.value);
+                  console.log("province="+event.target.value);
+                  setProvince(event.target.value);
                   fetchDistrict(event.target.value);
                 }}
               >
-                {provinces.map((provinces) => (
-                  <option value={provinces.province}>
-                    {provinces.province}
-                  </option>
+                {allprovinces.map((provinces) => (
+                  <option>{provinces.province}</option>
                 ))}
               </select>
             </div>
             <div className="form-group">
               <label>อำเภอ</label>
-              <select class="mdb-select" searchable="Search here..">
-                {district.map((district) => (
+              <select 
+                class="mdb-select" 
+                searchable="Search here.."
+                onChange={inputValue("district")}>
+                {alldistrict.map((district) => (
                   <option value={district.district}>{district.district}</option>
                 ))}
               </select>
