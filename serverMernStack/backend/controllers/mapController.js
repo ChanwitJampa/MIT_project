@@ -3,7 +3,9 @@ const asyncHandler = require('express-async-handler')
 const version = require('nodemon/lib/version')
 const axios = require('axios')
 
-
+const Map = require('../models/mapModel')
+const {objects} = require('./data/thailand.json')
+const { off } = require('../models/mapModel')
 
 //@desc Get Hospital
 //@route GET /api/hospitals/:id
@@ -88,8 +90,66 @@ const newTotalCase = asyncHandler(async(req,res)=>{
         }
 })
 
+const getDataAllProvince = asyncHandler(async (req, res) => {
+    let date = new Date()
+
+    //หาว่าใน data base มีวันนี้ยัง
+     const map = await Map.findOne({date:`${date.getDate()}`})
+
+    //console.log(objects.province.geometries)
+    var provinceData=[];
+
+
+        //ถ้าไม่มีก็สร้าง
+     if(!map) {
+        await axios.get(`https://covid19.ddc.moph.go.th/api/Cases/timeline-cases-by-provinces`).then((response) => {
+                
+                var x = response.data.length
+  
+                 var data =  response.data.slice(
+                x-79,
+                x-1
+              )
+            var lengthData =  data.length
+            var lenghtObjects = objects.province.geometries.length
+            console.log(`${lengthData}  ----  ${lenghtObjects}`)
+            for(var j=0 ; j < lenghtObjects ; j=j+1){
+                 for(var i=0 ; i < lengthData ; i=i+1){
+                    //console.log(`${data[i].province} +++ ${objects.province.geometries[j].properties.NAME_1}`)
+
+                    if(data[i].province === objects.province.geometries[j].properties.NAME_1){
+                        provinceData.push({
+                            provinceName:objects.province.geometries[j].properties.NAME_1,
+                            newcase:data[i].new_case
+                        })
+                        break;
+                    }
+                    else if(i==77){
+                        provinceData.push({
+                            provinceName:objects.province.geometries[j].properties.NAME_1,
+                            newcase:0
+                        })
+                    }
+                }
+            }
+        })
+        const newMapDate = await Map.create({
+            date:`${date.getDate()}`,
+            data: provinceData
+        })
+        res.status(200).json(newMapDate)
+            return;
+    }
+    else{
+        res.status(200).json(map)
+    }
+
+    res.status(400)
+    
+})
 
 
 module.exports = {
-    newTotalCase
+    newTotalCase,
+    getDataAllProvince
 }
