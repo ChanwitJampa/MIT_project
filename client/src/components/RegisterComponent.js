@@ -2,7 +2,7 @@ import NavbarComponent from "./NavbarComponent";
 import { useEffect, useState } from "react";
 import "./RegisterComponent.css";
 import axios from "axios";
-
+import Swal from "sweetalert2";
 const RegisterComponent=()=>{
     const [hospital,setHospital]=useState([])
     const [user,setUser]=useState({
@@ -27,6 +27,9 @@ const RegisterComponent=()=>{
     },[])
 
     const {firstName,lastName,idCard,email,password,hospitalName,hospitalID}=user
+    const inputValue=name=>event=>{
+        setUser({...user,[name]:event.target.value});
+    }
     const signupForm=(event)=>{
         event.preventDefault();
         axios.post(`http://localhost:5000/api/user`,{firstName,lastName,idCard,email,password,hospitalName,hospitalID}).then(res=>{
@@ -37,8 +40,12 @@ const RegisterComponent=()=>{
             idCard:"",
             email:"",
             password:"",
-            hospitalName:"",
+            hospitalName: hospital.hospitalID,
             hospitalID:""})
+
+            Swal.fire(
+                'ลงทะเบียนสำเร็จ',
+            )
         })
     }
 
@@ -53,27 +60,27 @@ const RegisterComponent=()=>{
 
                             <div className="form-group">
                                 <label>First name</label>
-                                <input type="text" className="form-control" placeholder="First name" />
+                                <input type="text" className="form-control" placeholder="First name" onChange={inputValue("firstName")}/>
                             </div>
 
                             <div className="form-group">
                                 <label>Last name</label>
-                                <input type="text" className="form-control" placeholder="Last name" />
+                                <input type="text" className="form-control" placeholder="Last name" onChange={inputValue("lastName")}/>
                             </div>
 
                             <div className="form-group">
                                 <label>ID card</label>
-                                <input type="text" className="form-control" placeholder="XXXXX-XXXXX-XXX" />
+                                <input type="text" className="form-control" placeholder="XXXXX-XXXXX-XXX" onChange={inputValue("idCard")}/>
                             </div>
 
                             <div className="form-group">
                                 <label>Email</label>
-                                <input type="email" className="form-control" placeholder="Enter email" />
+                                <input type="email" className="form-control" placeholder="Enter email" onChange={inputValue("email")}/>
                             </div>
 
                             <div className="form-group">
                                 <label>Password</label>
-                                <input type="password" className="form-control" placeholder="Enter password" />
+                                <input type="password" className="form-control" placeholder="Enter password" onChange={inputValue("password")}/>
                             </div>
 
                             <div className="form-group">
@@ -83,7 +90,7 @@ const RegisterComponent=()=>{
 
                             <div className="form-group">
                                 <label>Hospital</label>
-                                <select  aria-label="Default select example">
+                                <select  aria-label="Default select example" onChange={inputValue("hospitalID")}>
                                     <option selected disabled>Hospital</option>
                                     {hospital.map((hospital) => (
                                     <option value={hospital._id}>{hospital.hospitalName}</option>

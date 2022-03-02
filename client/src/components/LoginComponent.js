@@ -5,7 +5,6 @@ import "./LoginComponent.css";
 import axios from "axios";
 import Swal from "sweetalert2";
 const LoginComponent=()=>{
-
     const [user,setUser]=useState({
         email:"",
         password:""
@@ -28,12 +27,18 @@ const LoginComponent=()=>{
                     'Login success',
                 )
         })
-
-        Swal.fire(
-           'Login failed',
-           'Email or Password is wrong'
-          )
-
+        .catch((error)=>{
+            Swal.fire(
+                'Login failed',
+                'Email or Password is wrong'
+               )
+        })
+        /*if(status===0){
+            Swal.fire(
+                'Login failed',
+                'Email or Password is wrong'
+               )
+        }*/
     }
 
     return(
@@ -58,7 +63,7 @@ const LoginComponent=()=>{
                                 Don't have an account <Link to="/register" >Register</Link>
                             </p>
                             
-                            <button type="submit" className="btn btn-danger">Sign in</button>
+                            <button type="submit" className="btn btn-danger" >Sign in</button>
                         </form>
                     </div>
                 </div>
