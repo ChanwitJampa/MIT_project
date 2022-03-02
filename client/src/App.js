@@ -8,13 +8,23 @@ import { ComposableMap, Geography, Geographies } from "react-simple-maps";
 import { scaleSequential } from "d3-scale";
 import { interpolatePiYG } from "d3-scale-chromatic";
 import axios from "axios";
+import { Link, withRouter } from "react-router-dom";
 
 import MapChart from "./MapChart";
 
 import BarLoader from "react-spinners/BarLoader";
 
 import { Table, Header } from "semantic-ui-react";
-import { Icon, Button } from "semantic-ui-react";
+import { Icon } from "semantic-ui-react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import { virus-covid } from "@fortawesome/free-solid-svg-icons";
+import {
+  faAdd,
+  faHospital,
+  faSkullCrossbones,
+  faTrash,
+  faVirusCovid,
+} from "@fortawesome/free-solid-svg-icons";
 
 import {
   SmileTwoTone,
@@ -22,6 +32,106 @@ import {
   CheckCircleTwoTone,
   ClockCircleOutlined,
 } from "@ant-design/icons";
+
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend,
+} from "chart.js";
+import { Line } from "react-chartjs-2";
+
+import { faker } from "@faker-js/faker";
+import { Button } from "antd";
+
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend
+);
+
+const labels = [
+  "7วันที่่เเล้ว",
+  "6วันที่่เเล้ว",
+  "5วันที่่เเล้ว",
+  "4วันที่่เเล้ว",
+  "3วันที่่เเล้ว",
+  "2วันที่่เเล้ว",
+  "1วันที่่เเล้ว",
+];
+
+const data = {
+  labels,
+  datasets: [
+    {
+      label: "ผู้ติดเชื้อ ",
+      data: labels.map(() => faker.datatype.number({ min: -1000, max: 1000 })),
+      borderColor: "rgb(255, 99, 132)",
+      backgroundColor: "rgba(255, 99, 132, 0.5)",
+    },
+    {
+      label: "ผู้เสียชีวิต ",
+      data: labels.map(() => faker.datatype.number({ min: -1000, max: 1000 })),
+      borderColor: "rgb(53, 162, 235)",
+      backgroundColor: "rgba(53, 162, 235, 0.5)",
+    },
+  ],
+};
+const data2 = {
+  labels,
+  datasets: [
+    {
+      label: "ผู้ติดเชื้อ ",
+      data: labels.map(() => faker.datatype.number({ min: -1000, max: 1000 })),
+      borderColor: "rgb(255, 99, 132)",
+      backgroundColor: "rgba(255, 99, 132, 0.5)",
+    },
+    {
+      label: "ผู้เสียชีวิต ",
+      data: labels.map(() => faker.datatype.number({ min: -1000, max: 1000 })),
+      borderColor: "rgb(53, 162, 235)",
+      backgroundColor: "rgba(53, 162, 235, 0.5)",
+    },
+  ],
+};
+const data3 = {
+  labels,
+  datasets: [
+    {
+      label: "ผู้ติดเชื้อ ",
+      data: labels.map(() => faker.datatype.number({ min: -1000, max: 1000 })),
+      borderColor: "rgb(255, 99, 132)",
+      backgroundColor: "rgba(255, 99, 132, 0.5)",
+    },
+    {
+      label: "ผู้เสียชีวิต ",
+      data: labels.map(() => faker.datatype.number({ min: -1000, max: 1000 })),
+      borderColor: "rgb(53, 162, 235)",
+      backgroundColor: "rgba(53, 162, 235, 0.5)",
+    },
+  ],
+};
+
+const options = {
+  responsive: true,
+  plugins: {
+    legend: {
+      position: "bottom",
+    },
+    title: {
+      display: true,
+      text: "ยอดผู้ติดเชื้อเเละเสียชีวิตในประเทศไทย",
+    },
+  },
+};
 
 // function generateGdpPerCapita(geographies) {
 //   let minGdpPerCapita = Infinity;
@@ -57,6 +167,34 @@ function App() {
 
   let [loading, setLoading] = useState(false);
   let [color, setColor] = useState("#ffffff");
+
+  const Expire = (props) => {
+    const [visible, setVisible] = useState(false);
+
+    useEffect(() => {
+      setTimeout(() => {
+        setVisible(true);
+      }, props.delay);
+    }, [history]);
+
+    if (history != []) {
+      return visible ? (
+        <div className="space2">
+          <div className="chartRow">
+            <Line options={options} data={data} />;
+          </div>
+          <div className="chartRow">
+            <Line options={options} data={data2} />;
+          </div>
+          <div className="chartRow">
+            <Line options={options} data={data3} />;
+          </div>
+        </div>
+      ) : (
+        <div />
+      );
+    }
+  };
 
   const override = `
   display: block;
@@ -160,6 +298,9 @@ function App() {
 
     if (pName != "กรุณาเลือกจังหวัด") {
       setHistory([]);
+      console.log("HISTORY");
+      console.log(history[0]);
+      console.log("end");
       setLoading(true);
 
       setTimeout(() => {
@@ -186,7 +327,6 @@ function App() {
               Logout
             </Icon>
           </Button> */}
-
 
           <h1 className="provinceName">{pName}</h1>
           {/* <h1 className="provinceName">{hospital.province[0]}</h1> */}
@@ -220,6 +360,7 @@ function App() {
                 <th scope="col">ยอดตายล่าสุด</th>
                 <th scope="col">ยอดตายสะสม</th>
                 <th scope="col">วันที่อัพเดต</th>
+                <th scope="col">ปุ่ม</th>
               </tr>
             </thead>
             <tbody className="table-tbody">
@@ -241,14 +382,32 @@ function App() {
                     <td>{hospital.new_death}</td>
                     <td>{hospital.total_death}</td>
                     <td>{hospital.update_date}</td>
+                    <td>
+                      <Link
+                        to={`/hospital`}
+                        type="button"
+                        class="btn btn-primary"
+                        // style={{marginTop:"2rem"}}
+                      >
+                        <FontAwesomeIcon icon={faHospital} />
+                      </Link>
+                    </td>
                   </tr>
                 ))}
             </tbody>
           </table>
 
           <div className="space3">
-          <ClockCircleOutlined style={{fontSize:"3rem",color:"#FFF",marginBottom:"2rem",marginTop:"1rem"}}/>
-          {/* <h1 style={{fontSize:"1rem",color:"#FFF",marginBottom:"2rem"}}>ประวัติย้อนหลัง</h1> */}
+            <ClockCircleOutlined
+              style={{
+                fontSize: "3rem",
+                color: "#FFF",
+                marginBottom: "1rem",
+                marginTop: "1rem",
+              }}
+            />
+            <h1 className="historyHeader">ยอดย้อนหลัง</h1>
+            {/* <h1 style={{fontSize:"1rem",color:"#FFF",marginBottom:"2rem"}}>ประวัติย้อนหลัง</h1> */}
 
             <BarLoader
               className="loadingbar"
@@ -257,7 +416,6 @@ function App() {
               css={override}
               size={150}
             />
-            
           </div>
 
           {/* <div className="space1"></div> */}
@@ -265,12 +423,19 @@ function App() {
           {history.map((history) => (
             <div className="history">
               <div className="box1">
-
                 <h1 className="historyHeader">ยอดวันนี้</h1>
                 <h1 className="textHistory">
+                  <FontAwesomeIcon
+                    icon={faVirusCovid}
+                    style={{ marginRight: "1rem", color: "#74de49" }}
+                  />
                   ติดเชื้อ = {history.new_total_1}
                 </h1>
                 <h1 className="textHistory">
+                  <FontAwesomeIcon
+                    icon={faSkullCrossbones}
+                    style={{ marginRight: "1rem" }}
+                  />
                   เสียชีวิต = {history.death_total_1}
                 </h1>
               </div>
@@ -279,9 +444,17 @@ function App() {
                 <h1 className="historyHeader">ยอดย้อนหลัง 7 วัน</h1>
 
                 <h1 className="textHistory">
+                  <FontAwesomeIcon
+                    icon={faVirusCovid}
+                    style={{ marginRight: "1rem", color: "#74de49" }}
+                  />
                   ติดเชื้อ = {history.new_total_7}
                 </h1>
                 <h1 className="textHistory">
+                  <FontAwesomeIcon
+                    icon={faSkullCrossbones}
+                    style={{ marginRight: "1rem" }}
+                  />
                   เสียชีวิต = {history.death_total_7}
                 </h1>
               </div>
@@ -290,16 +463,28 @@ function App() {
                 <h1 className="historyHeader">ยอดย้อนหลัง 30 วัน</h1>
 
                 <h1 className="textHistory">
+                  <FontAwesomeIcon
+                    icon={faVirusCovid}
+                    style={{ marginRight: "1rem", color: "#74de49" }}
+                  />
                   ติดเชื้อ = {history.new_total_30}
                 </h1>
                 <h1 className="textHistory">
+                  <FontAwesomeIcon
+                    icon={faSkullCrossbones}
+                    style={{ marginRight: "1rem" }}
+                  />
                   เสียชีวิต = {history.death_total_30}
                 </h1>
               </div>
+
+              <div></div>
             </div>
           ))}
 
-          <div className="space2"></div>
+          <div className="chartBox">
+            <Expire delay="2000">Hooks are awesome!</Expire>
+          </div>
 
           {/* <div className="newTable">
             {history.map((history) => (
