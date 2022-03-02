@@ -375,7 +375,7 @@ function App() {
         {/* <MapChart setTooltipContent={setContent} onChange={ value => setpName(value)} /> */}
         {/* <MapChart setTooltipContent={setContent} changeWord={ word => setpName(word)} /> */}
         <MapChart setTooltipContent={setContent} props={setpName} />
-        <ReactTooltip>{content}</ReactTooltip>
+        <ReactTooltip class='mySepecialClass' backgroundColor={"crimson"} fontSize={"2rem"}>{content}</ReactTooltip>
         <div className="informationBox">
           <h1 className="headerInformation">
             ยอดข้อมูลผู้ติดเชื้อโควิดในแต่ละจังหวัด
@@ -550,9 +550,9 @@ function App() {
             </div>
           ))}
 
-          {/* <div className="chartBox">
+          <div className="chartBox">
             <Expire delay="2000">Hooks are awesome!</Expire>
-          </div> */}
+          </div>
 
           {/* <div className="newTable">
             {history.map((history) => (
