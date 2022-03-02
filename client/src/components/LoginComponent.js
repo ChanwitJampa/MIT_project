@@ -24,21 +24,15 @@ const LoginComponent=()=>{
                 email:"",
                 password:""})
                 Swal.fire(
-                    'Login success',
+                    'เข้าสู่ระบบสำเร็จ',
                 )
         })
         .catch((error)=>{
             Swal.fire(
-                'Login failed',
+                'เข้าสู่ระบบไม่สำเร็จ',
                 'Email or Password is wrong'
                )
         })
-        /*if(status===0){
-            Swal.fire(
-                'Login failed',
-                'Email or Password is wrong'
-               )
-        }*/
     }
 
     return(
