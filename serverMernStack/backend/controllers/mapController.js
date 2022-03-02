@@ -9,12 +9,12 @@ const axios = require('axios')
 //@route GET /api/hospitals/:id
 //@access Private
 const newTotalCase = asyncHandler(async(req,res)=>{
-    if(!req.body.provinceName){
+    if(!req.params.provinceName){
         res.status(400).send("give me province name")
         return;
        // throw new Error('give me a provinceName')
     }
-    var data ={
+    var data =[{
         new_total_1:"",
         new_total_7:"",
         new_total_30:"",
@@ -24,7 +24,7 @@ const newTotalCase = asyncHandler(async(req,res)=>{
         traveler_total_1:"",
         traveler_total_7:"",
         traveler_total_30:""
-    }
+    }]
      var check =0
      var count = 0;
      var new_total=0
@@ -34,7 +34,7 @@ const newTotalCase = asyncHandler(async(req,res)=>{
     const maxfindWithOutFound = 100
 
      var j=1
-    var name=req.body.provinceName
+    var name=req.params.provinceName
     await axios.get(`https://covid19.ddc.moph.go.th/api/Cases/timeline-cases-by-provinces`).then((response) => {
              var lengthData =  response.data.length
             for(var i=0;i< lengthData ;i=i+j){
@@ -60,28 +60,28 @@ const newTotalCase = asyncHandler(async(req,res)=>{
                     traveler_total=response.data[lengthData-1-i].new_case_excludeabroad + traveler_total
 
                     if(count==1){
-                        data.new_total_1 = new_total
-                        data.death_total_1 = death_total
-                        data.traveler_total_1 = new_total - traveler_total
+                        data[0].new_total_1 = new_total
+                        data[0].death_total_1 = death_total
+                        data[0].traveler_total_1 = new_total - traveler_total
                     }
                     else if(count==7){
-                        data.new_total_7 = new_total
-                        data.death_total_7 = death_total
-                        data.traveler_total_7 = new_total - traveler_total
+                        data[0].new_total_7 = new_total
+                        data[0].death_total_7 = death_total
+                        data[0].traveler_total_7 = new_total - traveler_total
                     }
                     else if(count==30){
-                        data.new_total_30 = new_total
-                        data.death_total_30 = death_total
-                        data.traveler_total_30 = new_total - traveler_total
+                        data[0].new_total_30 = new_total
+                        data[0].death_total_30 = death_total
+                        data[0].traveler_total_30 = new_total - traveler_total
                     }
 
                 }
             }
         })
         if(check==0){
-            res.status(400).send(`not have this province name ${req.body.provinceName}`)
+            res.status(400).send(`not have this province name ${req.params.provinceName}`)
             return;
-           // throw new Error(`Not have this province name ${req.body.provinceName}`)
+           // throw new Error(`Not have this province name ${req.params.provinceName}`)
         }else if(check==1){
             res.status(200).json(data)
             return;

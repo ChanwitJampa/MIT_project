@@ -11,6 +11,7 @@ const HospitalComponent = () => {
   const [hospital, setHospital] = useState([]);
   const [provinces, setProvinces] = useState([]);
   const [subDistrict,setSubDistrict] = useState([]);
+  const [searchHospital,setSearchHospital] =useState('');
   const [district, setDistrict] = useState([]);
   const fetchData = () => {
     axios
@@ -37,19 +38,10 @@ const HospitalComponent = () => {
         setDistrict(res.data.data);
       })
   }
-  const fetchSubDistrict=(pro)=>{
-    axios
-      .get(`https://thaiaddressapi-thaikub.herokuapp.com/v1/thailand/provinces/${pro}`)
-      .then((res)=>{
-        console.log(res.data.data.subdistrict);
-        setSubDistrict(res.data.data);
-      })
-  }
   //ใช้ useEffect ในการสั่งใช้งาน fetchData ทันทีที่เปิดหน้านี้ขึ้นมา
   useEffect(() => {
     fetchData();
     fetchDistrict("กระบี่");
-    fetchSubDistrict("กระบี่");
   }, []);
   //ลบโรงพยาบาล
   const confrimDelete = (id) => {
@@ -80,36 +72,37 @@ const HospitalComponent = () => {
         <h1>Hospital</h1>
         <div className="tap-top-select">
           <div className="tap-top-select-in">
-
             <div className="tap-select">
               <select class="mdb-select " searchable="Search here.." onChange={(event)=>{                      
                 console.log(event.target.value) ;
-                fetchDistrict(event.target.value);  
-                fetchSubDistrict(event.target.value);    
+                fetchDistrict(event.target.value);
+                setSearchHospital(event.target.value)  
                 }}>
+                  <option selected disabled>เลือกจังหวัด</option>
                 {provinces.map((provinces) => (
                   <option value={provinces.province}>{provinces.province}</option>
                 ))}
               </select>
             </div>
             <div className="tap-select">
-              <select class="mdb-select" searchable="Search here..">
+              <select class="mdb-select" searchable="Search here.." onChange={(event)=>{
+                setSearchHospital(event.target.value)
+              }}>
+                <option selected disabled>เลือกอำเภอ</option>
                 {district.map((district) => (
                   <option value={district.district}>{district.district}</option>
                 ))}
               </select>
             </div>
-            <div className="tap-select">
-              <select class="mdb-select" searchable="Search here..">
-                {subDistrict.map((subDistrict) => (
-                  <option>{subDistrict.subdistrict}</option>
-                ))}
-              </select>
-            </div>
           </div>
           <div className="search">
-            <input type="search" placeholder="ค้นหา..." />
-          </div>
+            <input 
+            type="search" 
+            placeholder="ค้นหา..." 
+            onChange={(event)=>{
+              setSearchHospital(event.target.value);
+            }}/>
+        </div>
         </div>
 
         <table class="table" style={{ backgroundColor: "#FFFFFF" }}>
@@ -123,7 +116,16 @@ const HospitalComponent = () => {
             </tr>
           </thead>
           <tbody className="table-tbody">
-            {hospital.map((hospital) => (
+            {hospital.filter((hospital)=>{
+              if(searchHospital==''){
+                return hospital
+              }
+              else if(hospital.hospitalName.toString().includes(searchHospital)
+              ||hospital.district.toString().includes(searchHospital)
+              ||hospital.province.toString().includes(searchHospital)){
+                return hospital
+              }
+            }).map((hospital) => (
               <tr>
                 <td scope="row">{hospital.hospitalName}</td>
                 <td>{hospital.district}</td>
