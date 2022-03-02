@@ -68,6 +68,48 @@ const labels = [
   "1วันที่่เเล้ว",
 ];
 
+const labels2 = [
+  "30วันที่่เเล้ว",
+  "29วันที่่เเล้ว",
+  "28วันที่่เเล้ว",
+  "27วันที่่เเล้ว",
+  "26วันที่่เเล้ว",
+  "25วันที่่เเล้ว",
+  "24วันที่่เเล้ว",
+  "23วันที่่เเล้ว",
+  "22วันที่่เเล้ว",
+  "21วันที่่เเล้ว",
+  "19วันที่่เเล้ว",
+  "18วันที่่เเล้ว",
+  "17วันที่่เเล้ว",
+  "16วันที่่เเล้ว",
+  "15วันที่่เเล้ว",
+  "14วันที่่เเล้ว",
+  "13วันที่่เเล้ว",
+  "12วันที่่เเล้ว",
+  "11วันที่่เเล้ว",
+  "10วันที่่เเล้ว",
+  "9วันที่่เเล้ว",
+  "8วันที่่เเล้ว",
+  "7วันที่่เเล้ว",
+  "6วันที่่เเล้ว",
+  "5วันที่่เเล้ว",
+  "4วันที่่เเล้ว",
+  "3วันที่่เเล้ว",
+  "2วันที่่เเล้ว",
+  "1วันที่่เเล้ว",
+];
+
+const labels3 = [
+  "7วันที่่เเล้ว",
+  "6วันที่่เเล้ว",
+  "5วันที่่เเล้ว",
+  "4วันที่่เเล้ว",
+  "3วันที่่เเล้ว",
+  "2วันที่่เเล้ว",
+  "1วันที่่เเล้ว",
+];
+
 const data = {
   labels,
   datasets: [
@@ -90,13 +132,13 @@ const data2 = {
   datasets: [
     {
       label: "ผู้ติดเชื้อ ",
-      data: labels.map(() => faker.datatype.number({ min: -1000, max: 1000 })),
+      data: labels2.map(() => faker.datatype.number({ min: -1000, max: 1000 })),
       borderColor: "rgb(255, 99, 132)",
       backgroundColor: "rgba(255, 99, 132, 0.5)",
     },
     {
       label: "ผู้เสียชีวิต ",
-      data: labels.map(() => faker.datatype.number({ min: -1000, max: 1000 })),
+      data: labels2.map(() => faker.datatype.number({ min: -1000, max: 1000 })),
       borderColor: "rgb(53, 162, 235)",
       backgroundColor: "rgba(53, 162, 235, 0.5)",
     },
@@ -107,13 +149,13 @@ const data3 = {
   datasets: [
     {
       label: "ผู้ติดเชื้อ ",
-      data: labels.map(() => faker.datatype.number({ min: -1000, max: 1000 })),
+      data: labels3.map(() => faker.datatype.number({ min: -1000, max: 1000 })),
       borderColor: "rgb(255, 99, 132)",
       backgroundColor: "rgba(255, 99, 132, 0.5)",
     },
     {
       label: "ผู้เสียชีวิต ",
-      data: labels.map(() => faker.datatype.number({ min: -1000, max: 1000 })),
+      data: labels3.map(() => faker.datatype.number({ min: -1000, max: 1000 })),
       borderColor: "rgb(53, 162, 235)",
       backgroundColor: "rgba(53, 162, 235, 0.5)",
     },
@@ -168,16 +210,29 @@ function App() {
   let [loading, setLoading] = useState(false);
   let [color, setColor] = useState("#ffffff");
 
+  const [visible, setVisible] = useState(true);
+
+  const onClick = () => {
+
+    setVisible(true);
+    console.log("KGFDKLJGDFJLKGFLKJGLKDJFKLGJ");
+
+  }
+
+
   const Expire = (props) => {
-    const [visible, setVisible] = useState(false);
+
+    const [firstime, setfirstime] = useState(0);
 
     useEffect(() => {
       setTimeout(() => {
         setVisible(true);
+        setfirstime(1);
       }, props.delay);
     }, [history]);
 
-    if (history != []) {
+
+    if (firstime != 0) {
       return visible ? (
         <div className="space2">
           <div className="chartRow">
@@ -191,8 +246,12 @@ function App() {
           </div>
         </div>
       ) : (
-        <div />
+        <h1>test</h1>
       );
+    }
+    if (firstime === 0)
+    {
+      return <div></div>;
     }
   };
 
@@ -438,6 +497,15 @@ function App() {
                   />
                   เสียชีวิต = {history.death_total_1}
                 </h1>
+                {/* <Link
+                        to={`/`}
+                        type="button"
+                        class="btn btn-primary"
+                        onClick={onClick}
+                        // style={{marginTop:"2rem"}}
+                      >
+                        <FontAwesomeIcon icon={faHospital} />
+                      </Link> */}
               </div>
 
               <div className="box2">
@@ -482,9 +550,9 @@ function App() {
             </div>
           ))}
 
-          <div className="chartBox">
+          {/* <div className="chartBox">
             <Expire delay="2000">Hooks are awesome!</Expire>
-          </div>
+          </div> */}
 
           {/* <div className="newTable">
             {history.map((history) => (
