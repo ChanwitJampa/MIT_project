@@ -65,10 +65,12 @@ const AnnounceComponent=()=>{
                         </select>
                     </div>
                     <div className="tap-select">
-                            <select aria-label="Default select example">
+                            <select aria-label="Default select example" onChange={(event)=>{
+                                setSearchAnnounce(event.target.value)
+                                }}>
                             <option elected disabled>เลือกประเภทการลงทะเบียน</option>
-                            <option value="1">Register</option>
-                            <option value="2">Walk in</option>
+                            <option value="register">Register</option>
+                            <option value="walkin">Walk in</option>
                         </select>
                     </div>
                     <div className="tap-select">
@@ -118,7 +120,8 @@ const AnnounceComponent=()=>{
                     }
                     else if(announce.hospitalName.toString().includes(searchAnnounce)||
                     announce.vaccinationSite.toString().includes(searchAnnounce)||
-                    announce.numberPeople.toString().includes(searchAnnounce)
+                    announce.numberPeople.toString().includes(searchAnnounce)||
+                    announce.registrationType.toString().includes(searchAnnounce)
                     )
                     {
                         return announce
@@ -126,8 +129,12 @@ const AnnounceComponent=()=>{
                 }).map((announce)=>(
                     
                 <div className="text-box">
-                    <div className="text-line">
-                        <div style={{padding:"10px"}}><h3>{announce.hospitalName}</h3>
+                    <div className="text-header">
+                        <div style={{padding:"10px"}}>
+                            <h3>{announce.hospitalName}</h3>
+                        </div>
+                        <div style={{padding:"10px"}}>
+                            <h1 style={{color:"#B00020"}}>{announce.registrationType}</h1>
                         </div>
                     </div>
                     <div className="text-line">

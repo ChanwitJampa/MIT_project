@@ -55,6 +55,7 @@ const AddAnnounceComponent=()=>{
                     <label>เวลารอบบ่าย</label>
                     <input type="time"  onChange={inputValue("vaccinationSite")}/>
                     </div>
+                    
                     <div className="text-line">
                         <p>วัคซีน</p>
                         <div className="tap-top-select-in">

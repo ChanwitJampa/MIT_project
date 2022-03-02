@@ -15,6 +15,7 @@ const EditHospitalComponent=(props)=>{
         .catch(err=>alert(err))
         // eslint-disable-next-line
     },[])
+    const [allprovinces, setAllProvinces] = useState([]);
     const [state,setState]=useState({
       __id:"",
       hospitalName:"",
@@ -75,6 +76,7 @@ const EditHospitalComponent=(props)=>{
                               <option value="นครปฐม">นครปฐม</option>
                               <option value="กาญจนบุรี">กาญจนบุรี</option>
                       </select>
+                      
                 </div>
                 <div className="form-group">
                     <label>อำเภอ</label>

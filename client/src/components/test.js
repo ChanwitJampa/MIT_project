@@ -117,11 +117,13 @@ const AddHospitalComponent = () => {
               <select
                 class="mdb-select "
                 searchable="Search here.."
+    
                 onChange={(event) => {
                   console.log("province = "+event.target.value);
                   setProvince(event.target.value);
                   fetchDistrict(event.target.value);
-                }}>
+                }}
+              >
                 {allprovinces.map((provinces) => (
                   <option value={provinces.province}>{provinces.province}</option>
                 ))}
@@ -132,6 +134,7 @@ const AddHospitalComponent = () => {
               <select 
                 class="mdb-select" 
                 searchable="Search here.."
+                value={district}
                 onChange={inputValue("district")}>
                 {alldistrict.map((district) => (
                   <option value={district.district}>{district.district}</option>
