@@ -1,8 +1,8 @@
 const express = require('express')
 const router = express.Router()
-const { newTotalCase } = require('../controllers/mapController')
+const { newTotalCase,getDataAllProvince } = require('../controllers/mapController')
 
-
+router.route('/').get(getDataAllProvince)
 router.route('/:provinceName').get(newTotalCase)
 
 
