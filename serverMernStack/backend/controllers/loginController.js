@@ -33,7 +33,7 @@ const login = asyncHandler(async (req, res) => {
             const token = jwt.sign(
                 { user_id: user._id, email ,role:oldUser.role},
                 process.env.TOKEN_KEY, {
-                expiresIn: "24h"
+                expiresIn: "20s"
             })
             //if want to deselect _id await User.findOne({ email }, '-_id')
             oldUser.token = token

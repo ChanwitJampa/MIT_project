@@ -47,14 +47,14 @@ const setUser = asyncHandler(async (req, res) => {
         password: encryptedPassword,
         hospitalName: req.body.hospitalName,
         hospitalID: req.body.hospitalID,
-        role: req.body.role === undefined ? "user" : req.body.role
+        role: req.body.role === undefined ? "hospital" : req.body.role
     })
 
     //create token
     const token = jwt.sign(
         { user_id: user._id, email,role:oldUser.role},
         process.env.TOKEN_KEY, {
-        expiresIn: "2h"
+        expiresIn: "24h"
     }
     )
 
