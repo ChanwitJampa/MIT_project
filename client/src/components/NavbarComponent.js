@@ -1,7 +1,7 @@
 import {Link,withRouter} from "react-router-dom";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import { getUser,logout } from "../servies/authorize";
-import {faArrowRightFromBracket, faBullhorn, faHome, faHospital, faMap, faPlus, faRegistered, faSyringe } from "@fortawesome/free-solid-svg-icons";
+import { getRole, getUser,logout } from "../servies/authorize";
+import {faArrowRightFromBracket, faBullhorn, faHome, faHospital, faMap, faPlus, faRegistered, faSyringe, faUser } from "@fortawesome/free-solid-svg-icons";
 //import { getUser,logout } from "../servies/authorize";
 import './NavbarComponent.css';
 const NavbarComponent=(props)=>{
@@ -26,23 +26,27 @@ const NavbarComponent=(props)=>{
                 </li>
                 {!getUser() &&(
                     <li>
-                        <Link to="/login" className="navbar-link"><FontAwesomeIcon icon={faArrowRightFromBracket} className="navbar-icon"/>Login</Link>
+                        <Link to="/login" className="navbar-link"><FontAwesomeIcon icon={faUser} className="navbar-icon"/>Login</Link>
                     </li>
                     )
                 }
                 {getUser() &&(
-                    <li className="nav-item pt-3 pb-3">
-                        <button onClick={()=>logout(()=>props.history.push("/"))} className="navvbar-link">Logout</button>
+                    <li>
+                        <a onClick={()=>logout(()=>props.history.push("/login"))} className="navbar-link"><FontAwesomeIcon icon={faArrowRightFromBracket} className="navbar-icon"/>Logout</a>
                     </li>
                 )
                 }
                 </ul>
             </div>
-    <div class="sidenav">
-        <Link to="/addannounce" className="sidenav-link"><FontAwesomeIcon icon={faSyringe} className="sidenav-icon"/>เพิ่มประกาศวัคซีน</Link>
-        <Link to="/hospital" className="sidenav-link"><FontAwesomeIcon icon={faHospital} className="sidenav-icon"/>จัดการโรงพยาบาล</Link>
-        <Link to="/addhospital" className="sidenav-link"><FontAwesomeIcon icon={faPlus} className="sidenav-icon"/>เพิ่มโรงพยาบาล</Link>
-    </div>
+        {getRole() &&(
+            <div class="sidenav">
+                <Link to="/addannounce" className="sidenav-link"><FontAwesomeIcon icon={faSyringe} className="sidenav-icon"/>เพิ่มประกาศวัคซีน</Link>
+                <Link to="/hospital" className="sidenav-link"><FontAwesomeIcon icon={faHospital} className="sidenav-icon"/>จัดการโรงพยาบาล</Link>
+                <Link to="/addhospital" className="sidenav-link"><FontAwesomeIcon icon={faPlus} className="sidenav-icon"/>เพิ่มโรงพยาบาล</Link>
+            </div>
+        )
+        }
+    
     </div>
         
     );
