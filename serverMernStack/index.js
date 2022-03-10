@@ -8,6 +8,8 @@ const auth = require('./backend/middleware/auth')
 
 const multer = require('multer');
 
+const jwt= require('jsonwebtoken')
+const config = process.env
 
 connectDB()
 
@@ -28,19 +30,30 @@ app.use('/api/hospitals', require('./backend/routes/hospitalsRoutes'))
 app.use('/api/announces', require('./backend/routes/announceRoutes'))
 app.use('/api/Users', require('./backend/routes/userRouters'))
 app.use('/api/login', require('./backend/routes/loginRouters'))
-
 app.use('/api/map', require('./backend/routes/mapRoutes'))
 
 
 
-// app.post('/api/sayHello', (request, response) => {
-//     let a = request.body.a;
-//     let b = request.body.b;
+app.post('/api/authen', (req, res) => {
+    const authHeader = JSON.stringify(req.headers.authorization)
+    const token = authHeader.substring(8, authHeader.length-1);
+    try{
+        const decode= jwt.verify(token, config.TOKEN_KEY)
+        req.user=decode
+        res.status(200).json(decode)
+    }catch(err){
+        res.status(401)
+        throw new Error('invalid token')
+    }
 
-//     let c = parseInt(a) + parseInt(b);
-//     response.send('Result : '+c);
-//     console.log('Result : '+c);
-// });
+    if(!authHeader){
+        res.status(403)
+        throw new Error("A token is required for authentication")
+    }
+    
+});
+
+
 
 
 app.use(errorHandler)

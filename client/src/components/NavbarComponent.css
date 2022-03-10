@@ -83,6 +83,7 @@ body{
     display: flex;
     align-items: center;
     color: #FFFFFF;
+    cursor: pointer;
 }
 .navbar-link:hover, .navbar-logolink:hover{
     color: #111;
