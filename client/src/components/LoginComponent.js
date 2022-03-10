@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react";
-import {Link} from "react-router-dom";
 import NavbarComponent from "./NavbarComponent";
+import {Link,withRouter} from "react-router-dom";
 import "./LoginComponent.css";
 import axios from "axios";
 import Swal from "sweetalert2";
-const LoginComponent=()=>{
+import { authenticate } from "../servies/authorize";
+const LoginComponent=(props)=>{
     const [user,setUser]=useState({
         email:"",
-        password:""
+        password:"",
     })
     const {email,password}=user
     const inputValue=name=>event=>{
@@ -20,17 +21,15 @@ const LoginComponent=()=>{
             console.log(res.data)
             setUser(res.data)
             console.log(user)
-            setUser({...user,
-                email:"",
-                password:""})
-                Swal.fire(
-                    'เข้าสู่ระบบสำเร็จ',
-                )
+            //การยืนยันตัวตน
+            authenticate(res,()=>props.history.push("/"))
         })
-        .catch((error)=>{
+        .catch(err=>{
             Swal.fire(
                 'เข้าสู่ระบบไม่สำเร็จ',
-                'Email or Password is wrong'
+                'Email or Password is wrong',
+                'error',
+                err.response.data.error,
                )
         })
     }
@@ -65,4 +64,4 @@ const LoginComponent=()=>{
         </div>
     )
 }
-export default LoginComponent;
+export default withRouter(LoginComponent);

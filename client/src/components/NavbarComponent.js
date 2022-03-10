@@ -1,5 +1,6 @@
 import {Link,withRouter} from "react-router-dom";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import { getUser,logout } from "../servies/authorize";
 import {faArrowRightFromBracket, faBullhorn, faHome, faHospital, faMap, faPlus, faRegistered, faSyringe } from "@fortawesome/free-solid-svg-icons";
 //import { getUser,logout } from "../servies/authorize";
 import './NavbarComponent.css';
@@ -21,16 +22,20 @@ const NavbarComponent=(props)=>{
                     <Link to="/announce" className="navbar-link"><FontAwesomeIcon icon={faBullhorn} className="navbar-icon"/>Announce</Link>
                 </li>
                 <li>
-                    <Link to="/login" className="navbar-link"><FontAwesomeIcon icon={faArrowRightFromBracket} className="navbar-icon"/>Login</Link>
-                </li>
-                <li>
                     <Link to="/register" className="navbar-link"><FontAwesomeIcon icon={faRegistered} className="navbar-icon"/>Register</Link>
                 </li>
-                {/* 
-                    <li className="nav-item pt-3 pb-3">
-                        <button onClick={()=>logout(()=>props.history.push("/"))} className="nav-link">Logout</button>
+                {!getUser() &&(
+                    <li>
+                        <Link to="/login" className="navbar-link"><FontAwesomeIcon icon={faArrowRightFromBracket} className="navbar-icon"/>Login</Link>
                     </li>
-                */}
+                    )
+                }
+                {getUser() &&(
+                    <li className="nav-item pt-3 pb-3">
+                        <button onClick={()=>logout(()=>props.history.push("/"))} className="navvbar-link">Logout</button>
+                    </li>
+                )
+                }
                 </ul>
             </div>
     <div class="sidenav">
