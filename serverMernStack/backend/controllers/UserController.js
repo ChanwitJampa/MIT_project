@@ -22,10 +22,11 @@ const getUsers = asyncHandler(async (req, res) => {
 const setUser = asyncHandler(async (req, res) => {
 
     const { email, password } = req.body
-
+    var oldUser
 
     if (email) {
-        const oldUser = await User.findOne({ email })
+        oldUser = await User.findOne({ email })
+        
         if (oldUser) {
             res.status(400)
             throw new Error('email user is aleady use')
@@ -35,7 +36,7 @@ const setUser = asyncHandler(async (req, res) => {
         res.status(400)
         throw new Error(' please add email value')
     }
-
+    oldUser = await User.findOne({ email }).select('+role')
     encryptedPassword = await bcrypt.hash(password, 10)
 
     const user = await User.create({
@@ -51,7 +52,7 @@ const setUser = asyncHandler(async (req, res) => {
 
     //create token
     const token = jwt.sign(
-        { user_id: user._id, email },
+        { user_id: user._id, email,role:oldUser.role},
         process.env.TOKEN_KEY, {
         expiresIn: "2h"
     }
@@ -60,7 +61,7 @@ const setUser = asyncHandler(async (req, res) => {
     //save user token
     user.token = token
 
-    oldUser = await User.findOne({ email })
+    
     res.status(200).json(oldUser)
 
 })
