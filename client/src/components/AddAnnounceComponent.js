@@ -15,6 +15,8 @@ const AddAnnounceComponent=()=>{
         
     }
     const {hospitalID,hospitalName,vaccinationSite,DateStart,DateEnd,numberPeople,vaccine,registrationType,linkRegistration,image,more}=state
+
+
     return(
         <div>
             <NavbarComponent/>
@@ -22,6 +24,9 @@ const AddAnnounceComponent=()=>{
                 <h1>เขียนประกาศ</h1>
                 <div className="content-box">
                     <h4>โรงพยาบาล</h4>
+                    <form>
+
+                    
                     <div className="form-group">
                         <input type="text" value={hospitalName} className="form-control" disabled/>
                     </div>
@@ -110,7 +115,9 @@ const AddAnnounceComponent=()=>{
                     <label>ประกาศเพิ่มเติม</label>
                     <input type="text" className="form-control" onChange={inputValue("more")} />
                     </div>
-                    
+                    <br/>
+                    <button type="submit" className="button-announce"><FontAwesomeIcon icon={faAdd}/>Add announce</button>
+                    </form>
                 </div>
             </div>
         </div>
