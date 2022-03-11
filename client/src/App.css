@@ -43,8 +43,8 @@
   justify-content: center;
   align-items: center;
   margin-top: 8rem;
-  margin-right: 15rem;
-  width: 150rem;
+  margin-right: 5rem;
+  width: 120rem;
   height: 100%;
   background-color: crimson;
   z-index: 0;
@@ -53,15 +53,21 @@
 }
 
 .headerInformation{
-  margin-top: 5rem;
+  margin-top: 3rem;
   color: #FFF;
+  font-size: 2rem;
+}
+
+.headerInformation2{
+  color: #FFF;
+  font-size: 1rem;
 }
 
 .provinceName{
   color: #FFF;
   font-weight: bold;
-  font-size: 5rem;
-  margin-top: 5rem;
+  font-size: 3rem;
+  margin-top: 2rem;
   margin-bottom: 2rem;
 }
 
@@ -73,7 +79,7 @@
 .history{
   /* margin-top: 10rem; */
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   /* margin-left: ; */
   align-self: center;
   justify-content: center;
@@ -82,7 +88,12 @@
 
 .historyHeader{
   color: #FFF;
-  font-size: 2rem;
+  font-size: 1.5rem;
+}
+
+.historyHeader2{
+  color: #FFF;
+  font-size: 1rem;
 }
 
 .textHistory{
@@ -91,20 +102,49 @@
 }
 
 .box1{
-margin: 4rem;
-text-align: start;
+  display: flex;
+  flex-direction: row;
+  /* margin: 4rem; */
+  margin-bottom: 2rem;
+  text-align: start;
 }
 
 .box2{
-  margin: 4rem;
+  display: flex;
+  flex-direction: row;
+  /* margin: 4rem; */
   text-align: start;
 
 }
 
 .box3{
-  margin: 4rem;
+  display: flex;
+  flex-direction: row;
+  /* margin: 4rem; */
   text-align: start;
 
+}
+
+.boxa{
+  
+}
+.boxb{
+  margin-left: 5rem;
+  text-align: center;
+}
+.boxc{
+  
+}
+.boxd{
+  margin-left: 5rem;
+  text-align: center;
+}
+.boxe{
+  
+}
+.boxf{
+  margin-left: 5rem;
+  text-align: center;
 }
 
 .loadingbar{
@@ -135,8 +175,8 @@ text-align: start;
 }
 
 .chartRow{
-  height: 10rem;
-  width: 20rem;
+  height: 20rem;
+  width: 30rem;
 background-color: #FFF;
 margin: 1rem;
 

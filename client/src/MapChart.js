@@ -35,9 +35,9 @@ const MapChart = ({ setTooltipContent, props }) => {
                   geography={geo}
                   onMouseEnter={() => {
                     const { NAME_1, ID_1 } = geo.properties;
-                    setpName(NAME_1);
-                    console.log("hover:");
-                    console.log({pName});
+                    // setpName(NAME_1);
+                    // console.log("hover:");
+                    // console.log({pName});
                     // props = pName;
 
                     // setTooltipContent(`${NAME_1} — ${(ID_1)}`);

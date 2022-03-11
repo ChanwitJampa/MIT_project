@@ -39,6 +39,7 @@ import {
   LinearScale,
   PointElement,
   LineElement,
+  BarElement,
   Title,
   Tooltip,
   Legend,
@@ -46,19 +47,21 @@ import {
 import { Line } from "react-chartjs-2";
 
 import { faker } from "@faker-js/faker";
-import { Button } from "antd";
+import { Button, Radio } from "antd";
+import "antd/dist/antd.css";
 
 ChartJS.register(
   CategoryScale,
   LinearScale,
   PointElement,
   LineElement,
+  BarElement,
   Title,
   Tooltip,
   Legend
 );
 
-const labels = [
+const labels2 = [
   "7วันที่่เเล้ว",
   "6วันที่่เเล้ว",
   "5วันที่่เเล้ว",
@@ -68,7 +71,7 @@ const labels = [
   "1วันที่่เเล้ว",
 ];
 
-const labels2 = [
+const labels = [
   "30วันที่่เเล้ว",
   "29วันที่่เเล้ว",
   "28วันที่่เเล้ว",
@@ -114,31 +117,43 @@ const data = {
   labels,
   datasets: [
     {
+      type: 'bar',
       label: "ผู้ติดเชื้อ ",
-      data: labels.map(() => faker.datatype.number({ min: -1000, max: 1000 })),
+      data: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
       borderColor: "rgb(255, 99, 132)",
       backgroundColor: "rgba(255, 99, 132, 0.5)",
     },
     {
+      type: 'line',
       label: "ผู้เสียชีวิต ",
-      data: labels.map(() => faker.datatype.number({ min: -1000, max: 1000 })),
+      data: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
       borderColor: "rgb(53, 162, 235)",
       backgroundColor: "rgba(53, 162, 235, 0.5)",
     },
   ],
 };
+
 const data2 = {
-  labels,
+  labels : ["7วันที่่เเล้ว",
+  "6วันที่่เเล้ว",
+  "5วันที่่เเล้ว",
+  "4วันที่่เเล้ว",
+  "3วันที่่เเล้ว",
+  "2วันที่่เเล้ว",
+  "1วันที่่เเล้ว",],
   datasets: [
     {
+      type: 'bar',
+
       label: "ผู้ติดเชื้อ ",
-      data: labels2.map(() => faker.datatype.number({ min: -1000, max: 1000 })),
+      data: labels.map(() => faker.datatype.number({ min: 0, max: 5000 })),
       borderColor: "rgb(255, 99, 132)",
       backgroundColor: "rgba(255, 99, 132, 0.5)",
     },
     {
+      type: 'line',
       label: "ผู้เสียชีวิต ",
-      data: labels2.map(() => faker.datatype.number({ min: -1000, max: 1000 })),
+      data: labels.map(() => faker.datatype.number({ min: 0, max: 10 })),
       borderColor: "rgb(53, 162, 235)",
       backgroundColor: "rgba(53, 162, 235, 0.5)",
     },
@@ -148,14 +163,16 @@ const data3 = {
   labels,
   datasets: [
     {
+      type: 'bar',
       label: "ผู้ติดเชื้อ ",
-      data: labels3.map(() => faker.datatype.number({ min: -1000, max: 1000 })),
+      data: labels.map(() => faker.datatype.number({ min: 0, max: 10000 })),
       borderColor: "rgb(255, 99, 132)",
       backgroundColor: "rgba(255, 99, 132, 0.5)",
     },
     {
+      type: 'line',
       label: "ผู้เสียชีวิต ",
-      data: labels3.map(() => faker.datatype.number({ min: -1000, max: 1000 })),
+      data: labels.map(() => faker.datatype.number({ min: 0, max: 100 })),
       borderColor: "rgb(53, 162, 235)",
       backgroundColor: "rgba(53, 162, 235, 0.5)",
     },
@@ -210,18 +227,22 @@ function App() {
   let [loading, setLoading] = useState(false);
   let [color, setColor] = useState("#ffffff");
 
-  const [visible, setVisible] = useState(true);
-
+  
   const onClick = () => {
-
     setVisible(true);
     console.log("KGFDKLJGDFJLKGFLKJGLKDJFKLGJ");
-
+  };
+  
+  const [day, setDay] = useState(1);
+  
+  function onChange(e) {
+    console.log(`radio checked:${e.target.value}`);
+    setDay(e);
   }
 
-
+  const [visible, setVisible] = useState(false);
+  
   const Expire = (props) => {
-
     const [firstime, setfirstime] = useState(0);
 
     useEffect(() => {
@@ -231,16 +252,59 @@ function App() {
       }, props.delay);
     }, [history]);
 
-
     if (firstime != 0) {
       return visible ? (
         <div className="space2">
           <div className="chartRow">
             <Line options={options} data={data} />;
           </div>
+        </div>
+      ) : (
+        <h1>test</h1>
+      );
+    }
+    if (firstime === 0) {
+      return <div></div>;
+    }
+  };
+  const Expire2 = (props) => {
+    const [firstime, setfirstime] = useState(0);
+
+    useEffect(() => {
+      setTimeout(() => {
+        setVisible(true);
+        setfirstime(1);
+      }, props.delay);
+    }, [history]);
+
+    if (firstime != 0) {
+      return visible ? (
+        <div className="space2">
           <div className="chartRow">
             <Line options={options} data={data2} />;
           </div>
+        </div>
+      ) : (
+        <h1>test</h1>
+      );
+    }
+    if (firstime === 0) {
+      return <div></div>;
+    }
+  };
+  const Expire3 = (props) => {
+    const [firstime, setfirstime] = useState(0);
+
+    useEffect(() => {
+      setTimeout(() => {
+        setVisible(true);
+        setfirstime(1);
+      }, props.delay);
+    }, [history]);
+
+    if (firstime != 0) {
+      return visible ? (
+        <div className="space2">
           <div className="chartRow">
             <Line options={options} data={data3} />;
           </div>
@@ -249,8 +313,7 @@ function App() {
         <h1>test</h1>
       );
     }
-    if (firstime === 0)
-    {
+    if (firstime === 0) {
       return <div></div>;
     }
   };
@@ -326,6 +389,14 @@ function App() {
     //     .catch((err) => alert(err));
   };
 
+  let new_1 ;
+  let new_7 ;
+  let new_30 ;
+
+  let death_1 ;
+  let death_7 ;
+  let death_30 ;
+
   const pullHistory = (pName) => {
     if (pName != "กรุณาเลือกจังหวัด") {
       axios
@@ -356,18 +427,22 @@ function App() {
     // console.log(history[0])
 
     if (pName != "กรุณาเลือกจังหวัด") {
-      setHistory([]);
-      console.log("HISTORY");
-      console.log(history[0]);
-      console.log("end");
+      // setHistory([]);
+      // console.log("HISTORY");
+      // console.log(history);
+      // console.log("end");
       setLoading(true);
+      console.log("load");
 
       setTimeout(() => {
         setLoading(false);
+        console.log("load2");
       }, 2000);
     }
   }, [pName]);
 
+
+  
   return (
     <div className="container2">
       <NavbarComponent />
@@ -375,10 +450,19 @@ function App() {
         {/* <MapChart setTooltipContent={setContent} onChange={ value => setpName(value)} /> */}
         {/* <MapChart setTooltipContent={setContent} changeWord={ word => setpName(word)} /> */}
         <MapChart setTooltipContent={setContent} props={setpName} />
-        <ReactTooltip class='mySepecialClass' backgroundColor={"crimson"} fontSize={"2rem"}>{content}</ReactTooltip>
+        <ReactTooltip
+          class="mySepecialClass"
+          backgroundColor={"crimson"}
+          fontSize={"2rem"}
+        >
+          {content}
+        </ReactTooltip>
         <div className="informationBox">
           <h1 className="headerInformation">
-            ยอดข้อมูลผู้ติดเชื้อโควิดในแต่ละจังหวัด
+            ยอดข้อมูลผู้ติดเชื้อโควิดของประเทศไทย
+          </h1>
+          <h1 className="headerInformation2">
+            ข้อมูลตั้งเเต่ เมษายน 2564 - ปัจจุบัน
           </h1>
 
           {/* <Button color="red" basic icon>
@@ -405,14 +489,14 @@ function App() {
             className="tableprovince"
             style={{
               backgroundColor: "#FFFFFF",
-              paddingRight: "50rem",
-              paddingLeft: "50rem",
+              paddingRight: "40rem",
+              paddingLeft: "40rem",
             }}
           >
             <thead className="table-thead">
               <tr>
                 <th scope="col">ชื่อจังหวัด</th>
-                <th scope="col">วันที่ประกาศ</th>
+                <th scope="col">วันที่ลงประกาศ</th>
                 <th scope="col">เคสใหม่</th>
                 <th scope="col">เคสทั้งหมด</th>
                 <th scope="col">ผู้ป่วยจากต่างประเทศ</th>
@@ -459,14 +543,25 @@ function App() {
           <div className="space3">
             <ClockCircleOutlined
               style={{
-                fontSize: "3rem",
+                fontSize: "2rem",
                 color: "#FFF",
                 marginBottom: "1rem",
                 marginTop: "1rem",
               }}
             />
-            <h1 className="historyHeader">ยอดย้อนหลัง</h1>
+            <h1 className="historyHeader">สถิติ</h1>
             {/* <h1 style={{fontSize:"1rem",color:"#FFF",marginBottom:"2rem"}}>ประวัติย้อนหลัง</h1> */}
+
+            {/* <Radio.Group
+              onChange={onChange}
+              defaultValue="1"
+              buttonStyle="solid"
+              style={{ marginBottom: 100, BackgroundColor: "#fff1f0" }}
+            >
+              <Radio.Button value="1">วันนี้</Radio.Button>
+              <Radio.Button value="7">7 วัน</Radio.Button>
+              <Radio.Button value="30">30 วัน</Radio.Button>
+            </Radio.Group> */}
 
             <BarLoader
               className="loadingbar"
@@ -482,77 +577,92 @@ function App() {
           {history.map((history) => (
             <div className="history">
               <div className="box1">
-                <h1 className="historyHeader">ยอดวันนี้</h1>
-                <h1 className="textHistory">
-                  <FontAwesomeIcon
-                    icon={faVirusCovid}
-                    style={{ marginRight: "1rem", color: "#74de49" }}
-                  />
-                  ติดเชื้อ = {history.new_total_1}
-                </h1>
-                <h1 className="textHistory">
-                  <FontAwesomeIcon
-                    icon={faSkullCrossbones}
-                    style={{ marginRight: "1rem" }}
-                  />
-                  เสียชีวิต = {history.death_total_1}
-                </h1>
-                {/* <Link
-                        to={`/`}
-                        type="button"
-                        class="btn btn-primary"
-                        onClick={onClick}
-                        // style={{marginTop:"2rem"}}
-                      >
-                        <FontAwesomeIcon icon={faHospital} />
-                      </Link> */}
+                <div className="boxa">
+                  <h1 className="historyHeader">ยอดวันนี้</h1>
+                  <h1 className="textHistory">
+                    <FontAwesomeIcon
+                      icon={faVirusCovid}
+                      style={{ marginRight: "1rem", color: "#74de49" }}
+                    />
+                    ติดเชื้อ = {history.new_total_1}
+                  </h1>
+                  <h1 className="textHistory">
+                    <FontAwesomeIcon
+                      icon={faSkullCrossbones}
+                      style={{ marginRight: "1rem" }}
+                    />
+                    เสียชีวิต = {history.death_total_1}
+                  </h1>
+                </div>
+
+                {/* <div className="boxb">
+                  <h1 className="historyHeader">ยอดวันนี้</h1>
+                      <Expire delay="2000">Hooks are awesome!</Expire>
+                </div> */}
               </div>
 
               <div className="box2">
-                <h1 className="historyHeader">ยอดย้อนหลัง 7 วัน</h1>
+                <div className="boxc">
+                  <h1 className="historyHeader">ยอดย้อนหลัง 7 วัน</h1>
 
-                <h1 className="textHistory">
-                  <FontAwesomeIcon
-                    icon={faVirusCovid}
-                    style={{ marginRight: "1rem", color: "#74de49" }}
-                  />
-                  ติดเชื้อ = {history.new_total_7}
-                </h1>
-                <h1 className="textHistory">
-                  <FontAwesomeIcon
-                    icon={faSkullCrossbones}
-                    style={{ marginRight: "1rem" }}
-                  />
-                  เสียชีวิต = {history.death_total_7}
-                </h1>
+                  <h1 className="textHistory">
+                    <FontAwesomeIcon
+                      icon={faVirusCovid}
+                      style={{ marginRight: "1rem", color: "#74de49" }}
+                    />
+                    ติดเชื้อ = {history.new_total_7}
+                  </h1>
+                  <h1 className="textHistory">
+                    <FontAwesomeIcon
+                      icon={faSkullCrossbones}
+                      style={{ marginRight: "1rem" }}
+                    />
+                    เสียชีวิต = {history.death_total_7}
+                  </h1>
+                </div>
+
+                <div className="boxd">
+                  <h1 className="historyHeader">กราฟย้อนหลัง 7 วัน</h1>
+                  <h1 className="historyHeader2">กดสลับดูระหว่างผู้ติดเชื้อและเสียชีวิตเพื่อขยายกราฟ</h1>
+                  <Expire2 delay="1000">Hooks are awesome!</Expire2>
+                </div>
               </div>
 
               <div className="box3">
-                <h1 className="historyHeader">ยอดย้อนหลัง 30 วัน</h1>
+                <div className="boxe">
+                  <h1 className="historyHeader">ยอดย้อนหลัง 30 วัน</h1>
 
-                <h1 className="textHistory">
-                  <FontAwesomeIcon
-                    icon={faVirusCovid}
-                    style={{ marginRight: "1rem", color: "#74de49" }}
-                  />
-                  ติดเชื้อ = {history.new_total_30}
-                </h1>
-                <h1 className="textHistory">
-                  <FontAwesomeIcon
-                    icon={faSkullCrossbones}
-                    style={{ marginRight: "1rem" }}
-                  />
-                  เสียชีวิต = {history.death_total_30}
-                </h1>
+                  <h1 className="textHistory">
+                    <FontAwesomeIcon
+                      icon={faVirusCovid}
+                      style={{ marginRight: "1rem", color: "#74de49" }}
+                    />
+                    ติดเชื้อ = {history.new_total_30}
+                  </h1>
+                  <h1 className="textHistory">
+                    <FontAwesomeIcon
+                      icon={faSkullCrossbones}
+                      style={{ marginRight: "1rem" }}
+                    />
+                    เสียชีวิต = {history.death_total_30}
+                  </h1>
+                </div>
+
+                <div className="boxf">
+                  <h1 className="historyHeader">กราฟย้อนหลัง 30 วัน</h1>
+                  <h1 className="historyHeader2">กดสลับดูระหว่างผู้ติดเชื้อและเสียชีวิตเพื่อขยายกราฟ</h1>
+
+                  <Expire3 delay="1000">Hooks are awesome!</Expire3>
+                </div>
               </div>
 
               <div></div>
             </div>
           ))}
 
-          <div className="chartBox">
+          {/* <div className="chartBox">
             <Expire delay="2000">Hooks are awesome!</Expire>
-          </div>
+          </div> */}
 
           {/* <div className="newTable">
             {history.map((history) => (
