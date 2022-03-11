@@ -47,7 +47,7 @@ import {
 import { Line } from "react-chartjs-2";
 
 import { faker } from "@faker-js/faker";
-import { Button, Radio } from "antd";
+import { Button, Radio,Row, Col } from "antd";
 import "antd/dist/antd.css";
 
 ChartJS.register(
@@ -141,21 +141,21 @@ const data2 = {
   "3วันที่่เเล้ว",
   "2วันที่่เเล้ว",
   "1วันที่่เเล้ว",],
+
   datasets: [
     {
       type: 'bar',
-
       label: "ผู้ติดเชื้อ ",
-      data: labels.map(() => faker.datatype.number({ min: 0, max: 5000 })),
-      borderColor: "rgb(255, 99, 132)",
-      backgroundColor: "rgba(255, 99, 132, 0.5)",
+      data: labels.map(() => faker.datatype.number({ min: 0, max: 100 })),
+      borderColor: "rgb(53, 162, 235)",
+      backgroundColor: "rgba(53, 162, 235, 0.5)",
     },
     {
       type: 'line',
       label: "ผู้เสียชีวิต ",
       data: labels.map(() => faker.datatype.number({ min: 0, max: 10 })),
-      borderColor: "rgb(53, 162, 235)",
-      backgroundColor: "rgba(53, 162, 235, 0.5)",
+      borderColor: "rgb(255, 99, 132)",
+      backgroundColor: "rgba(255, 99, 132, 0.5)",
     },
   ],
 };
@@ -165,16 +165,17 @@ const data3 = {
     {
       type: 'bar',
       label: "ผู้ติดเชื้อ ",
-      data: labels.map(() => faker.datatype.number({ min: 0, max: 10000 })),
-      borderColor: "rgb(255, 99, 132)",
-      backgroundColor: "rgba(255, 99, 132, 0.5)",
+      data: labels.map(() => faker.datatype.number({ min: 0, max: 500 })),
+      borderColor: "rgb(53, 162, 235)",
+      backgroundColor: "rgba(53, 162, 235, 0.5)",
+      
     },
     {
       type: 'line',
       label: "ผู้เสียชีวิต ",
-      data: labels.map(() => faker.datatype.number({ min: 0, max: 100 })),
-      borderColor: "rgb(53, 162, 235)",
-      backgroundColor: "rgba(53, 162, 235, 0.5)",
+      data: labels.map(() => faker.datatype.number({ min: 0, max: 20 })),
+      borderColor: "rgb(255, 99, 132)",
+      backgroundColor: "rgba(255, 99, 132, 0.5)",
     },
   ],
 };
@@ -183,7 +184,7 @@ const options = {
   responsive: true,
   plugins: {
     legend: {
-      position: "bottom",
+      position: "top",
     },
     title: {
       display: true,
@@ -191,26 +192,6 @@ const options = {
     },
   },
 };
-
-// function generateGdpPerCapita(geographies) {
-//   let minGdpPerCapita = Infinity;
-//   let maxGdpPercapita = -Infinity;
-//   geographies = geographies.map((geography) => {
-//     const { GDP_MD_EST, POP_EST } = geography.properties;
-//     const gdpPerCapita = Math.round((GDP_MD_EST * 1e6) / POP_EST);
-//     if (gdpPerCapita < minGdpPerCapita) {
-//       minGdpPerCapita = gdpPerCapita;
-//     }
-//     if (gdpPerCapita > maxGdpPercapita) {
-//       maxGdpPercapita = gdpPerCapita;
-//     }
-//     geography.properties.gdpPerCapita = gdpPerCapita;
-//     return geography;
-//   });
-//   return { minGdpPerCapita, maxGdpPercapita, modifiedGeographies: geographies };
-// }
-// const geoUrl =
-//   "https://raw.githubusercontent.com/zcreativelabs/react-simple-maps/master/topojson-maps/world-110m.json";
 
 const covidURL =
   "https://covid19.ddc.moph.go.th/api/Cases/timeline-cases-by-provinces";
@@ -268,6 +249,8 @@ function App() {
     }
   };
   const Expire2 = (props) => {
+    console.log(pName)
+
     const [firstime, setfirstime] = useState(0);
 
     useEffect(() => {
@@ -293,6 +276,8 @@ function App() {
     }
   };
   const Expire3 = (props) => {
+    console.log(pName)
+
     const [firstime, setfirstime] = useState(0);
 
     useEffect(() => {
@@ -398,6 +383,7 @@ function App() {
   let death_30 ;
 
   const pullHistory = (pName) => {
+    
     if (pName != "กรุณาเลือกจังหวัด") {
       axios
         .get(
@@ -418,6 +404,8 @@ function App() {
   //ใช้ useEffect ในการสั่งใช้งาน fetchData ทันทีที่เปิดหน้านี้ขึ้นมา
   useEffect(() => {
     fetchData();
+    console.log(pName)
+
     console.log("Hello");
   }, []);
 
@@ -425,6 +413,7 @@ function App() {
     // setHospital(hospital.filter(hospital.province == pName))
     pullHistory(pName);
     // console.log(history[0])
+    console.log(pName)
 
     if (pName != "กรุณาเลือกจังหวัด") {
       // setHistory([]);
@@ -449,14 +438,31 @@ function App() {
       <div className="mapBox">
         {/* <MapChart setTooltipContent={setContent} onChange={ value => setpName(value)} /> */}
         {/* <MapChart setTooltipContent={setContent} changeWord={ word => setpName(word)} /> */}
-        <MapChart setTooltipContent={setContent} props={setpName} />
-        <ReactTooltip
-          class="mySepecialClass"
-          backgroundColor={"crimson"}
-          fontSize={"2rem"}
-        >
-          {content}
-        </ReactTooltip>
+
+      
+        <Row>
+
+        <Col span={12}>
+
+        <div className="mapShow">
+          
+          <MapChart setTooltipContent={setContent} props={setpName} />
+          <ReactTooltip
+            class="mySepecialClass"
+            backgroundColor={"crimson"}
+            fontSize={"2rem"}
+          >
+            {content}
+          </ReactTooltip>
+
+
+        </div>
+        
+        </Col>
+
+
+        <Col span={12}>
+
         <div className="informationBox">
           <h1 className="headerInformation">
             ยอดข้อมูลผู้ติดเชื้อโควิดของประเทศไทย
@@ -624,7 +630,8 @@ function App() {
                 <div className="boxd">
                   <h1 className="historyHeader">กราฟย้อนหลัง 7 วัน</h1>
                   <h1 className="historyHeader2">กดสลับดูระหว่างผู้ติดเชื้อและเสียชีวิตเพื่อขยายกราฟ</h1>
-                  <Expire2 delay="1000">Hooks are awesome!</Expire2>
+                  
+                  <Expire2 delay="1500">Hooks are awesome!</Expire2>
                 </div>
               </div>
 
@@ -652,7 +659,7 @@ function App() {
                   <h1 className="historyHeader">กราฟย้อนหลัง 30 วัน</h1>
                   <h1 className="historyHeader2">กดสลับดูระหว่างผู้ติดเชื้อและเสียชีวิตเพื่อขยายกราฟ</h1>
 
-                  <Expire3 delay="1000">Hooks are awesome!</Expire3>
+                  <Expire3 delay="1500">Hooks are awesome!</Expire3>
                 </div>
               </div>
 
@@ -725,7 +732,15 @@ function App() {
 
 
           </div> */}
+        
+        
+        
         </div>
+        </Col>
+
+        </Row>
+
+        
       </div>
 
       {/* <div className="informationBox">

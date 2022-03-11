@@ -59,12 +59,12 @@ const MapChart = ({ setTooltipContent, props }) => {
 
                     setpName(NAME_1);
                     console.log({pName});
-                    props(`${NAME_1}`);
+                    // props(`${NAME_1}`);
 
                     // props = pName;
 
                     // props.changeWord(pName)
-                    // props(`${NAME_1}`);
+                    props(`${NAME_1}`);
 
 
                   }}

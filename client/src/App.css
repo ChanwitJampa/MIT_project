@@ -8,12 +8,14 @@
   flex-direction: row;
   /* z-index: 2; */
   height: 100%;
+  /* background-color: #f7f3e3; */
+
 }
 
 .mapBox{
   text-align: center;
   /* background-color: #FFF; */
-  background-color: #f7f3e3;
+  /* background-color: #f7f3e3; */
   /* background-color: rgb(43, 153, 43); */
   padding: 0;
   /* margin-left: -15rem;
@@ -30,6 +32,14 @@
   align-items: center; */
 }
 
+.mapShow{
+  position: fixed;
+  width: 55rem;
+  margin-top: 2rem;
+  /* background-color: #f7f3e3; */
+
+}
+
 .mySepecialClass{
   font-size: 2rem !important;
 }
@@ -43,8 +53,9 @@
   justify-content: center;
   align-items: center;
   margin-top: 8rem;
-  margin-right: 5rem;
-  width: 120rem;
+  margin-right: 0rem;
+  margin-left: 16rem;
+  width: 60rem;
   height: 100%;
   background-color: crimson;
   z-index: 0;
@@ -53,6 +64,7 @@
 }
 
 .headerInformation{
+  padding-top: 3rem;
   margin-top: 3rem;
   color: #FFF;
   font-size: 2rem;
@@ -176,7 +188,7 @@
 
 .chartRow{
   height: 20rem;
-  width: 30rem;
+  width: 35rem;
 background-color: #FFF;
 margin: 1rem;
 
