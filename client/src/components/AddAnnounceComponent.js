@@ -80,8 +80,6 @@ const AddAnnounceComponent=()=>{
             Swal.fire("Alert", "บันทึกข้อมูลเรียบร้อย", "success");
             setState({
               ...state,
-                hospitalID:"",
-                hospitalName:"",
                 vaccinationSite:"",
                 DateStart:"",
                 DateEnd:"",
@@ -102,7 +100,6 @@ const AddAnnounceComponent=()=>{
             );
           });
       };
-    const [taskList,setTaskList]= useState({ index: Math.random(), projectName: "", task: "", taskNotes: "", taskStatus: "" });
     const fetchData = () => {
         axios
           .get(`http://localhost:5000/api/hospitals`)
@@ -114,10 +111,16 @@ const AddAnnounceComponent=()=>{
         fetchData();
     })
 
+    const [taskList,setTaskList]= useState({ index: Math.random(), projectName: "", task: "", taskNotes: "", taskStatus: "" });
     const addNewRow = () => {
-        this.setState((prevState) => ({
-            taskList: [...prevState.taskList, { index: Math.random(), projectName: "", task: "", taskNotes: "", taskStatus: "" }],
-        }));
+        setTaskList((prevState)=>{
+            return [...prevState,{ index: Math.random(), projectName: "", task: "", taskNotes: "", taskStatus: "" }]
+        })
+    }
+    const deteteRow = (index) => {
+        setTaskList(()=>{
+            taskList.filter((s, sindex)=>index !== sindex)
+        })
     }
    
 
@@ -205,7 +208,9 @@ const AddAnnounceComponent=()=>{
                     <button type="button" className="button-vaccine"><FontAwesomeIcon icon={faAdd}/>Add vaccine</button>
                     </div>
                     </div>
-                   
+                    <div class="form-group pb-4 col-md-4">
+                        
+                    </div>
                     <div class="form-group pb-4 col-md-4">
                     <label>ประเภทการลงทะเบียน</label>
                     <select class="form-select" searchable="Search here.." onChange={inputValue("registrationType")}>
@@ -224,7 +229,7 @@ const AddAnnounceComponent=()=>{
                     </div>
                     <div class="form-group pb-4 col-md-4">
                     <label>ประกาศเพิ่มเติม</label>
-                    <input type="text" className="form-control" onChange={inputValue("more")} />
+                    <textarea  type="text" className="form-control" onChange={inputValue("more")} ></textarea>
                     </div>
                     <br/>
                     <button type="submit" className="button-announce"><FontAwesomeIcon icon={faAdd}/>Add announce</button>
