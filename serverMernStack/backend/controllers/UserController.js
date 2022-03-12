@@ -36,7 +36,7 @@ const setUser = asyncHandler(async (req, res) => {
         res.status(400)
         throw new Error(' please add email value')
     }
-    oldUser = await User.findOne({ email }).select('+role')
+   
     encryptedPassword = await bcrypt.hash(password, 10)
 
     const user = await User.create({
@@ -47,9 +47,9 @@ const setUser = asyncHandler(async (req, res) => {
         password: encryptedPassword,
         hospitalName: req.body.hospitalName,
         hospitalID: req.body.hospitalID,
-        role: req.body.role === undefined ? "hospital" : req.body.role
+        // role: req.body.role === undefined ? "hospital" : req.body.role
     })
-
+    oldUser = await User.findOne({ email }).select('+role')
     //create token
     const token = jwt.sign(
         { user_id: user._id, email,role:oldUser.role},
