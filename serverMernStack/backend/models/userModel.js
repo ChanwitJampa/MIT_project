@@ -33,10 +33,11 @@ const hospitalSchema = mongoose.Schema({
     },
     role:{
         type: String,
-        select: false
+        select: false,
+        default:"hospital"
     },
     token:{
-        type: String
+        type:String
     }
     
 },
