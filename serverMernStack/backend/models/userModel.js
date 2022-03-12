@@ -36,7 +36,7 @@ const hospitalSchema = mongoose.Schema({
         select: false
     },
     token:{
-        type:String
+        type: String
     }
     
 },

@@ -4,7 +4,7 @@ import "./RegisterComponent.css";
 import axios from "axios";
 import Swal from "sweetalert2";
 const RegisterComponent=()=>{
-    const [hospital,setHospital]=useState([]);
+    const [hospital, setHospital] = useState([]);
     const [hospitalID, setHospitalID] = useState("");
     const [hospitalName, setHospitalName] = useState("");
     const [user,setUser]=useState({
@@ -39,11 +39,12 @@ const RegisterComponent=()=>{
         setHospitalID(id);
     }
 
-    const {firstName,lastName,idCard,email,password}=user
-    
+    const {firstName,lastName,idCard,email,password} = user
+
     const inputValue = (name) => (event) =>{
         setUser({...user,[name]:event.target.value});
     }
+
     const signupForm=(event)=>{
         event.preventDefault();
         console.table({
@@ -55,7 +56,7 @@ const RegisterComponent=()=>{
             hospitalID,
             hospitalName
         });
-        axios.post(`http://localhost:5000/api/user`,{firstName,lastName,idCard,email,password,hospitalName,hospitalID}).then(res=>{
+        axios.post(`http://localhost:5000/api/Users`,{firstName,lastName,idCard,email,password,hospitalName,hospitalID}).then(res=>{
             console.log(res.data)
             setUser({...user,
             firstName:"",
