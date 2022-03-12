@@ -501,14 +501,14 @@ function App() {
           >
             <thead className="table-thead">
               <tr>
-                <th scope="col">ชื่อจังหวัด</th>
+                {/* <th scope="col">ชื่อจังหวัด</th> */}
                 <th scope="col">วันที่ลงประกาศ</th>
                 <th scope="col">ติดเชื้อวันนี้</th>
                 <th scope="col">เคสทั้งหมด</th>
                 <th scope="col">ผู้ป่วยจากต่างประเทศ</th>
                 <th scope="col">เสียชีวิตวันนี้</th>
                 <th scope="col">ยอดตายสะสม</th>
-                <th scope="col">วันที่อัพเดต</th>
+                {/* <th scope="col">วันที่อัพเดต</th> */}
                 <th scope="col">ปุ่ม</th>
               </tr>
             </thead>
@@ -519,7 +519,7 @@ function App() {
                   // {hospital.filter(hospital.province === "จันทบุรี").map((hospital) => (
 
                   <tr>
-                    <td>{hospital.province}</td>
+                    {/* <td>{hospital.province}</td> */}
                     <td>{hospital.txn_date}</td>
                     <td style={{color:"#019267",fontWeight:"bold"}}>{hospital.new_case}</td>
                     <td>{hospital.total_case}</td>
@@ -530,7 +530,7 @@ function App() {
 
                     <td style={{color:"red",fontWeight:"bold"}}>{hospital.new_death}</td>
                     <td>{hospital.total_death}</td>
-                    <td>{hospital.update_date}</td>
+                    {/* <td>{hospital.update_date}</td> */}
                     <td>
                       <Link
                         to={`/announce`}
