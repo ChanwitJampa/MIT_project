@@ -3,19 +3,123 @@ import "./AddAnnounceComponent.css";
 import { useEffect, useState } from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import { faAdd } from "@fortawesome/free-solid-svg-icons";
-
+import axios from "axios";
+import Swal from "sweetalert2";
+import TaskList from "./TaskList";
 const AddAnnounceComponent=()=>{
+    const [allhospital, setAllHospital] = useState([]);
+    const [hospitalID, setHospitalID] = useState("");
+    const [hospitalName, setHospitalName] = useState("");
     const [state,setState]=useState({
-        hospitalID:"621a99528503e41d702f31f0",
-        hospitalName:"โรงพยาบาลกำแพงแสน",
         vaccinationSite:"",
+        DateStart:"",
+        DateEnd:"",
+        numberPeople:"",
+        vaccine:"",
+        registrationType:"",
+        linkRegistration:"",
+        image:"",
+        more:""
     })
-    const inputValue=name=>event=>{
-        setState({...state,[name]:hospitalID,hospitalName,vaccinationSite})
-        
+    const inputHospital=(id)=>{
+        console.log(id);
+        const Name = allhospital.filter((hospital)=>{
+            if(hospital._id===id){
+                return hospital
+            }
+        }).map((hospital)=>{
+            return hospital.hospitalName
+        })
+        setHospitalName(Name.toString());
+        setHospitalID(id);
     }
-    const {hospitalID,hospitalName,vaccinationSite,DateStart,DateEnd,numberPeople,vaccine,registrationType,linkRegistration,image,more}=state
+    const inputValue = (name) => (event) => {
+        console.log(name, "=", event.target.value);
+        setState({ ...state, [name]: event.target.value });
+    };
+    const {
+        vaccinationSite,
+        DateStart,
+        DateEnd,
+        numberPeople,
+        vaccine,
+        registrationType,
+        linkRegistration,
+        image,
+        more}=state
+    
+    const submitForm = (event) => {
+        event.preventDefault();
+        console.table({
+            hospitalID,
+            hospitalName,
+            vaccinationSite,
+            DateStart,
+            DateEnd,
+            numberPeople,
+            vaccine,
+            registrationType,
+            linkRegistration,
+            image,
+            more
+        });
+        axios.post(`http://localhost:5000/api/announces`, {
+            hospitalID,
+            hospitalName,
+            vaccinationSite,
+            DateStart,
+            DateEnd,
+            numberPeople,
+            vaccine,
+            registrationType,
+            linkRegistration,
+            image,
+            more
+          })
+          .then(response => {
+            Swal.fire("Alert", "บันทึกข้อมูลเรียบร้อย", "success");
+            setState({
+              ...state,
+                hospitalID:"",
+                hospitalName:"",
+                vaccinationSite:"",
+                DateStart:"",
+                DateEnd:"",
+                numberPeople:"",
+                vaccine:"",
+                registrationType:"",
+                linkRegistration:"",
+                image:"",
+                more:""
+            });
+            
+          })
+          .catch(error=> {
+            Swal.fire(
+              "Alert",
+              error.response.data.error,
+              "error"
+            );
+          });
+      };
+    const [taskList,setTaskList]= useState({ index: Math.random(), projectName: "", task: "", taskNotes: "", taskStatus: "" });
+    const fetchData = () => {
+        axios
+          .get(`http://localhost:5000/api/hospitals`)
+          .then((res) => {
+            setAllHospital(res.data);
+          });
+    };
+    useEffect(()=>{
+        fetchData();
+    })
 
+    const addNewRow = () => {
+        this.setState((prevState) => ({
+            taskList: [...prevState.taskList, { index: Math.random(), projectName: "", task: "", taskNotes: "", taskStatus: "" }],
+        }));
+    }
+   
 
     return(
         <div>
@@ -24,13 +128,16 @@ const AddAnnounceComponent=()=>{
                 <h1>เขียนประกาศ</h1>
                 <div className="content-box">
                     <h4>โรงพยาบาล</h4>
-                    <form>
-
-                    
-                    <div className="form-group">
-                        <input type="text" value={hospitalName} className="form-control" disabled/>
+                    <form onSubmit={submitForm} >
+                    <div class="form-group pb-4 col-md-4">
+                    <select class="form-select" onChange={(event)=>inputHospital(event.target.value)}>
+                        <option selected disabled>เลือกโรงพยาบาล</option>
+                        {allhospital.map((hospital) => (
+                        <option value={hospital._id}>{hospital.hospitalName}</option>
+                        ))}
+                    </select>
                     </div>
-                    <div className="form-group">
+                    <div class="form-group pb-4 col-md-4">
                     <label>สถานที่ฉีดวัคซีน</label>
                     <input type="text" className="form-control" placeholder="ex มหาวิทยาลัยเกษตรศาสตร์" onChange={inputValue("vaccinationSite")}/>
                     </div>
@@ -42,30 +149,32 @@ const AddAnnounceComponent=()=>{
                               <option value="2">หลายวัน</option>
                     </select>
                     </div>
-                    <div className="form-group">
+                    <div class="form-group pb-4 col-md-4">
                     <label>ระยะเวลา</label>
-                    <input type="date" className="form-control" onChange={inputValue("DateStart")}/>
-                        ถึงวันที่
-                    <input type="date" className="form-control" onChange={inputValue("DateEnd")}/>
+                    <div className="text-line">
+                        <input type="date" className="form-control" onChange={inputValue("DateStart")}/>
+                        <span style={{padding:"0px 30px 0px 30px"}}>ถึง</span>
+                        <input type="date" className="form-control" onChange={inputValue("DateEnd")}/>
                     </div>
-                    <div className="form-group">
+                    </div>
+                    <div class="form-group pb-4 col-md-4">
                     <label>จำนวนคนน</label>
                     <input type="number" className="form-control" placeholder="ex 500, 3000" onChange={inputValue("numberPeople")}/>
                     </div>
-                    <div className="form-group">
-                    <label>เวลารอบเช้า</label>
-                    <input type="time"  onChange={inputValue("vaccinationSite")}/>
+                    <div class="form-group pb-4 col-md-4">
+                        <label>ตั้งแต่เวลา</label>
+                        <div className="text-line">
+                        <input type="time" className="form-control"/>
+                        <span style={{padding:"0px 30px 0px 30px"}}>ถึง</span>
+                        <input type="time" className="form-control"/>
+                        </div>
                     </div>
-                    <div className="form-group">
-                    <label>เวลารอบบ่าย</label>
-                    <input type="time"  onChange={inputValue("vaccinationSite")}/>
-                    </div>
-                    
-                    <div className="text-line">
-                        <p>วัคซีน</p>
+                    <div class="form-group pb-4 col-md-2">
+                        <span>วัคซีน</span>
+                        <div className="text-line">
                         <div className="tap-top-select-in">
-                            <div className="tap-select">
-                            <select aria-label="Default select example">
+                        <div className="tap-select">
+                            <select class="form-select" aria-label="Default select example">
                             <option disabled selected>เลือกเข็มที่</option>
                             <option value="1">1</option>
                             <option value="2">2</option>
@@ -74,15 +183,15 @@ const AddAnnounceComponent=()=>{
                             <option value="5">5</option>
                             </select>
                         </div>
-                    <div className="tap-select">
-                        <select  aria-label="Default select example">
-                            <option disabled selected>เลือกช่วงอายุ</option>
-                            <option value="1">เด็ก 12-18 ปี</option>
-                            <option value="2">18 ปีขึ้นไป</option>
-                            <option value="3">สูงกว่า 60 ปี</option>
-                        </select> 
-                    </div>
-                    <div className="tap-select">
+                        <div className="tap-select">
+                            <select class="form-select" aria-label="Default select example">
+                                <option disabled selected>เลือกช่วงอายุ</option>
+                                <option value="1">เด็ก 12-18 ปี</option>
+                                <option value="2">18 ปีขึ้นไป</option>
+                                <option value="3">สูงกว่า 60 ปี</option>
+                            </select> 
+                        </div>
+                        <div className="tap-select">
                             <select aria-label="Default select example">
                             <option disabled selected>เลือกวัคซีน</option>
                             <option value="1">ไฟเซอร์</option>
@@ -95,23 +204,25 @@ const AddAnnounceComponent=()=>{
                     </div>
                     <button type="button" className="button-vaccine"><FontAwesomeIcon icon={faAdd}/>Add vaccine</button>
                     </div>
-                    <div className="form-group">
+                    </div>
+                   
+                    <div class="form-group pb-4 col-md-4">
                     <label>ประเภทการลงทะเบียน</label>
                     <select class="form-select" searchable="Search here.." onChange={inputValue("registrationType")}>
-                              <option value="1" disabled selected>เลือกเภท</option>
-                              <option value="1">Register</option>
-                              <option value="2">Walk in</option>
+                              <option value="" disabled selected>เลือกเภท</option>
+                              <option value="register">Register</option>
+                              <option value="walkin">Walk in</option>
                     </select>
                     </div>
-                    <div className="form-group">
+                    <div class="form-group pb-4 col-md-4">
                     <label>ลิงค์ลงทะเบียน (สำหรับแบบลงทะเบียน)</label>
                     <input type="url"  className="form-control" onChange={inputValue("linkRegistration")} placeholder= "ex http://hospitalnakornpathom.com"/>
                     </div>
-                    <div className="form-group">
+                    <div class="form-group pb-4 col-md-4">
                     <label>เพิ่มไฟล์รูปคิวอาโค้ด (สำหรับแบบลงทะเบียน)</label>
                     <input type="file"  className="form-control" onChange={inputValue("image")} />
                     </div>
-                    <div className="form-group">
+                    <div class="form-group pb-4 col-md-4">
                     <label>ประกาศเพิ่มเติม</label>
                     <input type="text" className="form-control" onChange={inputValue("more")} />
                     </div>
