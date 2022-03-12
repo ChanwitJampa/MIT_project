@@ -30,12 +30,14 @@
   height: 100%;
   /* justify-content: center;
   align-items: center; */
+  
 }
 
 .mapShow{
   position: fixed;
-  width: 55rem;
+  width: 50rem;
   margin-top: 2rem;
+  margin-right: 50rem;
   /* background-color: #f7f3e3; */
 
 }
@@ -101,6 +103,8 @@
 .historyHeader{
   color: #FFF;
   font-size: 1.5rem;
+  align-self: center;
+
 }
 
 .historyHeader2{
@@ -145,6 +149,7 @@
   text-align: center;
 }
 .boxc{
+  text-align: center;
   
 }
 .boxd{
@@ -182,7 +187,7 @@
   /* margin: 0rem; */
   height: 5rem;
   margin-top: 2rem;
-  margin-bottom: 5rem;
+  /* margin-bottom: 5rem; */
 
 }
 

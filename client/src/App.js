@@ -165,7 +165,7 @@ const data3 = {
     {
       type: 'bar',
       label: "ผู้ติดเชื้อ ",
-      data: labels.map(() => faker.datatype.number({ min: 0, max: 500 })),
+      data: labels.map(() => faker.datatype.number({ min: 0, max: 100 })),
       borderColor: "rgb(53, 162, 235)",
       backgroundColor: "rgba(53, 162, 235, 0.5)",
       
@@ -503,10 +503,10 @@ function App() {
               <tr>
                 <th scope="col">ชื่อจังหวัด</th>
                 <th scope="col">วันที่ลงประกาศ</th>
-                <th scope="col">เคสใหม่</th>
+                <th scope="col">ติดเชื้อวันนี้</th>
                 <th scope="col">เคสทั้งหมด</th>
                 <th scope="col">ผู้ป่วยจากต่างประเทศ</th>
-                <th scope="col">ยอดตายล่าสุด</th>
+                <th scope="col">เสียชีวิตวันนี้</th>
                 <th scope="col">ยอดตายสะสม</th>
                 <th scope="col">วันที่อัพเดต</th>
                 <th scope="col">ปุ่ม</th>
@@ -521,19 +521,19 @@ function App() {
                   <tr>
                     <td>{hospital.province}</td>
                     <td>{hospital.txn_date}</td>
-                    <td>{hospital.new_case}</td>
+                    <td style={{color:"#019267",fontWeight:"bold"}}>{hospital.new_case}</td>
                     <td>{hospital.total_case}</td>
 
                     <td>
                       {hospital.new_case - hospital.new_case_excludeabroad}{" "}
                     </td>
 
-                    <td>{hospital.new_death}</td>
+                    <td style={{color:"red",fontWeight:"bold"}}>{hospital.new_death}</td>
                     <td>{hospital.total_death}</td>
                     <td>{hospital.update_date}</td>
                     <td>
                       <Link
-                        to={`/hospital`}
+                        to={`/announce`}
                         type="button"
                         class="btn btn-primary"
                         // style={{marginTop:"2rem"}}
@@ -582,7 +582,7 @@ function App() {
 
           {history.map((history) => (
             <div className="history">
-              <div className="box1">
+              {/* <div className="box1">
                 <div className="boxa">
                   <h1 className="historyHeader">ยอดวันนี้</h1>
                   <h1 className="textHistory">
@@ -599,17 +599,22 @@ function App() {
                     />
                     เสียชีวิต = {history.death_total_1}
                   </h1>
-                </div>
+                </div> */}
 
                 {/* <div className="boxb">
                   <h1 className="historyHeader">ยอดวันนี้</h1>
                       <Expire delay="2000">Hooks are awesome!</Expire>
                 </div> */}
-              </div>
+
+                
+              {/* </div> */}
 
               <div className="box2">
                 <div className="boxc">
-                  <h1 className="historyHeader">ยอดย้อนหลัง 7 วัน</h1>
+                  <div style={{textAlign:"center",marginBottom:"2rem",marginTop:"3rem"}}>
+                    <h1 className="historyHeader">ยอดย้อนหลัง 7 วัน</h1>
+                  </div>
+                  
 
                   <h1 className="textHistory">
                     <FontAwesomeIcon
@@ -625,18 +630,59 @@ function App() {
                     />
                     เสียชีวิต = {history.death_total_7}
                   </h1>
+
+                  <div style={{textAlign:"center",marginTop:"2rem"}}>
+                  {/* <h1 className="historyHeader">กราฟย้อนหลัง 7 วัน</h1> */}
+                  <h1 className="historyHeader2">กดสลับดูระหว่างผู้ติดเชื้อและเสียชีวิตเพื่อขยายกราฟ</h1>
+                  
+                    
+                  </div>
+
+                  <Expire2 delay="1500">Hooks are awesome!</Expire2>
                 </div>
 
-                <div className="boxd">
+                {/* <div className="boxd">
                   <h1 className="historyHeader">กราฟย้อนหลัง 7 วัน</h1>
                   <h1 className="historyHeader2">กดสลับดูระหว่างผู้ติดเชื้อและเสียชีวิตเพื่อขยายกราฟ</h1>
                   
                   <Expire2 delay="1500">Hooks are awesome!</Expire2>
-                </div>
+                </div> */}
               </div>
 
               <div className="box3">
-                <div className="boxe">
+
+              <div className="boxc">
+                  <div style={{textAlign:"center",marginBottom:"2rem"}}>
+                    <h1 className="historyHeader">ยอดย้อนหลัง 30 วัน</h1>
+                  </div>
+                  
+
+                  <h1 className="textHistory">
+                    <FontAwesomeIcon
+                      icon={faVirusCovid}
+                      style={{ marginRight: "1rem", color: "#74de49" }}
+                    />
+                    ติดเชื้อ = {history.new_total_30}
+                  </h1>
+                  <h1 className="textHistory">
+                    <FontAwesomeIcon
+                      icon={faSkullCrossbones}
+                      style={{ marginRight: "1rem" }}
+                    />
+                    เสียชีวิต = {history.death_total_30}
+                  </h1>
+
+                  <div style={{textAlign:"center",marginTop:"2rem"}}>
+                  {/* <h1 className="historyHeader">กราฟย้อนหลัง 7 วัน</h1> */}
+                  <h1 className="historyHeader2">กดสลับดูระหว่างผู้ติดเชื้อและเสียชีวิตเพื่อขยายกราฟ</h1>
+                  
+                    
+                  </div>
+
+                  <Expire3 delay="1500">Hooks are awesome!</Expire3>
+                </div>
+
+                {/* <div className="boxe">
                   <h1 className="historyHeader">ยอดย้อนหลัง 30 วัน</h1>
 
                   <h1 className="textHistory">
@@ -660,7 +706,7 @@ function App() {
                   <h1 className="historyHeader2">กดสลับดูระหว่างผู้ติดเชื้อและเสียชีวิตเพื่อขยายกราฟ</h1>
 
                   <Expire3 delay="1500">Hooks are awesome!</Expire3>
-                </div>
+                </div> */}
               </div>
 
               <div></div>
