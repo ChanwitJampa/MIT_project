@@ -555,7 +555,7 @@ function App() {
                 marginTop: "1rem",
               }}
             />
-            <h1 className="historyHeader">สถิติ</h1>
+            <h1 className="historyHeader3">สถิติ</h1>
             {/* <h1 style={{fontSize:"1rem",color:"#FFF",marginBottom:"2rem"}}>ประวัติย้อนหลัง</h1> */}
 
             {/* <Radio.Group
@@ -621,14 +621,14 @@ function App() {
                       icon={faVirusCovid}
                       style={{ marginRight: "1rem", color: "#74de49" }}
                     />
-                    ติดเชื้อ = {history.new_total_7}
+                    ติดเชื้อ {history.new_total_7} คน
                   </h1>
                   <h1 className="textHistory">
                     <FontAwesomeIcon
                       icon={faSkullCrossbones}
                       style={{ marginRight: "1rem" }}
                     />
-                    เสียชีวิต = {history.death_total_7}
+                    เสียชีวิต {history.death_total_7} คน
                   </h1>
 
                   <div style={{textAlign:"center",marginTop:"2rem"}}>
@@ -662,14 +662,14 @@ function App() {
                       icon={faVirusCovid}
                       style={{ marginRight: "1rem", color: "#74de49" }}
                     />
-                    ติดเชื้อ = {history.new_total_30}
+                    ติดเชื้อ {history.new_total_30} คน
                   </h1>
                   <h1 className="textHistory">
                     <FontAwesomeIcon
                       icon={faSkullCrossbones}
                       style={{ marginRight: "1rem" }}
                     />
-                    เสียชีวิต = {history.death_total_30}
+                    เสียชีวิต {history.death_total_30} คน
                   </h1>
 
                   <div style={{textAlign:"center",marginTop:"2rem"}}>
