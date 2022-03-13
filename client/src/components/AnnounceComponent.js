@@ -111,9 +111,9 @@ const AnnounceComponent=()=>{
                     </div>
                     <div className="text-line">
                         <p><span>วันที่ {announce.DateStart}  </span>
+                            {announce.DateEnd!=="null"&&(<span>ถึงวันที่  {announce.DateEnd}</span>)}
                             <span>วันละ {announce.numberPeople} คน</span>
-                            <span>รอบเช้าเวลา 8.00-12.00</span>
-                            <span>รอบบ่ายเวลา 13.00-14.00</span>
+                            <span>เวลา {announce.timeSet}</span>
                         </p>
                     </div>
                     <div className="table-container">

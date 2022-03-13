@@ -79,7 +79,16 @@ const AddAnnounceComponent = () => {
     }
     const inputValue = (name) => (event) => {
         console.log(name, "=", event.target.value);
-        setState({ ...state, [name]: event.target.value });
+        if(name=="timeStart"){
+            setTimeStart(event.target.value);
+        }
+        if(name=="timeEnd"){
+            setTimeEnd(event.target.value);
+        }
+        else{
+            setState({ ...state, [name]: event.target.value });
+        }
+        setTimeSet(timeStart+"-"+timeEnd);
     };
     const {
         vaccinationSite,
@@ -92,6 +101,12 @@ const AddAnnounceComponent = () => {
         more } = state
 
     const submitForm = (event) => {
+        setInputVaccince(vaccine.filter((e) =>{
+            if(e!== undefined){
+                return e
+            }
+        }))
+        
         event.preventDefault();
         console.log(vaccine)
         console.table({
@@ -101,6 +116,7 @@ const AddAnnounceComponent = () => {
             DateStart,
             DateEnd,
             numberPeople,
+            timeSet,
             vaccine,
             registrationType,
             linkRegistration,
@@ -114,6 +130,7 @@ const AddAnnounceComponent = () => {
             DateStart,
             DateEnd,
             numberPeople,
+            timeSet,
             vaccine,
             registrationType,
             linkRegistration,
@@ -155,8 +172,9 @@ const AddAnnounceComponent = () => {
     useEffect(() => {
         fetchData();
     })
-
-
+    const [timeStart,setTimeStart]=useState("");
+    const [timeEnd,setTimeEnd]=useState("");
+    const [timeSet,setTimeSet]=useState("");
 
 
     return (
@@ -179,14 +197,6 @@ const AddAnnounceComponent = () => {
                             <label>สถานที่ฉีดวัคซีน</label>
                             <input type="text" className="form-control" placeholder="ex มหาวิทยาลัยเกษตรศาสตร์" onChange={inputValue("vaccinationSite")} />
                         </div>
-                        <div className="form-group">
-                            <label>จำนวนวัน</label>
-                            <select class="form-select" searchable="Search here.." >
-                                <option value="1" disabled selected>เลือกจำนวนวัน</option>
-                                <option value="1">1 วัน</option>
-                                <option value="2">หลายวัน</option>
-                            </select>
-                        </div>
                         <div class="form-group pb-4 col-md-4">
                             <label>ระยะเวลา</label>
                             <div className="text-line">
@@ -202,9 +212,9 @@ const AddAnnounceComponent = () => {
                         <div class="form-group pb-4 col-md-4">
                             <label>ตั้งแต่เวลา</label>
                             <div className="text-line">
-                                <input type="time" className="form-control" />
+                                <input type="time" className="form-control" onChange={inputValue("timeStart")}/>
                                 <span style={{ padding: "0px 30px 0px 30px" }}>ถึง</span>
-                                <input type="time" className="form-control" />
+                                <input type="time" className="form-control" onChange={inputValue("timeEnd")}/>
                             </div>
                         </div>
                         <span>วัคซีน</span>
