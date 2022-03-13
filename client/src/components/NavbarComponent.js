@@ -41,8 +41,14 @@ const NavbarComponent=(props)=>{
         {getRole() &&(
             <div class="sidenav">
                 <Link to="/addannounce" className="sidenav-link"><FontAwesomeIcon icon={faSyringe} className="sidenav-icon"/>เพิ่มประกาศวัคซีน</Link>
-                <Link to="/hospital" className="sidenav-link"><FontAwesomeIcon icon={faHospital} className="sidenav-icon"/>จัดการโรงพยาบาล</Link>
-                <Link to="/addhospital" className="sidenav-link"><FontAwesomeIcon icon={faPlus} className="sidenav-icon"/>เพิ่มโรงพยาบาล</Link>
+                {getRole()=='admin' &&(
+                    <div>
+                        <Link to="/hospital" className="sidenav-link"><FontAwesomeIcon icon={faHospital} className="sidenav-icon"/>จัดการโรงพยาบาล</Link>
+                        <Link to="/addhospital" className="sidenav-link"><FontAwesomeIcon icon={faPlus} className="sidenav-icon"/>เพิ่มโรงพยาบาล</Link>
+                    </div> 
+                )
+                }
+                
             </div>
         )
         }

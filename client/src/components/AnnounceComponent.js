@@ -73,14 +73,6 @@ const AnnounceComponent=()=>{
                             <option value="walkin">Walk in</option>
                         </select>
                     </div>
-                    <div className="tap-select">
-                        <select  aria-label="Default select example">
-                            <option elected disabled>เลือกช่วงอายุ</option>
-                            <option value="1">เด็ก 12-18 ปี</option>
-                            <option value="2">18 ปีขึ้นไป</option>
-                            <option value="3">สูงกว่า 60 ปี</option>
-                        </select> 
-                    </div>
                     </div>
                         <div className='search'>
                             <input 
@@ -90,29 +82,6 @@ const AnnounceComponent=()=>{
                             setSearchAnnounce(event.target.value);
                             }}/>
                         </div>
-                </div>
-                <div className="tap-top-check">
-                <FontAwesomeIcon icon={faSyringe} className="logo-vacc"/>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1"/>
-                    <label class="form-check-label" for="inlineCheckbox1">ไฟเซอร์</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2"/>
-                    <label class="form-check-label" for="inlineCheckbox2">แอสต้าเซเนก้า</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="option3"/>
-                    <label class="form-check-label" for="inlineCheckbox3">โมเดอร์นา</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="inlineCheckbox4" value="option4"/>
-                    <label class="form-check-label" for="inlineCheckbox4">ซิโนฟาร์ม</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="inlineCheckbox5" value="option5"/>
-                    <label class="form-check-label" for="inlineCheckbox5">ซิโนแวก</label>
-                    </div>            
                 </div>
                 {(announce).filter((announce)=>{
                     if(searchAnnounce == ''){
@@ -141,7 +110,7 @@ const AnnounceComponent=()=>{
                         <p>{announce.vaccinationSite}</p>
                     </div>
                     <div className="text-line">
-                        <p><span>วันที่ 8 - 12 กุมภาพันธ์ 2565</span>
+                        <p><span>วันที่ {announce.DateStart}  </span>
                             <span>วันละ {announce.numberPeople} คน</span>
                             <span>รอบเช้าเวลา 8.00-12.00</span>
                             <span>รอบบ่ายเวลา 13.00-14.00</span>
