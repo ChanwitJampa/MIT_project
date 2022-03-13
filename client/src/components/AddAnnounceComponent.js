@@ -109,6 +109,15 @@ const AddAnnounceComponent = () => {
         
         event.preventDefault();
         console.log(vaccine)
+        let data = []
+        console.log("===========test null==========")
+
+        for(var i = 0 ; i< vaccine.length ; i++){
+            if(vaccine[i]!=null && vaccine[i]!=undefined){
+                data.push(vaccine[i])
+            }
+        }
+        console.log(data)
         console.table({
             hospitalID,
             hospitalName,
@@ -117,7 +126,7 @@ const AddAnnounceComponent = () => {
             DateEnd,
             numberPeople,
             timeSet,
-            vaccine,
+            'vaccine1':[...data],
             registrationType,
             linkRegistration,
             image,
@@ -131,7 +140,7 @@ const AddAnnounceComponent = () => {
             DateEnd,
             numberPeople,
             timeSet,
-            vaccine,
+            vaccine:[...data],
             registrationType,
             linkRegistration,
             image,
