@@ -2,33 +2,31 @@ import NavbarComponent from "./NavbarComponent";
 import "./AddAnnounceComponent.css";
 import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAdd, faRemoveFormat } from "@fortawesome/free-solid-svg-icons";
+import { faAdd, faRemoveFormat, faTrash } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 import Swal from "sweetalert2";
-import TaskList from "./TaskList";
 const AddAnnounceComponent = () => {
     const [allhospital, setAllHospital] = useState([]);
     const [hospitalID, setHospitalID] = useState("");
     const [hospitalName, setHospitalName] = useState("");
-    const [inputVaccince, setInputVaccince] = useState([
-        { num: '', age: '', type: '' }
+    const [vaccine, setInputVaccince] = useState([
+        { numberVaccine: '', ageRange: '', vaccineType: '' }
     ])
-
     const handleFormChange = (index, event) => {
         // console.log( event.target.value);
-        let data = [...inputVaccince];
+        let data = [...vaccine];
         data[index][event.target.name] = event.target.value;
         setInputVaccince(data);
     }
 
     const addFields = () => {
-        console.log(inputVaccince);
-        let newfield = { num: '', age: '', type: '' }
-        setInputVaccince([...inputVaccince, newfield])
+        console.log(vaccine);
+        let newfield = { numberVaccine: '', ageRange: '', vaccineType: '' }
+        setInputVaccince([...vaccine, newfield])
     }
     const handleRemoveItem = (index) => {
         console.log("delete  index ----------- : " + index)
-        let items = [...inputVaccince];
+        let items = [...vaccine];
         delete items[index]
         // console.log(items)
         setInputVaccince(items)
@@ -62,7 +60,6 @@ const AddAnnounceComponent = () => {
         DateStart: "",
         DateEnd: "",
         numberPeople: "",
-        vaccine: "",
         registrationType: "",
         linkRegistration: "",
         image: "",
@@ -89,7 +86,6 @@ const AddAnnounceComponent = () => {
         DateStart,
         DateEnd,
         numberPeople,
-        vaccine,
         registrationType,
         linkRegistration,
         image,
@@ -97,6 +93,7 @@ const AddAnnounceComponent = () => {
 
     const submitForm = (event) => {
         event.preventDefault();
+        console.log(vaccine)
         console.table({
             hospitalID,
             hospitalName,
@@ -131,13 +128,14 @@ const AddAnnounceComponent = () => {
                     DateStart: "",
                     DateEnd: "",
                     numberPeople: "",
-                    vaccine: "",
                     registrationType: "",
                     linkRegistration: "",
                     image: "",
                     more: ""
                 });
-
+                setInputVaccince([]);
+                setHospitalName("");
+                setHospitalID("");
             })
             .catch(error => {
                 Swal.fire(
@@ -158,17 +156,7 @@ const AddAnnounceComponent = () => {
         fetchData();
     })
 
-    const [taskList, setTaskList] = useState({ index: Math.random(), projectName: "", task: "", taskNotes: "", taskStatus: "" });
-    const addNewRow = () => {
-        setTaskList((prevState) => {
-            return [...prevState, { index: Math.random(), projectName: "", task: "", taskNotes: "", taskStatus: "" }]
-        })
-    }
-    const deteteRow = (index) => {
-        setTaskList(() => {
-            taskList.filter((s, sindex) => index !== sindex)
-        })
-    }
+
 
 
     return (
@@ -208,7 +196,7 @@ const AddAnnounceComponent = () => {
                             </div>
                         </div>
                         <div class="form-group pb-4 col-md-4">
-                            <label>จำนวนคนน</label>
+                            <label>จำนวนคน</label>
                             <input type="number" className="form-control" placeholder="ex 500, 3000" onChange={inputValue("numberPeople")} />
                         </div>
                         <div class="form-group pb-4 col-md-4">
@@ -219,15 +207,16 @@ const AddAnnounceComponent = () => {
                                 <input type="time" className="form-control" />
                             </div>
                         </div>
-                        {inputVaccince.map((input, index) => {
+                        <span>วัคซีน</span>
+                        {vaccine.map((input, index) => {
                             if(input!==undefined)
                             return (
                                 <div class="form-group pb-4 col-md-2" key={index}>
-                                    <span>วัคซีน</span>
+                                    
                                     <div className="text-line">
                                         <div className="tap-top-select-in">
                                             <div className="tap-select">
-                                                <select class="form-select" aria-label="Default select example" name='num' onChange={event => handleFormChange(index, event)}>
+                                                <select class="form-select" aria-label="Default select example" name='numberVaccine' onChange={event => handleFormChange(index, event)}>
                                                     <option  disabled selected>เลือกเข็มที่</option>
                                                     <option value="1">1</option>
                                                     <option value="2">2</option>
@@ -237,25 +226,25 @@ const AddAnnounceComponent = () => {
                                                 </select>
                                             </div>
                                             <div className="tap-select">
-                                                <select class="form-select" aria-label="Default select example" name='age' onChange={event => handleFormChange(index, event)}>
+                                                <select class="form-select" aria-label="Default select example" name='ageRange' onChange={event => handleFormChange(index, event)}>
                                                     <option disabled selected>เลือกอายุ</option>
                                                     <option value="เด็ก 12-18 ปี">เด็ก 12-18 ปี</option>
-                                                    <option value="118 ปีขึ้นไป">18 ปีขึ้นไป</option>
+                                                    <option value="18 ปีขึ้นไป">18 ปีขึ้นไป</option>
                                                     <option value="สูงกว่า 60 ปี">สูงกว่า 60 ปี</option>
                                                 </select>
                                             </div>
                                             <div className="tap-select">
-                                                <select aria-label="Default select example" name='type' onChange={event => handleFormChange(index, event)}>
+                                                <select aria-label="Default select example" name='vaccineType' onChange={event => handleFormChange(index, event)}>
                                                     <option disabled selected>เลือกวัคซีน</option>
-                                                    <option value="Pz">ไฟเซอร์</option>
-                                                    <option value="Az">แอสต้าเซเนก้า</option>
-                                                    <option value="Mo">โมเดอร์นา</option>
-                                                    <option value="Sh">ซิโนฟาร์ม</option>
-                                                    <option value="Sn">ซิโนแวก</option>
+                                                    <option value="Pfizer">ไฟเซอร์</option>
+                                                    <option value="Astrazeneca">แอสต้าเซเนก้า</option>
+                                                    <option value="Moderna">โมเดอร์นา</option>
+                                                    <option value="Sinopharm">ซิโนฟาร์ม</option>
+                                                    <option value="Sinovac">ซิโนแวก</option>
                                                 </select>
                                             </div>
                                         </div>
-                                        <button onClick={() => handleRemoveItem(index)} type="button" className="button-vaccine"><FontAwesomeIcon icon={faAdd} />Delete</button>
+                                        <button onClick={() => handleRemoveItem(index)} type="button" className="btn btn-danger"><FontAwesomeIcon icon={faTrash} /></button>
                                     </div>
                                 </div>
                             )
