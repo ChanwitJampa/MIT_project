@@ -9,6 +9,7 @@ const AnnounceComponent=()=>{
     const [announce,setAnnounce]=useState([]);
     const [district,setDistrict]=useState([]);
     const [provinces,setProvinces]=useState([]);
+    const [allhospital, setAllHospital] = useState([]);
     const fetchData=()=>{
         axios.get(`http://localhost:5000/api/announces`)
         .then((res)=>{
@@ -29,6 +30,11 @@ const AnnounceComponent=()=>{
             console.log(res.data.data);
             setDistrict(res.data.data);
           })
+        axios
+          .get(`http://localhost:5000/api/hospitals`)
+          .then((res) => {
+              setAllHospital(res.data);
+          });
       }
     useEffect(()=>{
         fetchData()
@@ -43,26 +49,14 @@ const AnnounceComponent=()=>{
                     <div className="tap-top-select-in">
                             <div className="tap-select">
                             <select class="mdb-select " searchable="Search here.." onChange={(event)=>{                      
-                                console.log(event.target.value) ;
-                                fetchDistrict(event.target.value);
                                 setSearchAnnounce(event.target.value)  
                                 }}>
-                                <option selected disabled>เลือกจังหวัด</option>
-                                {provinces.map((provinces) => (
-                                <option value={provinces.province}>{provinces.province}</option>
+                                <option selected disabled>เลือกโรงพยาบาล</option>
+                                {allhospital.map((hospital) => (
+                                <option value={hospital.hospitalName}>{hospital.hospitalName}</option>
                                 ))}
                             </select>
                             
-                    </div>
-                    <div className="tap-select">
-                        <select class="mdb-select" searchable="Search here.." onChange={(event)=>{
-                                setSearchAnnounce(event.target.value)
-                                }}>
-                                <option selected disabled>เลือกอำเภอ</option>
-                                {district.map((district) => (
-                                <option value={district.district}>{district.district}</option>
-                                ))}
-                        </select>
                     </div>
                     <div className="tap-select">
                             <select aria-label="Default select example" onChange={(event)=>{
